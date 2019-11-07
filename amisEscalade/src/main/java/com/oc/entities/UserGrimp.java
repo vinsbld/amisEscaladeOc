@@ -10,21 +10,23 @@ import javax.validation.constraints.Size;
 import org.springframework.lang.NonNull;
 
 @Entity
-public class User implements Serializable {
+public class UserGrimp implements Serializable {
 	@Id @GeneratedValue
 	private long id_user;
 	@NonNull
 	@Size(min = 4, max = 8)
 	private String pseudo;
+	@NonNull
 	private String email;
 	@Size(min = 8)
+	@NonNull
 	private String password;
 	
-	public User () {
+	public UserGrimp () {
 		super();
 	}
 	
-	public User (String pseudo, String email, String password) {
+	public UserGrimp (String pseudo, String email, String password) {
 		super();
 		this.pseudo = pseudo;
 		this.email = email;
