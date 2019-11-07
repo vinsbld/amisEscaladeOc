@@ -1,4 +1,4 @@
-	body {
+body {
 		color: #999;
 		background: #f3f3f3;
 		font-family: 'Roboto', sans-serif;
@@ -6,7 +6,7 @@
     .form-control {
 		border-color: #eee;
         min-height: 41px;
-	    box-shadow: none !important;
+		box-shadow: none !important;
 	}
     .form-control:focus {
 		border-color: #5cd3b4;
@@ -16,7 +16,7 @@
     }
 	.signup-form {
 		width: 500px;
-		margin: auto;
+		margin: 0 auto;
 		padding: 30px 0;
 	}
     .signup-form h2 {
@@ -41,7 +41,9 @@
 		font-weight: normal;
 		font-size: 13px;
 	}
-
+    .signup-form input[type="checkbox"] {
+		margin-top: 2px;
+	}
     .signup-form .btn {        
         font-size: 16px;
         font-weight: bold;
