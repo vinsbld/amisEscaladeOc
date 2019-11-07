@@ -12,9 +12,5 @@ public class AmisController {
 		
 	}
 	
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
 
 }
