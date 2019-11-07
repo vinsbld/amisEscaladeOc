@@ -18,7 +18,18 @@ public class User implements Serializable {
 	private String pseudo;
 	private String email;
 	@Size(min = 8)
-	private String mot_de_passe;
+	private String password;
+	
+	public User () {
+		super();
+	}
+	
+	public User (String pseudo, String email, String password) {
+		super();
+		this.pseudo = pseudo;
+		this.email = email;
+		this.password = password;
+	}
 
 	public long getId_user() {
 		return id_user;
@@ -44,12 +55,14 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getMot_de_passe() {
-		return mot_de_passe;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setMot_de_passe(String mot_de_passe) {
-		this.mot_de_passe = mot_de_passe;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
+
 
 }
