@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oc.classes.UserGrimpForm;
 import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.UserGrimp;
+import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
 
 @Controller
@@ -18,14 +18,18 @@ public class UserGrimpController {
 
 	@Autowired
 	private UserGrimpService userGrimpService;
-	
+
 	@PostMapping("/inscription")
-	public String ajouterUserGrimp (Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm, 
+	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
-		
-		userGrimpService.saveUserGrimpForm(userGrimpForm);
-		
-		return "redirect:/formInscription";
+
+		userGrimpService.saveUserGrimpForm(userGrimpForm, result);
+
+		if (result.hasErrors()) {
+			return "inscription";
+		} else {
+			return "redirect:/inscription";
+		}
 	}
-	
+
 }

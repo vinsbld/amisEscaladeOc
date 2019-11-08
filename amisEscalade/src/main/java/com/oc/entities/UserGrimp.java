@@ -14,7 +14,7 @@ public class UserGrimp implements Serializable {
 	@Id @GeneratedValue
 	private long id_user;
 	@NonNull
-	@Size(min = 4, max = 30)
+	@Size(min = 2, max = 30)
 	private String pseudo;
 	@NonNull
 	private String email;
