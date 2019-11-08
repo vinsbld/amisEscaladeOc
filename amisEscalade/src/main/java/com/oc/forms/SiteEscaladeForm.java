@@ -11,7 +11,7 @@ public class SiteEscaladeForm {
 	}
 
 	public SiteEscaladeForm(String name, String departement, String ville) {
-		super();
+	
 		this.name = name;
 		this.departement = departement;
 		this.ville = ville;
