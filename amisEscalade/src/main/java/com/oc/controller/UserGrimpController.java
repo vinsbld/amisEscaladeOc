@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -14,23 +15,24 @@ import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
 
 @Controller
+@RequestMapping("/formInscription")
 public class UserGrimpController {
 	
-	@GetMapping("/inscription")
+	@GetMapping
 	public String formInsc() {
-		return"inscription";
+		return "formInscription";
 	}
 	
 	@Autowired
 	private UserGrimpService userGrimpService;
 
-	@PostMapping("/inscription")
+	@PostMapping
 	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 
 		userGrimpService.saveUserGrimpForm(userGrimpForm, result);
 
-			return "redirect:/inscription";
+			return "redirect:/formInscription";
 		
 	}
 

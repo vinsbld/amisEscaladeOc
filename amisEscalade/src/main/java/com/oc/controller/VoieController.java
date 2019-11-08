@@ -7,16 +7,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oc.forms.SecteurForm;
+
 import com.oc.forms.VoieForm;
 import com.oc.metier.VoieService;
 
 @Controller
+@RequestMapping("/formVoie")
 public class VoieController {
 
-	@GetMapping("/formVoie")
+	@GetMapping()
 	public String formSect() {
 		return "formVoie";
 	}
@@ -24,7 +26,7 @@ public class VoieController {
 	@Autowired
 	private VoieService voieService;
 
-	@PostMapping("/formVoie")
+	@PostMapping()
 	public String ajouterVoie(Model model, @ModelAttribute("voieForm") VoieForm voieForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 

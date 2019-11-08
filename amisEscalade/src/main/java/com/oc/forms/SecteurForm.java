@@ -14,9 +14,9 @@ public class SecteurForm {
 
 	}
 
-	public SecteurForm(String nomDuSecteur, String localisation, String acces) {
+	public SecteurForm(String name, String localisation, String acces) {
 
-		this.name = nomDuSecteur;
+		this.name = name;
 		this.localisation = localisation;
 		this.acces = acces;
 	}
