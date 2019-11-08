@@ -25,11 +25,8 @@ public class UserGrimpController {
 
 		userGrimpService.saveUserGrimpForm(userGrimpForm, result);
 
-		if (result.hasErrors()) {
-			return "inscription";
-		} else {
 			return "redirect:/inscription";
-		}
+		
 	}
 
 }
