@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oc.entities.Secteur;
 
+
 @Repository
 public interface SecteurRepository extends JpaRepository<Secteur, Long> {
 

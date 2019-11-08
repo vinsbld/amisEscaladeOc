@@ -2,11 +2,13 @@ package com.oc.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.lang.NonNull;
 
+@Entity
 public class Secteur implements Serializable {
 	
 	@Id @GeneratedValue

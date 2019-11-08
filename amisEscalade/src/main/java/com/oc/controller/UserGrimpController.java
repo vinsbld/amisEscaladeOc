@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oc.dao.UserGrimpRepository;
-import com.oc.entities.UserGrimp;
+
 import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
 
