@@ -10,21 +10,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.classes.UserGrimpForm;
 import com.oc.dao.UserGrimpRepository;
+import com.oc.entities.UserGrimp;
+import com.oc.metier.UserGrimpService;
 
 @Controller
 public class UserGrimpController {
 
 	@Autowired
-	private UserGrimpRepository userGrimpRepository;
+	private UserGrimpService userGrimpService;
 	
 	@PostMapping("/inscription")
-	public String saveInscription (Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm, BindingResult result, final RedirectAttributes redirectAttributes) {
-		UserGrimpForm newUserGrimp = new UserGrimpForm();
-		newUserGrimp.setUsername(userGrimpForm.getUsername());
-		newUserGrimp.setEmail(userGrimpForm.getEmail());
-		newUserGrimp.setPassword(userGrimpForm.getPassword());
+	public String ajouterUserGrimp (Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm, 
+			BindingResult result, final RedirectAttributes redirectAttributes) {
 		
-		userGrimpRepository.save(newUserGrimp);
+		userGrimpService.saveUserGrimpForm(userGrimpForm);
 		
 		return "redirect:/formInscription";
 	}
