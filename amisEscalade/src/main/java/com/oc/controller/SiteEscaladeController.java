@@ -8,6 +8,6 @@ public class SiteEscaladeController {
 
 	@GetMapping("/formCreaSite")
 	public String formSite() {
-		return "formSiteEscalade";
+		return "/";
 	}
 }
