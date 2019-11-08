@@ -14,6 +14,11 @@ import com.oc.metier.SiteEscaladeService;
 @Controller
 public class SiteEscaladeController {
 	
+	@GetMapping("/formSite")
+	public String formSit() {
+		return"formSite";
+	}
+	
 	@Autowired
 	private SiteEscaladeService siteEscaladeService;
 
