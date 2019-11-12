@@ -4,7 +4,7 @@ package com.oc.forms;
 
 public class UserGrimpForm {
 	
-
+	private long id_user;
 	private String username;
 	private String email;
 	private String password;
@@ -13,13 +13,21 @@ public class UserGrimpForm {
 
 	}
 
-	public UserGrimpForm(String username, String email, String password) {
-		
+	public UserGrimpForm(long id_user, String username, String email, String password) {
+		super();
+		this.id_user = id_user;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 	}
 
+	public long getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(long id_user) {
+		this.id_user = id_user;
+	}
 
 	public String getUsername() {
 		return username;
@@ -46,8 +54,6 @@ public class UserGrimpForm {
 	}
 	
 	
-	
-
 	
 	
 }

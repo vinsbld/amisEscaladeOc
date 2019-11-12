@@ -15,7 +15,7 @@ import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
 
 @Controller
-@RequestMapping("/formInscription")
+@RequestMapping("/inscription")
 public class UserGrimpController {
 	
 	@GetMapping
@@ -32,7 +32,7 @@ public class UserGrimpController {
 
 		userGrimpService.saveUserGrimpForm(userGrimpForm, result);
 
-			return "redirect:/formInscription";
+			return "formInscription";
 		
 	}
 

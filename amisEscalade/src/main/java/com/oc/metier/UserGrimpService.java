@@ -17,17 +17,13 @@ public class UserGrimpService {
 	
 	public void saveUserGrimpForm(UserGrimpForm userGrimpForm, BindingResult result) {
 
-		if (userGrimpForm.getUsername().isEmpty() ) {
-			result.addError(new FieldError("form", "username", "TG!"));
-		} else {
+		
 			UserGrimp newUserGrimp = new UserGrimp();
 			newUserGrimp.setPseudo(userGrimpForm.getUsername());
 			newUserGrimp.setEmail(userGrimpForm.getEmail());
 			newUserGrimp.setPassword(userGrimpForm.getPassword());
 			
 			userGrimpRepository.save(newUserGrimp);	
-		}
-		
-	}
+		}	
 
 }

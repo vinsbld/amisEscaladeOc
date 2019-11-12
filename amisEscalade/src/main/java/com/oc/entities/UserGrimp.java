@@ -18,7 +18,7 @@ public class UserGrimp implements Serializable {
 	private String pseudo;
 	@NonNull
 	private String email;
-	@Size(min = 8)
+	@Size(min = 4)
 	@NonNull
 	private String password;
 	
