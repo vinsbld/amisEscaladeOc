@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout_menu}">
+	>
 <head>
 <meta charset="utf-8" />
 
@@ -24,7 +24,7 @@
   <link href="lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+  <link href="css/style.css" rel="stylesheet">
 
   <!-- =======================================================
     Theme Name: Regna
@@ -34,21 +34,31 @@
   ======================================================= -->
 </head>
 
-<body>
-<main id="main">
-
-
   <!--==========================
-    Hero Section
+  Header
   ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <img src="img/logo_les_amis.png" alt="" title="" /></img>
-      <!--<h1>les amis de l'escalade</h1>-->
-      <h2>un site de passionné.es pour des passionné.es</h2>
-      <a href="index" class="btn-get-started">visiter</a>
+  <main id="main">
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="index"><img src="img/logo_mini.png" alt="logo_mini" title="logo_mini_les_amis_de_escalade" /></img></a>
+
+     </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="index">Accueil</a></li>
+          <li><a href="association">l'association</a></li>
+          <li><a href="formSiteEscalade">Sites d'escalades</a></li>
+          <li><a href="formTopo">Topos</a></li>
+          <li><a href="inscription">Inscription</a></li>
+          <li><a href="connexion">Connexion</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
     </div>
-  </section><!-- #hero -->
+    
+  </header><!-- #header -->
+  
 </main>
 
  <!-- JavaScript Libraries -->

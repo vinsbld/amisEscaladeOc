@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 			.formLogin()
 			.loginPage("/connexion").loginProcessingUrl("/connexion")
-			.defaultSuccessUrl("/association")
+			.defaultSuccessUrl("/userco")
 			.and()
 			.csrf().disable();
 		

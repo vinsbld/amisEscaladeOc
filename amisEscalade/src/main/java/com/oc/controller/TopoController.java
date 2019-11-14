@@ -10,30 +10,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oc.forms.LongueurForm;
-import com.oc.metier.LongueurService;
-
+import com.oc.forms.TopoForm;
+import com.oc.metier.TopoService;
 
 @Controller
-@RequestMapping("/formLongeur")
-public class LongueurController {
+@RequestMapping("/formTopo")
+public class TopoController {
 	
 	@Autowired
-	private LongueurService longueurService;
+	private TopoService topoService;
 	
 	@GetMapping
-	public String formLong() {
-		return "formLongeur";
+	public String formTop() {
+		return "formTopo";
 	}
 	
 	@PostMapping
-	public String ajouterLongueur(Model model, @ModelAttribute("longueurForm") LongueurForm longueurForm,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+	public String ajouterTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
-		longueurService.saveLongueurForm(longueurForm, result);
+		topoService.saveTopoForm(topoForm, result);
 		
-		return"redirect:/formLongueur";
-		
+		return"redirect:/formTopo";
 	}
 
 }

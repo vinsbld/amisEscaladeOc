@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	>
+	layout:decorate="~{layout_menu}">
+
+
 <head>
 <meta charset="utf-8" />
 
@@ -24,7 +26,7 @@
   <link href="lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
 
   <!-- =======================================================
     Theme Name: Regna
@@ -34,36 +36,13 @@
   ======================================================= -->
 </head>
 
-<body>
-
-  <!--==========================
-  Header
-  ============================-->
-  <header id="header">
-    <div class="container">
-
-      <div id="logo" class="pull-left">
-        <a href="index"><img src="img/logo_mini.png" alt="logo_mini" title="" /></img></a>
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!--<h1><a href="#hero">Regna</a></h1>-->
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a href="index">Accueil</a></li>
-          <li><a href="#about">l'association</a></li>
-          <li><a href="formSiteEscalade">Sites d'escalades</a></li>
-          <li><a href="#portfolio">Topos</a></li>
-          <li><a href="inscription">Inscription</a></li>
-          <li><a href="#connexion">Connexion</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
-    </div>
-  </header><!-- #header -->
-
   <!--==========================
       L'association Section
     ============================-->
+ <body>   
+ 
+    <main id="main">
+    
     <section id="about">
       <div class="container">
         <div class="row about-container">
@@ -100,6 +79,9 @@
       </div>
     </section><!-- #about -->
 
+</main>
+
+ <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 
 </body>

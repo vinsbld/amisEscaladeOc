@@ -16,5 +16,11 @@ public class viewController {
 	public String asso() {
 		return "association";
 	}
+	
+	@GetMapping("/userco")
+	public String usero() {
+		return "userGrimperPage";
+	}
+	
 
 }
