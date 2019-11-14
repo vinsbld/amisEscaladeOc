@@ -1,9 +1,9 @@
 package com.oc.metier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.UserGrimp;
@@ -15,15 +15,17 @@ public class UserGrimpService {
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	public void saveUserGrimpForm(UserGrimpForm userGrimpForm, BindingResult result) {
 
-		
-			UserGrimp newUserGrimp = new UserGrimp();
-			newUserGrimp.setPseudo(userGrimpForm.getUsername());
-			newUserGrimp.setEmail(userGrimpForm.getEmail());
-			newUserGrimp.setPassword(userGrimpForm.getPassword());
-			
-			userGrimpRepository.save(newUserGrimp);	
-		}	
+		UserGrimp newUserGrimp = new UserGrimp();
+		newUserGrimp.setPseudo(userGrimpForm.getUsername());
+		newUserGrimp.setEmail(userGrimpForm.getEmail());
+		newUserGrimp.setPassword(passwordEncoder.encode(userGrimpForm.getPassword()));
+
+		userGrimpRepository.save(newUserGrimp);
+	}
 
 }

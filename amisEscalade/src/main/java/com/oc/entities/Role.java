@@ -1,4 +1,4 @@
-package com.oc.security;
+package com.oc.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

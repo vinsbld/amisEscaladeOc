@@ -10,29 +10,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.oc.entities.UserGrimp;
 import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
 
 @Controller
-@RequestMapping("/inscription")
 public class UserGrimpController {
 	
-	@GetMapping
+	@Autowired
+	private UserGrimpService userGrimpService;
+	
+	@GetMapping("/inscription")
 	public String formInsc() {
 		return "formInscription";
 	}
 	
-	@Autowired
-	private UserGrimpService userGrimpService;
 
-	@PostMapping
-	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm,
+	@PostMapping("/inscription")
+	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimp,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 
-		userGrimpService.saveUserGrimpForm(userGrimpForm, result);
+		userGrimpService.saveUserGrimpForm(userGrimp, result);
 
-			return "formInscription";
+			return "redirect:/index";
+			
+			
+			
 		
 	}
 
