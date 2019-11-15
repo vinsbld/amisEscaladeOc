@@ -53,8 +53,8 @@
           <li class="menu-active"><a href="index">Accueil</a></li>
           <li><a href="association">l'association</a></li>
           <li><a href="formSiteEscalade">Sites d'escalades</a></li>
-          <li><a href="#portfolio">Topos</a></li>
-          <li><a href="#connexion">connecté</a></li>
+          <li><a href="formTopo">Topos</a></li>
+          <li><a th:href="@{/login?logout}" th:inline="text">[[${#httpServletRequest.remoteUser}]]</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
