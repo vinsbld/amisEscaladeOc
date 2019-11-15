@@ -96,30 +96,7 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
 }
 
-#header #logo h1 {
-  font-size: 36px;
-  margin: 0;
-  padding: 6px 0;
-  line-height: 1;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-#header #logo h1 a, #header #logo h1 a:hover {
-  color: #fff;
-}
-
-#header #logo img {
-  padding: 0;
-  margin: 0;
-}
-
 @media (max-width: 768px) {
-  #header #logo h1 {
-    font-size: 26px;
-  }
   #header #logo img {
     max-height: 40px;
   }
@@ -129,38 +106,26 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.9);
   padding: 20px 0;
   height: 72px;
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 
 /*--------------------------------------------------------------
-# Hero Section
+# Index Section
 --------------------------------------------------------------*/
-#hero {
+#indexPage {
   width: 100%;
-  height: 100vh;
-  background: url(../img/hero-bg.jpg) center;
-  /* background-size: cover; */
-  position: relative;
-  /* padding: 8% 0; */
+  height: 100%;
+  position: absolute;
+  top: 8%;
 }
 
 @media (min-width: 1024px) {
-  #hero {
+  #indexPage {
     background-attachment: fixed;
   }
 }
 
-#hero:before {
-  content: "";
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-#hero .hero-container {
+#indexPage .indexPage-container {
   position: absolute;
   bottom: 0;
   top: 0;
@@ -173,37 +138,21 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-#hero h1 {
-  margin: 30px 0 10px 0;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 56px;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  #hero h1 {
-    font-size: 28px;
-    line-height: 36px;
-  }
-}
-
-#hero h2 {
-  color: #eee;
+#indexPage h2 {
+  color: #666666;
   margin-bottom: 50px;
   font-size: 24px;
 }
 
 @media (max-width: 768px) {
-  #hero h2 {
+  #indexPage h2 {
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 30px;
   }
 }
 
-#hero .btn-get-started {
+#indexPage .btn-get-started {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
@@ -215,10 +164,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.5s;
   margin: 10px;
   border: 2px solid #fff;
-  color: #fff;
+  color: #666666;
 }
 
-#hero .btn-get-started:hover {
+#indexPage .btn-get-started:hover {
   background: #2dc997;
   border: 2px solid #2dc997;
 }
