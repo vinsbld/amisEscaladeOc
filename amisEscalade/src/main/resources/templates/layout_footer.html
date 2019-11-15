@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	>
 <head>
 <meta charset="utf-8" />
 
@@ -43,7 +43,6 @@
 <body>
 
 	<main id="main">
-		<div th:fragment="footer">
 
 			<div class="container">
 
@@ -54,9 +53,6 @@
 						sec:authentication="principal.authorities"></span> | <a
 						th:href="@{/logout}">Sign Out</a>
 					</span>
-
-					<script type="text/javascript"
-						src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 				</footer>
 			</div>
