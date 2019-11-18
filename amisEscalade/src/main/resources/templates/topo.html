@@ -40,22 +40,47 @@
 
 
 <!--==========================
-    Index section
+    Topo section
   ============================-->
 
 <body>
 
 	<main id="main">
 
-		<section id="indexPage">
-			<div class="indexPage-container">
-				<a href="association"><img src="img/logo_les_amis_or.png"
-					alt="logo_les_amis" title="logo_les_amis" /></img></a>
-				<h2>un site de passionné.es pour des passionné.es</h2>
-				<a href="association" class="btn-get-started">visiter</a>
+		<section id="page">
+			<div class="page-container">
+				<h1>Topos</h1>
+				<a href="formTopo" class="btn-get-create">ajouter un topo</a>
+			
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom du topo</th><br/>
+							<th>Déscription</th>
+							<th>Lieu</th>
+							<th>Date de parution</th>	
+							</tr>
+					</thead>
+					<tbody>
+						<tr th:each="topo:${listTopo}">
+							<td th:text="${topo.name}"></td>
+							<td th:text="${topo.description}"></td>
+							<td th:text="${topo.lieu}"></td>
+							<td th:text="${topo.eDate}"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
+			<div>
+			<ul class="nav justify-content-center">
+				<li th:class="${pageCourante}==${status.index}?'active':''"
+					th:each="pa, status:${pages}"><a
+					th:href="@{index(page=${status.index},size=${size}, mc=${mc})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+		</div>
 		</section>
-		<!-- #index -->
+		<!-- #Site d'escalade -->
 	</main>
 
 </body>

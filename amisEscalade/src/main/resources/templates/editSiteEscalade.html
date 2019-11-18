@@ -11,40 +11,47 @@
 <link rel="stylesheet" type="text/css" href="../static/css/style.css"
 	th:href="@{css/style_form.css}" />
 	
-<title>Formulaire Secteur</title>
+<title>Formulaire Site</title>
 
 </head>
 
 <body>
 	<div class="signup-form">
-    <form action="secteur" method="post" class="form-horizontal">
+    <form action="formSiteEscalade" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
-			<h2>Création d'un secteur</h2>
+			<h2>Création d'un site d'escalade</h2>
 		</div>		
 		<div class="form-group">
-			<label class="control-label col-xs-4">Nom du secteur</label>
+			<label class="control-label">ID:</label> 
+				<input class="form-control" type="text" name="id"
+				th:value="${produit.id}"/><span class="red"
+				th:errors="${produit.id}"></span>
+		</div>
+        <div class="form-group">
+			<label class="control-label col-xs-4">Nom du site</label>
 			<div class="col-xs-8">
                 <input type="text" class="form-control" name="name" required="required">
             </div>        	
         </div>
-        <div class="form-group">
-			<label class="control-label col-xs-4">Localisation</label>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Département</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="localisation" required="required">
+                <input type="text" class="form-control" name="departement" required="required">
             </div>        	
         </div>
 		<div class="form-group">
-			<label class="control-label col-xs-4">Accès</label>
+			<label class="control-label col-xs-4">Ville</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="acces" required="required">
+                <input type="text" class="form-control" name="ville" required="required">
             </div>        	
         </div>
-        <div class="form-group text-center">
-		<a href="formVoie" type="button" class="btn btn-primary btn-lg">Suivant</a>
-		</div>
-		<<!-- div class="form-group text-center">
+
+		<!-- <div class="form-group text-center">
+		<a href="formSecteur" type="button" class="btn btn-primary btn-lg">Suivant</a>
+		</div> -->
+		<div class="form-group text-center">
 		<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
-		</div>    -->
+		</div>    
     </form>
 </div>
 </body>

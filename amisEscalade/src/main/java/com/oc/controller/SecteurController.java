@@ -14,17 +14,17 @@ import com.oc.forms.SecteurForm;
 import com.oc.metier.SecteurService;
 
 @Controller
-@RequestMapping("/formSecteur")
+@RequestMapping("/secteur")
 public class SecteurController {
+	
+	@Autowired
+	private SecteurService secteurService;
 	
 	@GetMapping()
 	public String formSect() {
 		return"formSecteur";
 	}
 			
-	@Autowired
-	private SecteurService secteurService;
-	
 	@PostMapping()
 	public String ajouterSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm,
 			BindingResult result, final RedirectAttributes redirectAttributes) {

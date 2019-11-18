@@ -40,22 +40,48 @@
 
 
 <!--==========================
-    Index section
+    Site d'escalade section
   ============================-->
 
 <body>
 
 	<main id="main">
 
-		<section id="indexPage">
-			<div class="indexPage-container">
-				<a href="association"><img src="img/logo_les_amis_or.png"
-					alt="logo_les_amis" title="logo_les_amis" /></img></a>
-				<h2>un site de passionné.es pour des passionné.es</h2>
-				<a href="association" class="btn-get-started">visiter</a>
-			</div>
+		<section id="page">
+			<div class="page-container">
+				<h1>Sites d'escalades</h1>
+				<a href="formSiteEscalade" class="btn-get-create">créer un spot</a>
+			
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom du spot</th>
+							<th>Département</th>
+							<th>Ville</th>	
+							<th>Modifier</th>
+							
+							</tr>
+					</thead>
+					<tbody>
+						<tr th:each="site:${listSite}">
+							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
+							<td th:text="${site.departement}"></td>
+							<td th:text="${site.ville}"></td>
+							<td><a th:href="@{/site_escalade/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			<ul class="nav justify-content-center">
+				<li th:class="${pageCourante}==${status.index}?'active':''"
+					th:each="pa, status:${pages}"><a
+					th:href="@{index(page=${status.index},size=${size}, site=${site})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+			
+		</div>
 		</section>
-		<!-- #index -->
+		<!-- #Site d'escalade -->
 	</main>
 
 </body>

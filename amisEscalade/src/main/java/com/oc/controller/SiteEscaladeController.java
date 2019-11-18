@@ -14,18 +14,17 @@ import com.oc.forms.SiteEscaladeForm;
 import com.oc.metier.SiteEscaladeService;
 
 @Controller
-@RequestMapping("/formSiteEscalade")
 public class SiteEscaladeController {
-	
-	@GetMapping
-	public String formSit() {
-		return"formSiteEscalade";
-	}
 	
 	@Autowired
 	private SiteEscaladeService siteEscaladeService;
 
-	@PostMapping
+	@GetMapping("/formSiteEscalade")
+	public String formSit() {
+		return"formSiteEscalade";
+	}
+
+	@PostMapping("/formSiteEscalade")
 	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
@@ -33,4 +32,6 @@ public class SiteEscaladeController {
 		
 		return "formSiteEscalade";
 	}
+	
+	
 }

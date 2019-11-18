@@ -15,7 +15,7 @@ import com.oc.metier.LongueurService;
 
 
 @Controller
-@RequestMapping("/formLongeur")
+@RequestMapping("/longueur")
 public class LongueurController {
 	
 	@Autowired
@@ -23,7 +23,7 @@ public class LongueurController {
 	
 	@GetMapping
 	public String formLong() {
-		return "formLongeur";
+		return "formLongueur";
 	}
 	
 	@PostMapping

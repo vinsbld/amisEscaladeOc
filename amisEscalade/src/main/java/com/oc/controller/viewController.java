@@ -18,12 +18,17 @@ public class viewController {
 	}
 	
 	@GetMapping("/userco")
-	public String usero() {
+	public String userCo() {
 		return "userGrimperPage";
 	}
 	
 	/*
 	 * @GetMapping public String error403() { return "error/403"; }
 	 */
+	@GetMapping("/topo")
+	public String topoPage() {
+		return "topo";
+	}
+
 
 }

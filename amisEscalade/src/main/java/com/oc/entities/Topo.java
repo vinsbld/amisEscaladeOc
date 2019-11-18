@@ -21,17 +21,20 @@ public class Topo implements Serializable{
 	@Length(max = 255)
 	private String description;
 	@NonNull
+	private String lieu;
+	@NonNull
 	private Date edate;
 	
 	public Topo() {
 
 	}
 
-	public Topo(long id_topo, String name, String description, Date edate) {
+	public Topo(long id_topo, String name, @Length(max = 255) String description, String lieu, Date edate) {
 		super();
 		this.id_topo = id_topo;
 		this.name = name;
 		this.description = description;
+		this.lieu = lieu;
 		this.edate = edate;
 	}
 
@@ -59,6 +62,14 @@ public class Topo implements Serializable{
 		this.description = description;
 	}
 
+	public String getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
+	}
+
 	public Date getEdate() {
 		return edate;
 	}
@@ -66,8 +77,8 @@ public class Topo implements Serializable{
 	public void setEdate(Date edate) {
 		this.edate = edate;
 	}
-	
-	
+
+
 	
 
 }
