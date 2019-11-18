@@ -67,7 +67,7 @@
 							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
-							<td><a th:href="@{/site_escalade/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+							<td><a th:href="@{'/site_escalade/edit/' + ${site.idSiteEscalade}}">Modifier</a></td>
 						</tr>
 					</tbody>
 				</table>

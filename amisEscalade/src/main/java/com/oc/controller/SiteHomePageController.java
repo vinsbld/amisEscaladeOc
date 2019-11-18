@@ -7,19 +7,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SiteEscaladeRepository;
 import com.oc.entities.SiteEscalade;
+import com.oc.forms.SiteEscaladeForm;
+import com.oc.metier.SiteEscaladeService;
 
 @Controller
 public class SiteHomePageController {
 	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
+	
+	@Autowired
+	private SiteEscaladeService siteEscaladeService;
 	
 	@GetMapping("/site_escalade")
 	public String siteEscal(Model model,
@@ -37,16 +46,25 @@ public class SiteHomePageController {
 		return "site_escalade";
 	}
 	
-	@GetMapping("/site_escalade/edit")
-	public String editSite(Model model, long idSiteEscalade) {
-		Optional<SiteEscalade> s=siteEscaladeRepository.findById(idSiteEscalade);
-		SiteEscalade siteEscalade = new SiteEscalade();
+	@GetMapping("/site_escalade/edit/{idSiteEscalade}")
+	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
+		SiteEscalade siteEscalade = null;
 		if(s.isPresent()) {
 			siteEscalade = s.get();
 		}
 		model.addAttribute("siteEscalade", siteEscalade);
-		return "editSiteEscalade";
+		return "/editFormSiteEscalade";
 	}
 	
+	@PostMapping("/site_escalade/update/{idSiteEscalade}")
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
+			final RedirectAttributes redirectAttributes) {
+		
+		siteEscaladeService.updateSiteEscalade(siteEscaladeForm, result);
+		
+		
+		return "redirect:/site_escalade";
+	}
 
 }

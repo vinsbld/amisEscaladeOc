@@ -1,7 +1,8 @@
 package com.oc.forms;
 
 public class SiteEscaladeForm {
-
+	
+	private long idSiteEscalade;
 	private String name;
 	private String departement;
 	private String ville;
@@ -10,11 +11,21 @@ public class SiteEscaladeForm {
 
 	}
 
-	public SiteEscaladeForm(String name, String departement, String ville) {
-	
+	public SiteEscaladeForm(Long idSiteEscalade, String name, String departement, String ville) {
+		
+		this.idSiteEscalade = idSiteEscalade;
 		this.name = name;
 		this.departement = departement;
 		this.ville = ville;
+	}
+
+	
+	public long getIdSiteEscalade() {
+		return idSiteEscalade;
+	}
+
+	public void setIdSiteEscalade(long idSiteEscalade) {
+		this.idSiteEscalade = idSiteEscalade;
 	}
 
 	public String getName() {

@@ -2,57 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
+
+
 <head>
 <meta charset="utf-8" />
 
-  <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
 
-<link rel="stylesheet" type="text/css" href="../static/css/style.css"
-	th:href="@{css/style_form.css}" />
-	
-<title>Formulaire Site</title>
+<!-- Favicons -->
+<link href="img/mountain.png" rel="icon">
+<link href="img/mountain.png" rel="mountain">
 
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+
+<!-- =======================================================
+    Theme Name: Regna
+    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
 </head>
 
-<body>
-	<div class="signup-form">
-    <form action="formSiteEscalade" method="post" class="form-horizontal">
-		<div class="col-xs-8 col-xs-offset-4 text-center" >
-			<h2>Création d'un site d'escalade</h2>
-		</div>		
-		<div class="form-group">
-			<label class="control-label">ID:</label> 
-				<input class="form-control" type="text" name="id"
-				th:value="${produit.id}"/><span class="red"
-				th:errors="${produit.id}"></span>
-		</div>
-        <div class="form-group">
-			<label class="control-label col-xs-4">Nom du site</label>
-			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required">
-            </div>        	
-        </div>
-		<div class="form-group">
-			<label class="control-label col-xs-4">Département</label>
-			<div class="col-xs-8">
-                <input type="text" class="form-control" name="departement" required="required">
-            </div>        	
-        </div>
-		<div class="form-group">
-			<label class="control-label col-xs-4">Ville</label>
-			<div class="col-xs-8">
-                <input type="text" class="form-control" name="ville" required="required">
-            </div>        	
-        </div>
 
-		<!-- <div class="form-group text-center">
-		<a href="formSecteur" type="button" class="btn btn-primary btn-lg">Suivant</a>
-		</div> -->
-		<div class="form-group text-center">
-		<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
-		</div>    
-    </form>
-</div>
+<!--==========================
+    Site d'escalade section
+  ============================-->
+
+<body>
+
+	<main id="main">
+
+		<section id="page">
+			<div class="page-container">
+				<h1>Sites d'escalades</h1>
+				<ul>
+				<li><a href="formSiteEscalade" class="btn-get-create">modifier spot</a></li>
+				<li><a href="formSecteur" class="btn-get-create">Ajouter secteur</a></li>
+				<li><a href="formVoie" class="btn-get-create">Ajouter voie</a></li>
+				<li><a href="formLongueur" class="btn-get-create">Ajouter longueur</a></li>
+				</ul>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom du spot</th>
+							<th>Département</th>
+							<th>Ville</th>	
+							<th>Modifier</th>
+							
+							</tr>
+					</thead>
+					<tbody>
+						<tr th:each="site:${listSite}">
+							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
+							<td th:text="${site.departement}"></td>
+							<td th:text="${site.ville}"></td>
+							<td><a th:href="@{'/site_escalade/edit' + ${site.idSiteEscalade}}">Modifier</a></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			<ul class="nav justify-content-center">
+				<li th:class="${pageCourante}==${status.index}?'active':''"
+					th:each="pa, status:${pages}"><a
+					th:href="@{index(page=${status.index},size=${size}, site=${site})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+			
+		</div>
+		</section>
+		<!-- #Site d'escalade -->
+	</main>
+
 </body>
 </html>
