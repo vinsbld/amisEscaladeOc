@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{header}">
+
+
+<head>
+<meta charset="utf-8" />
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Favicons -->
+<link href="img/mountain.png" rel="icon">
+<link href="img/mountain.png" rel="mountain">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+
+<!-- =======================================================
+    Theme Name: Regna
+    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+
+<!--==========================
+    Site d'escalade section
+  ============================-->
+
+<body>
+
+	<main id="main">
+
+		<section id="page">
+			<div class="page-container">
+				<h1>Sites d'escalades</h1>
+				
+				<a href="formSiteEscalade" th:href="@{formSiteEscalade}" class="btn-get-create">Créer un spot</a>
+				
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom du spot</th>
+							<th>Département</th>
+							<th>Ville</th>	
+							<th>Modifier</th>
+							
+							</tr>
+					</thead>
+					<tbody>
+						<tr th:each="site:${listSite}">
+							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
+							<td th:text="${site.departement}"></td>
+							<td th:text="${site.ville}"></td>
+							<td><a th:href="@{site_escalade/edit/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			<ul class="nav justify-content-center">
+				<li th:class="${pageCourante}==${status.index}?'active':''"
+					th:each="pa, status:${pages}"><a
+					th:href="@{index(page=${status.index},size=${size}, site=${site})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+			
+		</div>
+		</section>
+		<!-- #Site d'escalade -->
+	</main>
+
+</body>
+</html>

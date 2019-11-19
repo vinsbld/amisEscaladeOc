@@ -17,6 +17,7 @@ public class SiteEscaladeService {
 	public void saveSiteEscalade(SiteEscaladeForm siteEscaladeForm, BindingResult result) {
 		
 		SiteEscalade newSiteEscalade = new SiteEscalade();
+		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
 		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
 		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
 		newSiteEscalade.setVille(siteEscaladeForm.getVille());
@@ -24,16 +25,5 @@ public class SiteEscaladeService {
 		siteEscaladeRepository.save(newSiteEscalade);
 	}
 	
-	public void updateSiteEscalade(SiteEscaladeForm siteEscaladeForm, BindingResult result) {
-		
-		SiteEscalade newSiteEscalade = new SiteEscalade();
-		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
-		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
-		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
-		newSiteEscalade.setVille(siteEscaladeForm.getVille());
-		
-		siteEscaladeRepository.save(newSiteEscalade);
-		
-	}
 
 }
