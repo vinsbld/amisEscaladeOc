@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
 public class Secteur implements Serializable {
 	
 	@Id @GeneratedValue
-	private long id_secteur;
+	private long idSecteur;
 	@NonNull
 	private String nomDuSecteur;
 	@NonNull
@@ -24,20 +24,21 @@ public class Secteur implements Serializable {
 
 	}
 
-	public Secteur(long id_secteur, String nomDuSecteur, String localisation, String acces) {
+	public Secteur(long idSecteur, String nomDuSecteur, String localisation, String acces) {
 		super();
-		this.id_secteur = id_secteur;
+		this.idSecteur = idSecteur;
 		this.nomDuSecteur = nomDuSecteur;
 		this.localisation = localisation;
 		this.acces = acces;
 	}
 
-	public long getId_secteur() {
-		return id_secteur;
+
+	public long getIdSecteur() {
+		return idSecteur;
 	}
 
-	public void setId_secteur(long id_secteur) {
-		this.id_secteur = id_secteur;
+	public void setIdSecteur(long idSecteur) {
+		this.idSecteur = idSecteur;
 	}
 
 	public String getNomDuSecteur() {
