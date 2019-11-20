@@ -12,8 +12,8 @@
 <meta content="" name="description">
 
 <!-- Favicons -->
-<link href="img/mountain.png" rel="icon">
-<link href="img/mountain.png" rel="mountain">
+<link href="/img/mountain.png" rel="icon">
+<link href="/img/mountain.png" rel="mountain">
 
 <!-- Google Fonts -->
 <link
@@ -21,21 +21,15 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Libraries CSS Files -->
-<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+<link href="/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 
 
@@ -49,18 +43,26 @@
 
 		<section id="page">
 			<div class="page-container">
+			
 				<h1>Sites d'escalades</h1>
+				<form th:action="@{/site_escalade}" methode="get">
+					<label>Mot clé :</label>
+					<input type="text" name="motCle" th:value="${motCle}"></input>
+					<button class="btn btn-primary">Chercher</button>
+				</form>
 				
-				<a href="formSiteEscalade" th:href="@{formSiteEscalade}" class="btn-get-create">Créer un spot</a>
+				<a href="/site_escalade/create" th:href="@{/site_escalade/create}" class="btn-get-create">Créer un spot</a>
 				
-				<table class="table">
+			<div class="custyle">
+				<table class="table table-striped listTableDeco">
 					<thead>
 						<tr>
 							<th>Nom du spot</th>
 							<th>Département</th>
 							<th>Ville</th>	
 							<th>Modifier</th>
-							
+							<th>Ajouter</th>
+							<th>Supprimer</th>
 							</tr>
 					</thead>
 					<tbody>
@@ -68,15 +70,17 @@
 							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
-							<td><a th:href="@{site_escalade/edit/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/add/secteur(idSiteEscalade=${site.idSiteEscalade})}">Ajouter</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de voiloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/delete/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
-				
+</div>
 			<ul class="nav justify-content-center">
 				<li th:class="${pageCourante}==${status.index}?'active':''"
 					th:each="pa, status:${pages}"><a
-					th:href="@{index(page=${status.index},size=${size}, site=${site})}"
+					th:href="@{index(page=${status.index},size=${size}, site=${site}, motCle=${motCle})}"
 					th:text="${status.index}"></a></li>
 			</ul>
 			

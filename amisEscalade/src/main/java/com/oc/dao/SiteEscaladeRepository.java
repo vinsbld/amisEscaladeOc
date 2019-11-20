@@ -15,7 +15,7 @@ import com.oc.entities.SiteEscalade;
 public interface SiteEscaladeRepository extends JpaRepository<SiteEscalade, Long>{
 	
 	  @Query("select site from SiteEscalade site where site.nomSiteEscalade like:x")
-	 public Page<SiteEscalade> chercher(@Param("x")String site, Pageable pageable);
+	 public Page<SiteEscalade> chercher(@Param("x")String motCle, Pageable pageable);
 	
 	
 }
