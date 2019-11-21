@@ -43,16 +43,16 @@
 
 		<section id="page">
 			<div class="page-container">
-				<h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3>
+				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
 				<h1>Secteur(s)</h1>
 				
-				<form th:action="@{/site_escalade/{idSiteEscalade}/add/secteur}" th:object="${addSecteurToSite}" methode="get">
+				<form th:action="@{/addSecteurToSiteEscalade}" th:object="${listSecteur}" methode="get">
 					<label>Mot clé :</label>
 					<input type="text" name="motCle" th:value="${motCle}"></input>
 					<button class="btn btn-primary">Chercher</button>
 				</form>
 				
-				<a class="btn-get-create" th:href="@{/site_escalade/edit/{idSiteEscalade}(idSiteEscalade=${addSecteurToSite.idSiteEscalade})}">Ajouter un secteur</a></td>
+				<a class="btn-get-create" th:href="@{/secteur/create}">Ajouter un secteur</a></td>
 
 <div class="custyle">
 				<table class="table table-striped listTableDeco">
@@ -61,17 +61,20 @@
 							<th>Nom du secteur</th>
 							<th>Localisation</th>
 							<th>Accès</th>	
+							<th>Modifier</th>
+							<th>Ajouter</th>
+							<th>Supprimer</th>
 							</tr>
 					</thead>
 					<tbody>
-<!-- 						<tr th:each="sectr:${addSecteurToSite}">
+						<tr th:each="sectr:${listSecteur}">
 							<td ><a th:href="@{index}"><span th:text="${sectr.nomDuSecteur}"></span></a></td>
 							<td th:text="${sectr.localisation}"></td>
 							<td th:text="${sectr.acces}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit/secteur(idSiteEscalade=${sec.idSiteEscalade})}">Modifier</a></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/add/secteur(idSiteEscalade=${sec.idSiteEscalade})}">Ajouter</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/delete/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
-						</tr> -->
+							<td><a class="btn btn-info btn-xs" href="#">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" href="#">Ajouter</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" href="#">Supprimer</a></td>
+						</tr>
 					</tbody>
 				</table>
 </div>

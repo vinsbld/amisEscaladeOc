@@ -3,8 +3,10 @@ package com.oc.entities;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import org.springframework.lang.NonNull;
@@ -23,6 +25,10 @@ public class UserGrimp implements UserDetails {
 	@Size(min = 4)
 	@NonNull
 	private String password;
+	
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
+	private Collection<SiteEscalade>siteEscalades;
+	
 	
 	public UserGrimp () {
 		super();

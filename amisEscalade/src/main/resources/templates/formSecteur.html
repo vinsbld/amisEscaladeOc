@@ -6,10 +6,10 @@
 <meta charset="utf-8" />
 
   <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="../static/css/style.css"
-	th:href="@{css/style_form.css}" />
+	th:href="@{/css/style_form.css}" />
 	
 <title>Formulaire Secteur</title>
 
@@ -17,7 +17,7 @@
 
 <body>
 	<div class="signup-form">
-    <form action="secteur" method="post" class="form-horizontal">
+    <form th:action="@{/secteur/create}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'un secteur</h2>
 		</div>		
@@ -38,13 +38,10 @@
 			<div class="col-xs-8">
                 <input type="text" class="form-control" name="acces" required="required">
             </div>        	
-        </div>
-        <div class="form-group text-center">
-		<a href="formVoie" type="button" class="btn btn-primary btn-lg">Suivant</a>
-		</div>
-		<<!-- div class="form-group text-center">
-		<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
-		</div>    -->
+        </div>	
+		<div class="form-group text-center">
+			<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
+		</div>   
     </form>
 </div>
 </body>

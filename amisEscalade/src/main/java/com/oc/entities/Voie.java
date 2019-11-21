@@ -25,7 +25,7 @@ public class Voie implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "VOI_SECT")
-	private Secteur secteus;
+	private Secteur secteur;
 	
 	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY)
 	private Collection<Longueur> longueur;
