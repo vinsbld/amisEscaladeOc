@@ -96,10 +96,10 @@ public class SiteEscaladeController {
 		}
 		model.addAttribute("addSecteurToSite", addSecteurToSite);
 		
-		return"addSecteurToSiteEscalade";
+		return"secteur";
 	}
 	
-	@GetMapping("/site_escalade/delete/{idSiteEscalade}")
+	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
 	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
 		
 		siteEscaladeRepository.deleteById(idSiteEscalade);
