@@ -1,10 +1,15 @@
 package com.oc.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
 
@@ -18,7 +23,13 @@ public class SiteEscalade implements Serializable{
 	private String departement;
 	@NonNull
 	private String ville;
-		
+	
+	@ManyToOne
+	@JoinColumn(name = "SIT_USR")
+	private UserGrimp userGrimp;
+	
+	@OneToMany(mappedBy ="siteEscalade", fetch = FetchType.LAZY)
+	private Collection<Secteur> secteur;
 	
 	public SiteEscalade() {
 

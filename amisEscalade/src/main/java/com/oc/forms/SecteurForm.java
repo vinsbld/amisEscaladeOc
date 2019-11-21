@@ -5,7 +5,7 @@ package com.oc.forms;
 
 public class SecteurForm {
 
-
+	private long idSecteur;
 	private String name;
 	private String localisation;
 	private String acces;
@@ -14,11 +14,35 @@ public class SecteurForm {
 
 	}
 
-	public SecteurForm(String name, String localisation, String acces) {
 
+	public SecteurForm(long idSecteur, String name, String localisation, String acces) {
+		super();
+		this.idSecteur = idSecteur;
 		this.name = name;
 		this.localisation = localisation;
 		this.acces = acces;
+	}
+
+
+
+
+	public long getIdSecteur() {
+		return idSecteur;
+	}
+
+
+	public void setIdSecteur(long idSecteur) {
+		this.idSecteur = idSecteur;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

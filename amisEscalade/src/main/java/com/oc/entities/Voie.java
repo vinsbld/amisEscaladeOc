@@ -1,10 +1,15 @@
 package com.oc.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
 
@@ -17,6 +22,13 @@ public class Voie implements Serializable {
 	private String nomDeVoie;
 	@NonNull
 	private String cotation;
+	
+	@ManyToOne
+	@JoinColumn(name = "VOI_SECT")
+	private Secteur secteus;
+	
+	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY)
+	private Collection<Longueur> longueur;
 	
 	public Voie() {
 

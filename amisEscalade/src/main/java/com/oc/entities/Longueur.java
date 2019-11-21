@@ -1,10 +1,15 @@
 package com.oc.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,6 +21,10 @@ public class Longueur implements Serializable {
 	private int distance;
 	@NotNull
 	private int hauteur;
+	
+	@ManyToOne
+	@JoinColumn(name = "LONG_VOI")
+	private Voie voie;
 	
 	public Longueur() {
 
