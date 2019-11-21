@@ -34,7 +34,7 @@
 
 
 <!--==========================
-    Site d'escalade section
+    Secteur section
   ============================-->
 
 <body>
@@ -46,7 +46,7 @@
 				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
 				<h1>Secteur(s)</h1>
 				
-				<form th:action="@{/addSecteurToSiteEscalade}" th:object="${listSecteur}" methode="get">
+				<form th:action="@{/secteur}" th:object="${listSecteur}" methode="get">
 					<label>Mot clé :</label>
 					<input type="text" name="motCle" th:value="${motCle}"></input>
 					<button class="btn btn-primary">Chercher</button>
@@ -71,16 +71,16 @@
 							<td ><a th:href="@{index}"><span th:text="${sectr.nomDuSecteur}"></span></a></td>
 							<td th:text="${sectr.localisation}"></td>
 							<td th:text="${sectr.acces}"></td>
-							<td><a class="btn btn-info btn-xs" href="#">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{secteur/{idSecteur}/edit(idSecteur=${sectr.idSecteur})}">Modifier</a></td>
 							<td><a class="btn btn-info btn-xs" href="#">Ajouter</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" href="#">Supprimer</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{/secteur/{idSecteur}/delete(idSecteur=${sectr.idSecteur})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
 </div>
 </div>
 		</section>
-		<!-- #Site d'escalade -->
+		<!-- #Secteur -->
 	</main>
 
 </body>
