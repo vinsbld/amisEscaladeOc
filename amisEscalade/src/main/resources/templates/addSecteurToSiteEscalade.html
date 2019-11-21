@@ -12,8 +12,8 @@
 <meta content="" name="description">
 
 <!-- Favicons -->
-<link href="img/mountain.png" rel="icon">
-<link href="img/mountain.png" rel="mountain">
+<link href="/img/mountain.png" rel="icon">
+<link href="/img/mountain.png" rel="mountain">
 
 <!-- Google Fonts -->
 <link
@@ -21,21 +21,15 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Libraries CSS Files -->
-<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+<link href="/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 
 
@@ -49,41 +43,39 @@
 
 		<section id="page">
 			<div class="page-container">
-				<h1>Sites d'escalades</h1>
-				<ul>
-				<li><a href="formSiteEscalade" class="btn-get-create">modifier spot</a></li>
-				<li><a href="formSecteur" class="btn-get-create">Ajouter secteur</a></li>
-				<li><a href="formVoie" class="btn-get-create">Ajouter voie</a></li>
-				<li><a href="formLongueur" class="btn-get-create">Ajouter longueur</a></li>
-				</ul>
-				<table class="table">
+				<h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3>
+				<h1>Secteur(s)</h1>
+				
+				<form th:action="@{/site_escalade/{idSiteEscalade}/add/secteur}" th:object="${addSecteurToSite}" methode="get">
+					<label>Mot clé :</label>
+					<input type="text" name="motCle" th:value="${motCle}"></input>
+					<button class="btn btn-primary">Chercher</button>
+				</form>
+				
+				<a class="btn-get-create" th:href="@{/site_escalade/edit/{idSiteEscalade}(idSiteEscalade=${addSecteurToSite.idSiteEscalade})}">Ajouter un secteur</a></td>
+
+<div class="custyle">
+				<table class="table table-striped listTableDeco">
 					<thead>
 						<tr>
-							<th>Nom du spot</th>
-							<th>Département</th>
-							<th>Ville</th>	
-							<th>Modifier</th>
-							
+							<th>Nom du secteur</th>
+							<th>Localisation</th>
+							<th>Accès</th>	
 							</tr>
 					</thead>
 					<tbody>
-						<tr th:each="site:${listSite}">
-							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
-							<td th:text="${site.departement}"></td>
-							<td th:text="${site.ville}"></td>
-							<td><a th:href="@{'/site_escalade/edit' + ${site.idSiteEscalade}}">Modifier</a></td>
-						</tr>
+<!-- 						<tr th:each="sectr:${addSecteurToSite}">
+							<td ><a th:href="@{index}"><span th:text="${sectr.nomDuSecteur}"></span></a></td>
+							<td th:text="${sectr.localisation}"></td>
+							<td th:text="${sectr.acces}"></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit/secteur(idSiteEscalade=${sec.idSiteEscalade})}">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/add/secteur(idSiteEscalade=${sec.idSiteEscalade})}">Ajouter</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/delete/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
+						</tr> -->
 					</tbody>
 				</table>
-				
-			<ul class="nav justify-content-center">
-				<li th:class="${pageCourante}==${status.index}?'active':''"
-					th:each="pa, status:${pages}"><a
-					th:href="@{index(page=${status.index},size=${size}, site=${site})}"
-					th:text="${status.index}"></a></li>
-			</ul>
-			
-		</div>
+</div>
+</div>
 		</section>
 		<!-- #Site d'escalade -->
 	</main>
