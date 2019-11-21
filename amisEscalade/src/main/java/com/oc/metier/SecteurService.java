@@ -14,7 +14,7 @@ public class SecteurService {
 	@Autowired
 	private SecteurRepository secteurRepository;
 	
-	public void saveSecteurForm(SecteurForm secteurForm, BindingResult result) {
+	public void saveSecteur(SecteurForm secteurForm, BindingResult result) {
 		
 		Secteur newSecteur = new Secteur();
 		newSecteur.setNomDuSecteur(secteurForm.getNomDuSecteur());
