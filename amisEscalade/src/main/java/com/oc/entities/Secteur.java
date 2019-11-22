@@ -77,6 +77,22 @@ public class Secteur implements Serializable {
 	public void setAcces(String acces) {
 		this.acces = acces;
 	}
+
+	public SiteEscalade getSiteEscalade() {
+		return siteEscalade;
+	}
+
+	public void setSiteEscalade(SiteEscalade siteEscalade) {
+		this.siteEscalade = siteEscalade;
+	}
+
+	public Collection<Voie> getVoie() {
+		return voie;
+	}
+
+	public void setVoie(Collection<Voie> voie) {
+		this.voie = voie;
+	}
 	
 	
 }

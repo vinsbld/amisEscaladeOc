@@ -46,13 +46,13 @@
 				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
 				<h1>Secteur(s)</h1>
 				
-				<form th:action="@{/secteur}" th:object="${listSecteur}" methode="get">
+				<form th:action="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${addSecteurToSite.idSiteEscalade})}" th:object="${listSecteur}" methode="get">
 					<label>Mot clé :</label>
 					<input type="text" name="motCle" th:value="${motCle}"></input>
 					<button class="btn btn-primary">Chercher</button>
 				</form>
 				
-				<a class="btn-get-create" th:href="@{/secteur/create}">Ajouter un secteur</a></td>
+				<a class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${addSecteurToSite.idSiteEscalade})}">Ajouter un secteur</a></td>
 
 <div class="custyle">
 				<table class="table table-striped listTableDeco">

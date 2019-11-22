@@ -17,7 +17,7 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/secteur/{idSecteur}/update(idSecteur=${addSecteur.idSecteur})}" th:object="${addSecteur}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/update(idSiteEscalade=${addSec.idSiteEscalade})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier un secteur</h2>
 		</div>		
