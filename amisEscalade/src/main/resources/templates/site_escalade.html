@@ -71,7 +71,7 @@
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/view/secteur(idSiteEscalade=${site.idSiteEscalade})}">Ajouter</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${site.idSiteEscalade})}">Ajouter</a></td>
 							<td><a onclick="return confirm('Etes vous sûre de voiloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/{idSiteEscalade}/delete(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>

@@ -83,21 +83,7 @@ public class SiteEscaladeController {
 		return "redirect:/site_escalade";
 	}
 	
-	
-	@GetMapping("/site_escalade/{idSiteEscalade}/view/secteur")	
-	public String addToSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
-		
-		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
-		
-		SiteEscalade addSecteurToSite = null;
-		
-		if(s.isPresent()) {
-			addSecteurToSite = s.get();
-		}
-		model.addAttribute("addSecteurToSite", addSecteurToSite);
-		
-		return"secteur";
-	}
+
 	
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
 	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {

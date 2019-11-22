@@ -85,6 +85,26 @@ public class SiteEscalade implements Serializable{
 	}
 
 
+	public UserGrimp getUserGrimp() {
+		return userGrimp;
+	}
+
+
+	public void setUserGrimp(UserGrimp userGrimp) {
+		this.userGrimp = userGrimp;
+	}
+
+
+	public Collection<Secteur> getSecteur() {
+		return secteur;
+	}
+
+
+	public void setSecteur(Collection<Secteur> secteur) {
+		this.secteur = secteur;
+	}
+
+
 
 
 	
