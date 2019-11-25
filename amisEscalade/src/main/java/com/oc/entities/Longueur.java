@@ -16,33 +16,34 @@ import javax.validation.constraints.NotNull;
 public class Longueur implements Serializable {
 	
 	@Id @GeneratedValue
-	private long id_longueur;
+	private long idLongueur;
 	@NotNull
 	private int distance;
 	@NotNull
 	private int hauteur;
 	
 	@ManyToOne
-	@JoinColumn(name = "LONG_VOI")
+	@JoinColumn(name = "LONGR_VOI")
 	private Voie voie;
 	
 	public Longueur() {
 
 	}
 
-	public Longueur(long id_longueur, @NotNull int distance, @NotNull int hauteur) {
+	public Longueur(long idLongueur, @NotNull int distance, @NotNull int hauteur, Voie voie) {
 		super();
-		this.id_longueur = id_longueur;
+		this.idLongueur = idLongueur;
 		this.distance = distance;
 		this.hauteur = hauteur;
+		this.voie = voie;
 	}
 
-	public long getId_longueur() {
-		return id_longueur;
+	public long getIdLongueur() {
+		return idLongueur;
 	}
 
-	public void setId_longueur(long id_longueur) {
-		this.id_longueur = id_longueur;
+	public void setIdLongueur(long idLongueur) {
+		this.idLongueur = idLongueur;
 	}
 
 	public int getDistance() {
@@ -60,9 +61,15 @@ public class Longueur implements Serializable {
 	public void setHauteur(int hauteur) {
 		this.hauteur = hauteur;
 	}
-	
-	
-	
-	
+
+	public Voie getVoie() {
+		return voie;
+	}
+
+	public void setVoie(Voie voie) {
+		this.voie = voie;
+	}
+
+
 
 }
