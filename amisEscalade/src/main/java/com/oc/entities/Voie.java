@@ -17,7 +17,7 @@ import org.springframework.lang.NonNull;
 public class Voie implements Serializable {
 	
 	@Id @GeneratedValue
-	private long id_voie;
+	private long idVoie;
 	@NonNull
 	private String nomDeVoie;
 	@NonNull
@@ -34,19 +34,21 @@ public class Voie implements Serializable {
 
 	}
 
-	public Voie(long id_voie, String nomDeVoie, String cotation) {
-
-		this.id_voie = id_voie;
+	public Voie(long idVoie, String nomDeVoie, String cotation, Secteur secteur, Collection<Longueur> longueur) {
+		super();
+		this.idVoie = idVoie;
 		this.nomDeVoie = nomDeVoie;
 		this.cotation = cotation;
+		this.secteur = secteur;
+		this.longueur = longueur;
 	}
 
-	public long getId_voie() {
-		return id_voie;
+	public long getIdVoie() {
+		return idVoie;
 	}
 
-	public void setId_voie(long id_voie) {
-		this.id_voie = id_voie;
+	public void setIdVoie(long idVoie) {
+		this.idVoie = idVoie;
 	}
 
 	public String getNomDeVoie() {
@@ -64,7 +66,23 @@ public class Voie implements Serializable {
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
-	
-	
+
+	public Secteur getSecteur() {
+		return secteur;
+	}
+
+	public void setSecteur(Secteur secteur) {
+		this.secteur = secteur;
+	}
+
+	public Collection<Longueur> getLongueur() {
+		return longueur;
+	}
+
+	public void setLongueur(Collection<Longueur> longueur) {
+		this.longueur = longueur;
+	}
+
+
 	
 }
