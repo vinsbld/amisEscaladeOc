@@ -44,7 +44,7 @@ public class SiteEscaladeController {
 		
 		siteEscaladeService.saveSiteEscalade(siteEscaladeForm, result);
 		
-		return "site_escalade";
+		return "redirect:/site_escalade";
 	}
 	
 	@GetMapping("/site_escalade")
