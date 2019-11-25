@@ -47,7 +47,7 @@ public class SecteurController {
 		return "formSecteur";
 	}
 
-	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/update")
+	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String ajouterSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("idSiteEscalade") long idSiteEscalade,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 
@@ -68,6 +68,7 @@ public class SecteurController {
 			@RequestParam(name = "motCle", defaultValue = "") String motCle) {
 		
 		SiteEscalade site =siteEscaladeRepository.findById(idSiteEscalade).get();
+		
 		Page<Secteur> pageSecteurs = secteurRepository.chercher("%" + motCle + "%", new PageRequest(p, s));
 
 		model.addAttribute("addSecteurToSite", site);
@@ -100,7 +101,8 @@ public class SecteurController {
 	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, Model model,
 			@ModelAttribute("editFormSecteur") SecteurForm secteurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
-		secteurService.saveSecteur(1, secteurForm, result);
+		
+		secteurService.modifySecteur(idSecteur, secteurForm, result);
 		return "redirect:/secteur";
 	}
 
@@ -110,7 +112,7 @@ public class SecteurController {
 
 		secteurRepository.deleteById(idSecteur);
 
-		return "redirect:/secteur";
+		return "redirect:/site_escalade/"+idSecteur+"/secteur";
 	}
 
 }

@@ -25,11 +25,22 @@ public class SecteurService {
 		newSecteur.setNomDuSecteur(secteurForm.getNomDuSecteur());
 		newSecteur.setLocalisation(secteurForm.getLocalisation());
 		newSecteur.setAcces(secteurForm.getAcces());
+		
 		SiteEscalade siteSec = siteEscaladeRepository.findById(idSite).get();
 		
 		newSecteur.setSiteEscalade(siteSec);
 		secteurRepository.save(newSecteur);
 		
+	}
+	
+	public void modifySecteur(long idSecteur, SecteurForm secteurForm, BindingResult result) {
+		
+		Secteur sec = secteurRepository.findById(idSecteur).get();
+		sec.setNomDuSecteur(secteurForm.getNomDuSecteur());
+		sec.setLocalisation(secteurForm.getLocalisation());
+		sec.setAcces(secteurForm.getAcces());
+		
+		secteurRepository.save(sec);
 	}
 
 }
