@@ -79,5 +79,13 @@ public class LongueurController {
 		return "longueur";
 	}
 	
+	@GetMapping("/longueur/{idLongueur}/delete")
+	public String deleteLongueur(@PathVariable("idLongueur") long idLongueur, Model model, final RedirectAttributes redirectAttributes) {
+		
+		longueurRepository.deleteById(idLongueur);
+		
+		return "redirect:/longueur/"+ idLongueur;
+	}
+	
 
 }
