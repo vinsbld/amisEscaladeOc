@@ -68,7 +68,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="sectr:${listSecteur}">
-							<td ><a th:href="@{index}"><span th:text="${sectr.nomDuSecteur}"></span></a></td>
+							<td th:text="${sectr.nomDuSecteur}"></td>
 							<td th:text="${sectr.localisation}"></td>
 							<td th:text="${sectr.acces}"></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/secteur/{idSecteur}/edit(idSecteur=${sectr.idSecteur})}">Modifier</a></td>
