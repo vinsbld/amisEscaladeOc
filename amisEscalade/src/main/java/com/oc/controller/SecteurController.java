@@ -43,7 +43,7 @@ public class SecteurController {
 	public String formSect(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade) {
 		
 		SiteEscalade site =siteEscaladeRepository.findById(idSiteEscalade).get();
-		model.addAttribute("addSec", site);
+		
 		return "formSecteur";
 	}
 
