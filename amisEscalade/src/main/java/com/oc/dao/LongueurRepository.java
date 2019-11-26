@@ -12,6 +12,6 @@ import com.oc.entities.Voie;
 
 @Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long> {
-	@Query("select lon from Longueur lon where lon.distance like:x")
+	@Query("select lon from Longueur lon where CAST(lon.distance AS text) like:x")
 	public Page<Longueur> chercher(@Param("x")String motCle, Pageable pageable);
 }

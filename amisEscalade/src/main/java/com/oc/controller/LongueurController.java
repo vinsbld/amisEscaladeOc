@@ -34,10 +34,11 @@ public class LongueurController {
 	private VoieRepository voieRepository;
 	
 	@GetMapping("/voie/{idVoie}/longueur/create")
-	public String formLong(Model model, @PathVariable("idLongueur") long idLongueur) {
+	public String formLong(Model model, @PathVariable("idVoie") long idVoie) {
 		
-		Voie voies = voieRepository.findById(idLongueur).get();
+		Voie voies = voieRepository.findById(idVoie).get();
 		model.addAttribute("addLongr", voies);
+		
 		return "formLongueur";
 	}
 	
@@ -51,7 +52,7 @@ public class LongueurController {
 		
 		longueurService.saveLongueur(idVoie, longueurForm, result);
 		
-		return"redirect:/voie"+ idVoie +"/longueur";
+		return"redirect:/voie/"+ idVoie +"/longueur";
 		
 	}
 	

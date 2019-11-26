@@ -46,13 +46,13 @@
 				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
 				<h1>Longueur(s)</h1>
 				
-				<form th:action="@{/voie/{idVoie}/longueur(idVoie=${addVoieToSecteur.idVoie})}" methode="get">
+				<form th:action="@{/voie/{idVoie}/longueur(idVoie=${addLongrToVoie.idVoie})}" methode="get">
 					<label>Mot clé :</label>
 					<input type="text" name="motCle" th:value="${motCle}"></input>
 					<button class="btn btn-primary">Chercher</button>
 				</form>
 				
-				<a class="btn-get-create" th:href="@{/voie/{idVoie}/longueur/create(idVoie=${addVoieToSecteur.idVoie})}">Ajouter une Longueur</a></td>
+				<a class="btn-get-create" th:href="@{/voie/{idVoie}/longueur/create(idVoie=${addLongrToVoie.idVoie})}">Ajouter une Longueur</a></td>
 
 <div class="custyle">
 				<table class="table table-striped listTableDeco">
@@ -67,7 +67,7 @@
 					<tbody>
 						<tr th:each="lon:${listLongueur}">
 							<td th:text="${lon.distance}"></td>
-							<td th:text="${lon.longueur}"></td>
+							<td th:text="${lon.hauteur}"></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/longueur/{idLongueur}/edit(idLongueur=${lon.idLongueur})}">Modifier</a></td>
 							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" href="#">Supprimer</a></td>
 						</tr>

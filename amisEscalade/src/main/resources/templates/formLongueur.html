@@ -6,10 +6,10 @@
 <meta charset="utf-8" />
 
   <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="../static/css/style.css"
-	th:href="@{css/style_form.css}" />
+	th:href="@{/css/style_form.css}" />
 	
 <title>Formulaire Longueur</title>
 
@@ -17,7 +17,7 @@
 
 <body>
 	<div class="signup-form">
-    <form action="longueur" method="post" class="form-horizontal">
+    <form th:action="@{/voie/{idVoie}/longueur/create(idVoie=${addLongr.idVoie})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Ajout d'une longueur</h2>
 		</div>		
