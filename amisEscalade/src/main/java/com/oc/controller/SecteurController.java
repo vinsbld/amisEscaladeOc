@@ -83,8 +83,8 @@ public class SecteurController {
 		return "secteur";
 	}
 
-	@GetMapping("/secteur/{idSecteur}/edit")
-	public String editSecteur(@PathVariable("idSecteur") long idSecteur, Model model) {
+	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit")
+	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		Optional<Secteur> sec = secteurRepository.findById(idSecteur);
 
 		Secteur addSecteur = null;
@@ -97,22 +97,23 @@ public class SecteurController {
 		return "editFormSecteur";
 	}
 
-	@PostMapping("/secteur/{idSecteur}/update")
-	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, Model model,
+	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update")
+	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			@ModelAttribute("editFormSecteur") SecteurForm secteurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		secteurService.modifySecteur(idSecteur, secteurForm, result);
-		return "redirect:/secteur";
+		
+		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur";
 	}
 
-	@GetMapping("/secteur/{idSecteur}/delete")
-	public String deleteSecteur(@PathVariable("idSecteur") long idSecteur, Model model,
+	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete")
+	public String deleteSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			final RedirectAttributes redirectAttributes) {
 
 		secteurRepository.deleteById(idSecteur);
 
-		return "redirect:/site_escalade/"+idSecteur+"/secteur";
+		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur";
 	}
 
 }

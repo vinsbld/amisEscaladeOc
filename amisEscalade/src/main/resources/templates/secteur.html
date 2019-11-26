@@ -43,7 +43,7 @@
 
 		<section id="page">
 			<div class="page-container">
-				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
+				<h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3>
 				<h1>Secteur(s)</h1>
 				
 				<form th:action="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${addSecteurToSite.idSiteEscalade})}" methode="get">
@@ -71,9 +71,9 @@
 							<td th:text="${sectr.nomDuSecteur}"></td>
 							<td th:text="${sectr.localisation}"></td>
 							<td th:text="${sectr.acces}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/secteur/{idSecteur}/edit(idSecteur=${sectr.idSecteur})}">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit(idSecteur=${sectr.idSecteur},idSiteEscalade=${idSiteEscalade})}">Modifier</a></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/secteur/{idSecteur}/voie(idSecteur=${sectr.idSecteur})}">Ajouter</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{/secteur/{idSecteur}/delete(idSecteur=${sectr.idSecteur})}">Supprimer</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce secteur ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete(idSecteur=${sectr.idSecteur}, idSiteEscalade=${idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
