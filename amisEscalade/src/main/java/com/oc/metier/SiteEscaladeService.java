@@ -25,5 +25,15 @@ public class SiteEscaladeService {
 		siteEscaladeRepository.save(newSiteEscalade);
 	}
 	
+	public void modifySiteEscalade(long idSiteEscalade, SiteEscaladeForm siteEscaladeForm, BindingResult result) {
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		site.setNomSiteEscalade(siteEscaladeForm.getName());
+		site.setDepartement(siteEscaladeForm.getDepartement());
+		site.setVille(siteEscaladeForm.getVille());
+		
+		siteEscaladeRepository.save(site);
+		
+	}
 
 }

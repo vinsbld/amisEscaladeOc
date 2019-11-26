@@ -86,9 +86,10 @@ public class SiteEscaladeController {
 
 	
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
-	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
+	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, Model model, final RedirectAttributes redirectAttributes) {
 		
 		siteEscaladeRepository.deleteById(idSiteEscalade);
+		
 		return "redirect:/site_escalade";
 				
 	}
