@@ -1,5 +1,6 @@
 package com.oc.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.dao.VoieRepository;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Voie;
 import com.oc.forms.SecteurForm;
 import com.oc.metier.SecteurService;
 import com.oc.metier.SiteEscaladeService;
@@ -38,6 +41,9 @@ public class SecteurController {
 	
 	@Autowired
 	private SiteEscaladeService siteEscaladeService;
+	
+	@Autowired
+	private VoieRepository voieRepository;
 
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String formSect(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade) {
@@ -57,34 +63,27 @@ public class SecteurController {
 
 		secteurService.saveSecteur(idSiteEscalade, secteurForm, result);
 
-		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur";
+		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
 
-	@GetMapping("/site_escalade/{idSiteEscalade}/secteur")
-	public String secteurSiteEscal(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade,
-
-			@RequestParam(name = "page", defaultValue = "0") int p,
-			@RequestParam(name = "size", defaultValue = "4") int s,
-			@RequestParam(name = "motCle", defaultValue = "") String motCle) {
+	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}")
+	public String secteurSiteEscal(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur) {
 		
 		SiteEscalade site =siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
 		
-		Page<Secteur> pageSecteurs = secteurRepository.chercher("%" + motCle + "%", new PageRequest(p, s));
-
-		model.addAttribute("addSecteurToSite", site);
-	
-		model.addAttribute("listSecteur", pageSecteurs.getContent());
+		Secteur secteur =secteurRepository.findById(idSecteur).get();
+		model.addAttribute("secteur", secteur);
 		
-		int[] pages = new int[pageSecteurs.getTotalPages()];
-		model.addAttribute("pages", pages);
-		model.addAttribute("size", s);
-		model.addAttribute("pageCourante", p);
-		model.addAttribute("motCle", motCle);
+		List<Voie> voie = voieRepository.findBySecteur(idSecteur);
+		model.addAttribute("voie", voie);
+		
 		return "secteur";
 	}
 
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit")
 	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+		
 		Optional<Secteur> sec = secteurRepository.findById(idSecteur);
 
 		Secteur addSecteur = null;

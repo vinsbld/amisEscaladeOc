@@ -105,12 +105,11 @@ public class SiteEscaladeController {
 	public String leSite(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model) {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
-		
 		model.addAttribute("site", site);
 		
 		List<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
-		
 		model.addAttribute("sec", sec);
+		
 		
 		return"le_site_escalade";
 	}

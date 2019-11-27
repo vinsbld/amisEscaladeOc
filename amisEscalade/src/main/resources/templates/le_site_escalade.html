@@ -46,13 +46,13 @@
 			<div class="page-container">
 
 				<!-- nomDuspot -->
-				<h1>
+				<h4>
 					<span th:text="${site.nomSiteEscalade}"></span>
-				</h1>
+				</h4>
 
 				<div class="custyle">
 					<!-- le spot -->
-					<table class="table table-striped listTableDeco">
+					<table class="table listTableDeco">
 						<thead>
 							<tr>
 								<th>Département</th>
@@ -68,19 +68,18 @@
 						</tbody>
 					</table>
 					<!-- les secteurs -->
-					<span th:text="${site.nomSiteEscalade}"></span>
-					<h1>Secteur(s)</h1>
-					<form
+					<h1>SECTEUR'S'</h1>
+				<!-- 	<form
 							th:action="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${site.idSiteEscalade})}"methode="get">
 							<label>Nom : </label> <input type="text" name="motCle" th:value="${motCle}" placeholder="recherher un secteur"></input>
 							<button class="btn-get-create">OK</button>
-					</form>
+					</form> -->
 
 					<table class="table table-striped listTableDeco">
-						<a class="btn-get-create"
+						<button class="btn-get-create"><a
 							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
-							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span>
-						</a>
+							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span></a>
+						</button>
 						<thead>
 							<th>Nom du secteur</th>
 							<th>Localisation</th>
@@ -90,7 +89,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="secteur:${sec}">
-								<td><a th:href="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${secteur.nomDuSecteur}"></span></a></td>
+								<td><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><span th:text="${secteur.nomDuSecteur}"></span></a></td>
 								<td th:text="${secteur.localisation}"></td>
 								<td th:text="${secteur.acces}"></td>
 								<td><a class="btn btn-info btn-xs"

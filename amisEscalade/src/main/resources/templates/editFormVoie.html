@@ -17,7 +17,7 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/secteur/{idSecteur}/secteur/update(idSiteEscalade=${editFormSecteur.idSiteEscalade})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier une Voie</h2>
 		</div>		

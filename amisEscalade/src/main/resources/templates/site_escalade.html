@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 
@@ -61,28 +62,20 @@
 							<th>Département</th>
 							<th>Ville</th>	
 							<th>Modifier</th>
-							<th>Ajouter un Secteur</th>
 							<th>Supprimer</th>
 							</tr>
 					</thead>
 					<tbody>
 						<tr th:each="site:${listSite}">
-							<td ><!-- <a th:href="@{index}"> --><span th:text="${site.nomSiteEscalade}"></span><!-- </a> --></td>
+							<td ><a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${site.nomSiteEscalade}"></span></a></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${site.idSiteEscalade})}">Ajouter</a></td>
 							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/{idSiteEscalade}/delete/(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
 </div>
-			<ul class="nav justify-content-center">
-				<li th:class="${pageCourante}==${status.index}?'active':''"
-					th:each="pa, status:${pages}"><a
-					th:href="@{index(page=${status.index},size=${size}, site=${site}, motCle=${motCle})}"
-					th:text="${status.index}"></a></li>
-			</ul>
 			
 		</div>
 		</section>

@@ -3,6 +3,7 @@ package com.oc.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Voie implements Serializable {
 	@JoinColumn(name = "VOI_SECT")
 	private Secteur secteur;
 	
-	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Longueur> longueur;
 	
 	public Voie() {

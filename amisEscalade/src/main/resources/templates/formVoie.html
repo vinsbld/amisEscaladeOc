@@ -17,7 +17,7 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'une voie</h2>
 		</div>		
