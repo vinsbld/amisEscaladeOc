@@ -1,5 +1,6 @@
 package com.oc.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.forms.SiteEscaladeForm;
 import com.oc.metier.SiteEscaladeService;
@@ -28,6 +31,9 @@ public class SiteEscaladeController {
 	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
+	
+	@Autowired
+	private SecteurRepository secteurRepository;
 
 	@GetMapping("/site_escalade/create")
 	public String formSit() {
@@ -52,6 +58,7 @@ public class SiteEscaladeController {
 			@RequestParam(name="page", defaultValue="0")int p,
 			@RequestParam(name="size", defaultValue="4")int s,
 			@RequestParam(name="motCle", defaultValue="")String motCle) {
+		
 		Page<SiteEscalade> pageSites = siteEscaladeRepository.chercher("%"+motCle+"%", new PageRequest(p, s));
 		
 		model.addAttribute("listSite", pageSites.getContent());
@@ -94,6 +101,28 @@ public class SiteEscaladeController {
 				
 	}
 	
+	@GetMapping("/le_site_escalade/{idSiteEscalade}/view")
+	public String leSite(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model) {
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		
+		model.addAttribute("site", site);
+		
+		List<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
+		
+		model.addAttribute("sec", sec);
+		
+		return"le_site_escalade";
+	}
 	
+	@GetMapping("/le_site_escalade/{idSiteEscalade}/view/{idSecteur}/voie")
+	public String lesVoies() {
+		return"le_site_escalade_secteur";
+	}
+	
+	@GetMapping("/le_site_escalade/{idSiteEscalade}/view/{idSecteur}/{idVoie}/longueur")
+	public String lesLongueurs() {
+		return"le_site_escalade_voie";
+	}
 	
 }

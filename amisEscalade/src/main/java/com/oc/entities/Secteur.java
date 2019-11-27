@@ -2,7 +2,9 @@ package com.oc.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class Secteur implements Serializable {
 	@JoinColumn(name = "SECT_SIT")
 	private SiteEscalade siteEscalade;
 	
-	@OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Voie> voie;
 	
 	

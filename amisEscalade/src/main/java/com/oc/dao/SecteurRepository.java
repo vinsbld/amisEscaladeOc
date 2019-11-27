@@ -1,5 +1,7 @@
 package com.oc.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,7 @@ import com.oc.entities.Secteur;
 public interface SecteurRepository extends JpaRepository<Secteur, Long> {
 @Query("select sec from Secteur sec where sec.nomDuSecteur like:x")
 public Page<Secteur> chercher(@Param("x")String motCle, Pageable pageable);
+
+@Query("select sec from Secteur sec where sec.siteEscalade.idSiteEscalade = :x")
+public List<Secteur> findBySite(@Param("x") long id);
 }
