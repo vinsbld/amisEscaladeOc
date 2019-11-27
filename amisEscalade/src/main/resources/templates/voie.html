@@ -43,7 +43,7 @@
 
 		<section id="page">
 			<div class="page-container">
-				<!-- <h3 th:text="${addSecteurToSite.nomSiteEscalade}"></h3> -->
+				<h3 th:text="${addVoieToSecteur.nomDuSecteur}"></h3>
 				<h1>Voie(s)</h1>
 				
 				<form th:action="@{/secteur/{idSecteur}/voie(idSecteur=${addVoieToSecteur.idSecteur})}" methode="get">
@@ -69,9 +69,9 @@
 						<tr th:each="vo:${listVoie}">
 							<td ><a th:href="@{index}"><span th:text="${vo.nomDeVoie}"></span></a></td>
 							<td th:text="${vo.cotation}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/voie/{idVoie}/edit(idVoie=${vo.idVoie})}">Modifier</a></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/secteur/{idSecteur}/voie/{idVoie}/edit(idVoie=${vo.idVoie}, idSecteur=${idSecteur})}">Modifier</a></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/voie/{idVoie}/longueur(idVoie=${vo.idVoie})}">Ajouter</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" href="#">Supprimer</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette voie ?')" class="btn btn-danger btn_xs" th:href="@{/secteur/{idSecteur}/voie/{idVoie}/delete(idVoie=${vo.idVoie}, idSecteur=${idSecteur})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>

@@ -33,5 +33,13 @@ public class VoieService {
 		
 	}
 	
+	public void modifyVoie(long idVoie, VoieForm voieForm, BindingResult result) {
+		
+		Voie voi = voieRepository.findById(idVoie).get();
+		voi.setNomDeVoie(voieForm.getName());
+		voi.setCotation(voieForm.getCotation());
+		
+		voieRepository.save(voi);
+	}
 
 }

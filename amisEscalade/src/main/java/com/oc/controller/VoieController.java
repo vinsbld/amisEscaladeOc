@@ -1,8 +1,11 @@
 package com.oc.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,7 +68,7 @@ public class VoieController {
 	public String formVoie(Model model, @PathVariable("idSecteur") long idSecteur) {
 		
 		Secteur secteur = secteurRepository.findById(idSecteur).get();
-		model.addAttribute("addVoie", secteur);
+		
 		return "formVoie";
 	}
 
@@ -84,6 +87,35 @@ public class VoieController {
 
 	}
 	
+	@GetMapping("/secteur/{idSecteur}/voie/{idVoie}/edit")
+	public String editVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, Model model) {
+		
+		Voie v = voieRepository.findById(idVoie).get();
+		
+		model.addAttribute("editVoie", idVoie);
+		
+		return"editFormVoie";
+	}
+	
+	@PostMapping("/secteur/{idSecteur}/voie/{idVoie}/update")
+	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, Model model, 
+			@ModelAttribute("editFormVoie") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
+		
+		voieService.modifyVoie(idVoie, voieForm, result);
+		
+		return "redirect:/secteur"+idSecteur+"/voie";
+		
+	}
+			
+	
+	@GetMapping("/secteur/{idSecteur}/voie/{idVoie}/delete")
+	public String deleteVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, Model model,
+			final RedirectAttributes redirectAttributes) {
+
+		voieRepository.deleteById(idVoie);
+
+		return "redirect:/secteur/"+idSecteur+"/voie";
+	}
 
 
 }
