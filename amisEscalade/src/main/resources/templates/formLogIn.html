@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+ 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 <head>
@@ -18,6 +19,7 @@
 <body>
 	<div class="signup-form">
 		<form th:action="@{/connexion}" method="post" class="form-horizontal">
+			<fieldset>
 			<div class="text-center">
 				<img src="img/logo_mini.png" alt="logo_mini" title="logo_mini" /></img>
 			</div>
@@ -50,9 +52,14 @@
 						required="required">
 				</div>
 			</div>
+    
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>
 			</div>
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+			</fieldset>	
 		</form>
 	</div>
 </body>
