@@ -20,11 +20,13 @@ public class UserDetailsServiceImp implements UserDetailsService{
 				
 		UserGrimp userGrimp = userGrimpRepository.findByPseudo(username);
 		
-		if(userGrimp != null) {
-			
+		if (userGrimp == null) {
+            throw new UsernameNotFoundException("Utilisateur inconnu : " + username);
+        }
+		else {
 			return userGrimp;
 		}
-		return null;
+		
 	}
 
 
