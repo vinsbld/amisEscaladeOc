@@ -1,3 +1,5 @@
+
+
 package com.oc.controller;
 
 import java.util.List;
@@ -87,12 +89,12 @@ public class SecteurController {
 		Optional<Secteur> sec = secteurRepository.findById(idSecteur);
 
 		Secteur addSecteur = null;
+		model.addAttribute("addSecteur", addSecteur);
 
 		if (sec.isPresent()) {
 			addSecteur = sec.get();
 		}
-		model.addAttribute("addSecteur", addSecteur);
-
+		
 		return "editFormSecteur";
 	}
 
@@ -112,7 +114,7 @@ public class SecteurController {
 
 		secteurRepository.deleteById(idSecteur);
 
-		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur";
+		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
 
 }

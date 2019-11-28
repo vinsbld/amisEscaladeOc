@@ -113,15 +113,6 @@ public class SiteEscaladeController {
 		
 		return"le_site_escalade";
 	}
-	
-	@GetMapping("/le_site_escalade/{idSiteEscalade}/view/{idSecteur}/voie")
-	public String lesVoies() {
-		return"le_site_escalade_secteur";
-	}
-	
-	@GetMapping("/le_site_escalade/{idSiteEscalade}/view/{idSecteur}/{idVoie}/longueur")
-	public String lesLongueurs() {
-		return"le_site_escalade_voie";
-	}
+
 	
 }

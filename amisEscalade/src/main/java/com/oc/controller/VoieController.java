@@ -1,5 +1,6 @@
 package com.oc.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,25 @@ public class VoieController {
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
-	@GetMapping("/secteur/{idSecteur}/voie/{idVoie}")
-	public String voieSecteur(Model model, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie)
+	@Autowired 
+	private LongueurRepository longueurRepository;
+	
+	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}")
+	public String voieSecteur(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie)
 	{
 	
+	SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+	model.addAttribute("site", site);
+		
 	Secteur secteur= secteurRepository.findById(idSecteur).get();
 	model.addAttribute("secteur", secteur);
 	
 	Voie voie = voieRepository.findById(idVoie).get();
 	model.addAttribute("voie", voie);
+	
+	List<Longueur> longueur = longueurRepository.findByVoie(idVoie);
+	model.addAttribute("longueur", longueur);
+	
 	
 	return "voie";
 	}

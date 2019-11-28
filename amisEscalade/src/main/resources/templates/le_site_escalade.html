@@ -47,7 +47,7 @@
 
 				<!-- nomDuspot -->
 				<h4>
-					<span th:text="${site.nomSiteEscalade}"></span>
+					<a th:href="@{/site_escalade}"><span th:text="${site.nomSiteEscalade}"></span></a>
 				</h4>
 
 				<div class="custyle">
@@ -94,7 +94,6 @@
 								<td th:text="${secteur.acces}"></td>
 								<td><a class="btn btn-info btn-xs"
 									th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit(idSecteur=${secteur.idSecteur},idSiteEscalade=${idSiteEscalade})}">Modifier</a></td>
-								<!-- <td><a class="btn-get-create" th:href="@{/secteur/{idSecteur}/voie(idSecteur=${secteur.idSecteur})}">Ajouter</a></td> -->
 								<td><a
 									onclick="return confirm('Etes vous sûre de vouloir supprimer ce secteur ?')"
 									class="btn btn-danger btn_xs"

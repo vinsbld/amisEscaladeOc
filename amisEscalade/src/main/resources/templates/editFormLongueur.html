@@ -17,9 +17,9 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/update(idLongueur=${idLongueur}, idVoie=${idVoie}, idSecteur=${idSecteur}, idSiteEscalade=${idSiteEscalade})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
-			<h2>Ajout d'une longueur</h2>
+			<h2>Modifier une longueur</h2>
 		</div>		
 		<div class="form-group">
 			<label class="control-label col-xs-4">Distance</label>

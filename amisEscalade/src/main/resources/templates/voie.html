@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 
@@ -43,42 +44,93 @@
 
 		<section id="page">
 			<div class="page-container">
-				<h3 th:text="${secteur.nomDuSecteur}"></h3>
-				<h1>Voie(s)</h1>
+			
+			<!-- nomDuspot -->
+			<h4>
+				<a th:href="@{/site_escalade}"><span th:text="${site.nomSiteEscalade}"></span></a>
+			</h4>
 				
-				<form th:action="@{/secteur/{idSecteur}/voie(idSecteur=${secteur.idSecteur})}" methode="get">
-					<label>Mot clé :</label>
-					<input type="text" name="motCle" th:value="${motCle}"></input>
-					<button class="btn btn-primary">Chercher</button>
-				</form>
-				
-				<a class="btn-get-create" th:href="@{/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur})}">Ajouter une Voie</a></td>
-
-<div class="custyle">
-				<table class="table table-striped listTableDeco">
+			<div class="custyle">
+			<!-- le spot -->
+				<table class="table listTableDeco">
 					<thead>
 						<tr>
-							<th>Nom de la voie</th>
-							<th>Cotation</th>	
+							<th>Département</th>
+							<th>Ville</th>
 							<th>Modifier</th>
-							<th>Ajouter une Longueur</th>
-							<th>Supprimer</th>
-							</tr>
+						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="vo:${voie}">
-							<td th:text="${vo.nomDeVoie}"></td>
-							<td th:text="${vo.cotation}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/secteur/{idSecteur}/voie/{idVoie}/edit(idVoie=${vo.idVoie}, idSecteur=${secteur.idSecteur})}">Modifier</a></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/voie/{idVoie}/longueur(idVoie=${vo.idVoie})}">Ajouter</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette voie ?')" class="btn btn-danger btn_xs" th:href="@{/secteur/{idSecteur}/voie/{idVoie}/delete(idVoie=${vo.idVoie}, idSecteur=${idSecteur})}">Supprimer</a></td>
+						<td th:text="${site.departement}"></td>
+						<td th:text="${site.ville}"></td>
+						<td><a class="btn btn-info btn-xs"
+								th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+						</tbody>
+				</table>
+				
+				<!-- les secteurs -->
+					<h4>
+						<a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${secteur.nomDuSecteur}"></span></a>
+					</h4>
+					
+				<table class="table listTableDeco">
+					<thead>
+						<th>Localisation</th>
+						<th>Acces</th>
+						<th>Modifier</th>
+					</thead>
+					<tbody>
+					<tr>
+						<td th:text="${secteur.localisation}"></td>
+						<td th:text="${secteur.acces}"></td>
+						<td><a class="btn btn-info btn-xs"
+									th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit(idSecteur=${secteur.idSecteur},idSiteEscalade=${idSiteEscalade})}">
+									Modifier</a></td>
+					</tr>
+					</tbody>
+				</table>
+				
+				<!-- les voies -->
+				<table class="table listTableDeco">
+			
+					<h4>
+						<a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><span  th:text="${voie.nomDeVoie}"></span></a>
+					</h4>
+					<thead>
+						<th>Cotation</th>
+						<th>Modifier</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${voie.cotation}"></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Modifier</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- les longueurs -->
+				<table class="table table-striped listTableDeco">
+					<h1>LONGUEUR'S'</h1>
+					<button class="btn-get-create"><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Ajouter une longueur à <span th:text="${voie.nomDeVoie}"></span></a></button>
+					<thead>
+						<th>Distance</th>
+						<th>Hauteur</th>
+						<th>Modifier</th>
+						<th>Supprimer</th>
+					</thead>
+					<tbody>
+						<tr th:each="longr:${longueur}">
+							<td th:text="${longr.distance}"></td>
+							<td th:text="${longr.hauteur}"></td>
+							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette Longueur ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
 </div>
-</div>
+			
+		</div>
 		</section>
-		<!-- #Secteur -->
+		<!-- #Site d'escalade -->
 	</main>
 
 </body>

@@ -25,10 +25,20 @@ public class LongueurService {
 		newLongueur.setDistance(longueurForm.getDistance());
 		newLongueur.setHauteur(longueurForm.getHauteur());
 		
-		Voie voiLong = voieRepository.findById(idVoie).get();
+		Voie voie = voieRepository.findById(idVoie).get();
 		
-		newLongueur.setVoie(voiLong);
+		newLongueur.setVoie(voie);
 		longueurRepository.save(newLongueur);
+		
+	}
+	
+	public void modifyLongueur(long idLongueur, LongueurForm longueurForm, BindingResult result) {
+		
+		Longueur longr = longueurRepository.findById(idLongueur).get();
+		longr.setDistance(longueurForm.getDistance());
+		longr.setHauteur(longueurForm.getHauteur());
+		
+		longueurRepository.save(longr);
 		
 	}
 

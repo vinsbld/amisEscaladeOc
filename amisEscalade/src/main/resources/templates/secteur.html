@@ -47,7 +47,7 @@
 			
 			<!-- nomDuspot -->
 			<h4>
-				<span th:text="${site.nomSiteEscalade}"></span>
+				<a th:href="@{/site_escalade}"><span th:text="${site.nomSiteEscalade}"></span></a>
 			</h4>
 				
 			<div class="custyle">
@@ -70,7 +70,7 @@
 				
 				<!-- les secteurs -->
 					<h4>
-						<span th:text="${secteur.nomDuSecteur}"></span>
+						<a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${secteur.nomDuSecteur}"></span></a>
 					</h4>
 					
 				<table class="table listTableDeco">
@@ -103,10 +103,9 @@
 					</thead>
 					<tbody>
 						<tr th:each="vo:${voie}">
-							<td th:text="${vo.nomDeVoie}"></td>
+							<td><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${vo.idVoie})}"><span th:text="${vo.nomDeVoie}"></span></a></td>
 							<td th:text="${vo.cotation}"></td>
 							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${vo.idVoie})}">Modifier</a></td>
-							<!-- <td><a class="btn btn-info btn-xs" th:href="@{/voie/{idVoie}/longueur(idVoie=${vo.idVoie})}">Ajouter</a></td> -->
 							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette voie ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/delete(idVoie=${vo.idVoie}, idSecteur=${idSecteur}, idSiteEscalade=${idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
