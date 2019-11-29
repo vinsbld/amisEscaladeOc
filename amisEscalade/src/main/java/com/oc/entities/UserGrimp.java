@@ -47,8 +47,10 @@ public class UserGrimp implements UserDetails {
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
 	private Collection<SiteEscalade>siteEscalades;
 	
-	@OneToMany(mappedBy = "userGrim", fetch = FetchType.LAZY)
-	private Collection<Topo>topos;
+	/*
+	 * @OneToMany(mappedBy = "userGrim", fetch = FetchType.LAZY) private
+	 * Collection<Topo>topos;
+	 */
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Cascade(value = CascadeType.REMOVE)
@@ -216,19 +218,6 @@ public class UserGrimp implements UserDetails {
 		return false;
 	}
 
-
-
-
-	public Collection<Topo> getTopos() {
-		return topos;
-	}
-
-
-
-
-	public void setTopos(Collection<Topo> topos) {
-		this.topos = topos;
-	}
 
 	
 }

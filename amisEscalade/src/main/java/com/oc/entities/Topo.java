@@ -29,9 +29,11 @@ public class Topo implements Serializable{
 	@NonNull
 	private Date edate;
 	
-	@ManyToOne
-	@JoinColumn(name = "TOPO_USR")
-	private UserGrimp userGrimp;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "TOPO_USR") private UserGrimp userGrimp;
+	 */
 	
 	public Topo() {
 
