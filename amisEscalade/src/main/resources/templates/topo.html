@@ -58,26 +58,24 @@
 							</tr>
 					</thead>
 					<tbody>
-						<tr th:each="topo:${topo}">
-							<td th:text="${topo.name}"></td>
+						<tr th:each="topo:${listeTopo}">
+							<td><b><span th:text="${topo.name}"></span></b></td>
 							<td th:text="${topo.description}"></td>
 							<td th:text="${topo.lieu}"></td>
-							<td th:text="${topo.eDate}"></td>							
-							<td>
-								<div class="toggle-btn" onclick="this.classList.toggle('active')"></div>
-								<div class="inner-circle"></div>
-							</td>
+							<!-- <td th:text="${topo.Date}"></td>	 -->						
+
 						</tr>
 					</tbody>
 				</table>
-				
+								
+								<div class="toggle-btn" onclick="this.classList.toggle('active')"></div>
+								<div class="inner-circle"></div>
+							
 			</div>
 		</div>
 		</section>
 		<!-- #Site d'escalade -->
 	</main>
-	<!-- script toggle -->
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </body>
 </html>
