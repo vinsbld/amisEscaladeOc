@@ -38,6 +38,7 @@ public class UserGrimp implements UserDetails {
 	@Column(unique = true)
 	private String pseudo;
 	@NonNull
+	@Column(unique = true)
 	private String email;
 	@Size(min = 4)
 	@NonNull
@@ -45,6 +46,9 @@ public class UserGrimp implements UserDetails {
 	
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
 	private Collection<SiteEscalade>siteEscalades;
+	
+	@OneToMany(mappedBy = "userGrim", fetch = FetchType.LAZY)
+	private Collection<Topo>topos;
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Cascade(value = CascadeType.REMOVE)
@@ -210,6 +214,20 @@ public class UserGrimp implements UserDetails {
 	public boolean isEnabled() {
 		
 		return false;
+	}
+
+
+
+
+	public Collection<Topo> getTopos() {
+		return topos;
+	}
+
+
+
+
+	public void setTopos(Collection<Topo> topos) {
+		this.topos = topos;
 	}
 
 	
