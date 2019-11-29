@@ -2,10 +2,14 @@ package com.oc.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
@@ -24,6 +28,10 @@ public class Topo implements Serializable{
 	private String lieu;
 	@NonNull
 	private Date edate;
+	
+	@ManyToOne
+	@JoinColumn(name = "TOPO_USR")
+	private UserGrimp userGrimp;
 	
 	public Topo() {
 
