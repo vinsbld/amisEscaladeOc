@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.oc.entities.SiteEscalade;
 
 @Repository
-public interface SiteEscaladeRepository extends JpaRepository<SiteEscalade, Long>{
-	
+public interface SiteEscaladeRepository extends JpaRepository<SiteEscalade, Long>{	
 	  @Query("select site from SiteEscalade site where site.nomSiteEscalade like:x")
 	 public Page<SiteEscalade> chercher(@Param("x")String motCle, Pageable pageable);
 	

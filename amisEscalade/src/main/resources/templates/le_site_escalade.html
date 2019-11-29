@@ -45,12 +45,13 @@
 		<section id="page">
 			<div class="page-container">
 
-				<!-- nomDuspot -->
-				<h4>
-					<a th:href="@{/site_escalade}"><span th:text="${site.nomSiteEscalade}"></span></a>
-				</h4>
+				
 
 				<div class="custyle">
+				<!-- nomDuspot -->
+				<h4>
+					<p>Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}"></span></b></a></p>
+				</h4>
 					<!-- le spot -->
 					<table class="table listTableDeco">
 						<thead>
@@ -67,19 +68,16 @@
 								th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
 						</tbody>
 					</table>
+	
 					<!-- les secteurs -->
-					<h1>SECTEUR'S'</h1>
-				<!-- 	<form
-							th:action="@{/site_escalade/{idSiteEscalade}/secteur(idSiteEscalade=${site.idSiteEscalade})}"methode="get">
-							<label>Nom : </label> <input type="text" name="motCle" th:value="${motCle}" placeholder="recherher un secteur"></input>
-							<button class="btn-get-create">OK</button>
-					</form> -->
+					
+					<h1><span th:text="${site.nomSiteEscalade}"></span> : SECTEUR'S'</h1>
 
 					<table class="table table-striped listTableDeco">
-						<button class="btn-get-create"><a
+						<a class="btn-get-create"
 							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
 							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span></a>
-						</button>
+						
 						<thead>
 							<th>Nom du secteur</th>
 							<th>Localisation</th>
@@ -89,7 +87,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="secteur:${sec}">
-								<td><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><span th:text="${secteur.nomDuSecteur}"></span></a></td>
+								<td><h6><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><b><span th:text="${secteur.nomDuSecteur}"></span></b></a></h6></td>
 								<td th:text="${secteur.localisation}"></td>
 								<td th:text="${secteur.acces}"></td>
 								<td><a class="btn btn-info btn-xs"

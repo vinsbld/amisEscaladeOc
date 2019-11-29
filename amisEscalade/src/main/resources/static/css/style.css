@@ -13,9 +13,7 @@ background: #fff;
   font-family: "Open Sans", sans-serif;
 }
 
-a {
-  color: #2dc997;
-}
+
 
 a:hover, a:active, a:focus {
   color: #2dca98;
@@ -218,7 +216,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#page .btn-get-create {
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+
+.btn-get-create {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   font-weight: 500;
@@ -229,16 +231,82 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   transition: 0.2s;
   margin-bottom: 2%;
-  border: 2px solid #fff;
+  border: 2px solid #efefef;
   color: grey;
+  background-color: #e6e6e6;
 }
 
-#page .btn-get-create:hover {
-  background: #2dc997;
-  border: 2px solid #2dc997;
-  color: white;
+.btn-get-create:hover {
+  background: #f0f0f0;
+  border: 2px solid #e6e6e6;
+  color: #2dc997;
 }
 
+.btn-info{
+	 border-radius: 50px;
+ 	 transition: 0.2s;
+}
+
+.btn-danger{
+	 border-radius: 50px;
+ 	 transition: 0.2s;
+}
+
+.btn-primary{
+	border: 2px solid #ae5700;
+	background-color : #804000;
+	border-radius: 50px;
+ 	 transition: 0.2s;
+}
+
+.btn-primary:hover {
+	
+	border: 2px solid #804000;
+	background-color : #ae5700;
+	border-radius: 50px;
+ 	 transition: 0.2s;
+}
+
+/* hypertext */
+
+a{
+	color: grey;
+}
+
+a :hover{	
+	color: #2dc997;
+}
+
+
+/* toggle */
+
+.toggle-btn{
+	width: 80px;
+	height: 40px;
+	background: #2dc997;
+	border-radius: 50px;	
+
+
+}
+
+.toggle-btn > .inner-circle{
+	width: 40px;
+	height: 40px;
+	background-color: #ffff;
+	border-radius: 50%;
+	border: 2px solid #2dc997;
+	transition: 0.2s;
+}
+
+.toggle-btn.active{	
+	background: #ff0000;
+}
+
+.toggle-btn.active > .inner-circle{	
+	margin-left: 40px;
+	border: 2px solid #ff0000;
+	transition: 0.2s;
+}
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -491,10 +559,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
-/*--------------------------------------------------------------
-# Sections
---------------------------------------------------------------*/
-/* Sections Header
+/*-------------------------------
+#Sections Header
 --------------------------------*/
 .section-header .section-title {
   font-size: 32px;
@@ -592,7 +658,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /*--------------------------------------------------------------
-# liste page site
+# tables
 --------------------------------------------------------------*/
 .listTableDeco{
 	 border: 1px solid #ccc;
@@ -607,24 +673,3 @@ body.mobile-nav-active #mobile-nav-toggle {
     transition: 0.5s;
 }
 
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  background: #343b40;
-  padding: 30px 0;
-  color: #fff;
-  font-size: 14px;
-}
-
-#footer .copyright {
-  text-align: center;
-}
-
-#footer .credits {
-  padding-top: 10px;
-  text-align: center;
-  font-size: 13px;
-  color: #ccc;
-}
