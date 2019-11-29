@@ -44,14 +44,12 @@
 
 		<section id="page">
 			<div class="page-container">
-			
-			<!-- nomDuspot -->
-			<h4>
-				<a th:href="@{/site_escalade}"><span th:text="${site.nomSiteEscalade}"></span></a>
-			</h4>
 				
 			<div class="custyle">
 			<!-- le spot -->
+			<h4>
+				<p>Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}"></span></b></a></p>
+			</h4>
 				<table class="table listTableDeco">
 					<thead>
 						<tr>
@@ -70,7 +68,7 @@
 				
 				<!-- les secteurs -->
 					<h4>
-						<a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${secteur.nomDuSecteur}"></span></a>
+						<p>Nom du secteur : <a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><b><span th:text="${secteur.nomDuSecteur}"></span></b></a></p>
 					</h4>
 					
 				<table class="table listTableDeco">
@@ -94,7 +92,7 @@
 				<table class="table listTableDeco">
 			
 					<h4>
-						<a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><span  th:text="${voie.nomDeVoie}"></span></a>
+						<p>Nom de la voie : <a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><b><span  th:text="${voie.nomDeVoie}"></span></b></a></p>
 					</h4>
 					<thead>
 						<th>Cotation</th>
@@ -109,7 +107,7 @@
 				</table>
 				<!-- les longueurs -->
 				<table class="table table-striped listTableDeco">
-					<h1>LONGUEUR'S'</h1>
+					<h1><span th:text="${voie.nomDeVoie}"></span> : LONGUEUR'S'</h1>
 					<button class="btn-get-create"><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Ajouter une longueur à <span th:text="${voie.nomDeVoie}"></span></a></button>
 					<thead>
 						<th>Distance</th>

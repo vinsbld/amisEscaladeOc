@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 
@@ -30,14 +31,7 @@
 <!-- Main Stylesheet File -->
 <link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
 
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
-
 
 <!--==========================
     Topo section
@@ -49,39 +43,41 @@
 
 		<section id="page">
 			<div class="page-container">
+			<div class="custyle">
 				<h1>Topos</h1>
 				<a href="formTopo" class="btn-get-create">ajouter un topo</a>
 			
-				<table class="table">
+				<table class="table table-striped listTableDeco">
 					<thead>
 						<tr>
 							<th>Nom du topo</th><br/>
 							<th>Déscription</th>
 							<th>Lieu</th>
 							<th>Date de parution</th>	
+							<th>Dispo</th>
 							</tr>
 					</thead>
 					<tbody>
-						<tr th:each="topo:${listTopo}">
+						<tr th:each="topo:${topo}">
 							<td th:text="${topo.name}"></td>
 							<td th:text="${topo.description}"></td>
 							<td th:text="${topo.lieu}"></td>
-							<td th:text="${topo.eDate}"></td>
+							<td th:text="${topo.eDate}"></td>							
+							<td>
+								<div class="toggle-btn" onclick="this.classList.toggle('active')"></div>
+								<div class="inner-circle"></div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
+				
 			</div>
-			<div>
-			<ul class="nav justify-content-center">
-				<li th:class="${pageCourante}==${status.index}?'active':''"
-					th:each="pa, status:${pages}"><a
-					th:href="@{index(page=${status.index},size=${size}, mc=${mc})}"
-					th:text="${status.index}"></a></li>
-			</ul>
 		</div>
 		</section>
 		<!-- #Site d'escalade -->
 	</main>
+	<!-- script toggle -->
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </body>
 </html>

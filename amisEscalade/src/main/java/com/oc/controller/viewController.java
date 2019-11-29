@@ -22,13 +22,7 @@ public class viewController {
 		return "userGrimperPage";
 	}
 	
-	/*
-	 * @GetMapping public String error403() { return "error/403"; }
-	 */
-	@GetMapping("/topo")
-	public String topoPage() {
-		return "topo";
-	}
+
 
 
 }

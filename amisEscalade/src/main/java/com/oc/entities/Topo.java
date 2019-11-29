@@ -14,7 +14,7 @@ import org.springframework.lang.NonNull;
 public class Topo implements Serializable{
 	
 	@Id @GeneratedValue
-	private long id_topo;
+	private long idTopo;
 	@NonNull
 	private String name;
 	@NonNull
@@ -29,21 +29,21 @@ public class Topo implements Serializable{
 
 	}
 
-	public Topo(long id_topo, String name, @Length(max = 255) String description, String lieu, Date edate) {
+	public Topo(long idTopo, String name, @Length(max = 255) String description, String lieu, Date edate) {
 		super();
-		this.id_topo = id_topo;
+		this.idTopo = idTopo;
 		this.name = name;
 		this.description = description;
 		this.lieu = lieu;
 		this.edate = edate;
 	}
 
-	public long getId_topo() {
-		return id_topo;
+	public long getIdTopo() {
+		return idTopo;
 	}
 
-	public void setId_topo(long id_topo) {
-		this.id_topo = id_topo;
+	public void setIdTopo(long idTopo) {
+		this.idTopo = idTopo;
 	}
 
 	public String getName() {
@@ -79,6 +79,5 @@ public class Topo implements Serializable{
 	}
 
 
-	
 
 }
