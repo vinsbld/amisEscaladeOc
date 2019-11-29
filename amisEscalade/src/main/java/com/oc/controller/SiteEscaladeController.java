@@ -54,19 +54,11 @@ public class SiteEscaladeController {
 	}
 	
 	@GetMapping("/site_escalade")
-	public String siteEscal(Model model,
-			@RequestParam(name="page", defaultValue="0")int p,
-			@RequestParam(name="size", defaultValue="4")int s,
-			@RequestParam(name="motCle", defaultValue="")String motCle) {
+	public String siteEscal(Model model) {
 		
-		Page<SiteEscalade> pageSites = siteEscaladeRepository.chercher("%"+motCle+"%", new PageRequest(p, s));
-		
-		model.addAttribute("listSite", pageSites.getContent());
-		int[]pages = new int[pageSites.getTotalPages()];
-		model.addAttribute("pages", pages);
-		model.addAttribute("size", s);
-		model.addAttribute("pageCourante", p);
-		model.addAttribute("motCle", motCle);
+		List<SiteEscalade> listeSite = siteEscaladeRepository.findAll();
+		model.addAttribute("listSite", listeSite);
+
 		return "site_escalade";
 	}
 	

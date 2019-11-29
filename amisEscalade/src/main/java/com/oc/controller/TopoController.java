@@ -1,5 +1,8 @@
 package com.oc.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +31,8 @@ public class TopoController {
 	@GetMapping("/topo")
 	public String topoPage(Model model) {
 		
-		model.addAttribute("topo");
+		List<Topo> topo = topoRepository.findAll();
+		model.addAttribute("listeTopo", topo);
 		
 		return "topo";
 	}
@@ -43,7 +47,7 @@ public class TopoController {
 		
 		topoService.saveTopoForm(topoForm, result);
 		
-		return"redirect:/formTopo";
+		return"redirect:/topo";
 	}
 	
 
