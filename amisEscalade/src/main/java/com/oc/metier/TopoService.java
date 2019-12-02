@@ -19,9 +19,23 @@ public class TopoService {
 		Topo newTopo = new Topo();
 		newTopo.setDescription(topoForm.getDescription());
 		newTopo.setName(topoForm.getName());
+		newTopo.setLieu(topoForm.getLieu());
 		newTopo.setEdate(topoForm.getEdate());
 		
 		topoRepository.save(newTopo);
+		
+	}
+	
+	public void modifyTopo(long idTopo, TopoForm topoForm, BindingResult result) {
+		
+		Topo topo = topoRepository.findById(idTopo).get();
+		topo.setDescription(topoForm.getDescription());
+		topo.setEdate(topoForm.getEdate());
+		topo.setLieu(topoForm.getLieu());
+		topo.setName(topoForm.getName());
+		
+		topoRepository.save(topo);
+		
 		
 	}
 		

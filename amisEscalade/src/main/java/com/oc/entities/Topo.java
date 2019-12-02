@@ -29,12 +29,11 @@ public class Topo implements Serializable{
 	@NonNull
 	private Date edate;
 	
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "TOPO_USR") private UserGrimp userGrimp;
-	 */
 	
+	  @ManyToOne 
+	  @JoinColumn(name = "TOPO_USR") 
+	  private UserGrimp userGrimp;
+	 
 	public Topo() {
 
 	}
@@ -86,6 +85,14 @@ public class Topo implements Serializable{
 
 	public void setEdate(Date edate) {
 		this.edate = edate;
+	}
+
+	public UserGrimp getUserGrimp() {
+		return userGrimp;
+	}
+
+	public void setUserGrimp(UserGrimp userGrimp) {
+		this.userGrimp = userGrimp;
 	}
 
 

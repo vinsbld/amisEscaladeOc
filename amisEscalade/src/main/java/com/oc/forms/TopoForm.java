@@ -6,16 +6,18 @@ public class TopoForm {
 	
 	private String name;
 	private String description;
+	private String lieu;
 	private Date edate;
 	
 	public TopoForm() {
 
 	}
 
-	public TopoForm(String name, String description, Date edate) {
+	public TopoForm(String name, String description, String lieu, Date edate) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.lieu = lieu;
 		this.edate = edate;
 	}
 
@@ -41,6 +43,14 @@ public class TopoForm {
 
 	public void setEdate(Date edate) {
 		this.edate = edate;
+	}
+
+	public String getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
 	}
 	
 	

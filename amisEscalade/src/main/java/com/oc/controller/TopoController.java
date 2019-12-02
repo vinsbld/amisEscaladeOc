@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,32 @@ public class TopoController {
 		
 		topoService.saveTopoForm(topoForm, result);
 		
+		return"redirect:/topo";
+	}
+	
+	@GetMapping("topo/{idTopo}/edit")
+	public String editTopo(@PathVariable("idTopo") long idTopo, Model model) {
+		 
+		Topo topo = topoRepository.findById(idTopo).get();
+		model.addAttribute("topo", topo);
+		
+		return "editFormTopo";
+	}
+	
+	@PostMapping("topo/{idTopo}/update")
+	public String updateTopo(@PathVariable("idTopo") long idTopo, Model model, @ModelAttribute("editFormTopo") TopoForm topoForm, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+		
+		topoService.modifyTopo(idTopo, topoForm, result);
+		
+		return"redirect:/topo";
+	}
+	
+	@GetMapping("/topo/{idTopo}/delete")
+	public String deleteTopo(@PathVariable("idTopo") long idTopo, Model model, final RedirectAttributes redirectAttributes) {
+	
+		topoRepository.deleteById(idTopo);
+	
 		return"redirect:/topo";
 	}
 	
