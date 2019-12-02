@@ -30,6 +30,7 @@ public class Topo implements Serializable{
 	private Date edate;
 	
 	
+	
 	  @ManyToOne 
 	  @JoinColumn(name = "TOPO_USR") 
 	  private UserGrimp userGrimp;

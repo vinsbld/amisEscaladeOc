@@ -47,18 +47,21 @@ public class UserGrimp implements UserDetails {
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
 	private Collection<SiteEscalade>siteEscalades;
 	
-	/*
-	 * @OneToMany(mappedBy = "userGrim", fetch = FetchType.LAZY) private
-	 * Collection<Topo>topos;
-	 */
+	
+	  @OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY) 
+	  private Collection<Topo>topos;
+	 
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
+	
 	@Cascade(value = CascadeType.REMOVE)
+	
 	@JoinTable(
 			indexes = {@Index(name = "INDEX_USERGRIMP_ROLE", columnList = "id_user_grimp")},
 			name = "roles",
 			joinColumns = @JoinColumn(name = "id_user_grimp")
 			)
+	
 	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
@@ -216,6 +219,20 @@ public class UserGrimp implements UserDetails {
 	public boolean isEnabled() {
 		
 		return false;
+	}
+
+
+
+
+	public Collection<Topo> getTopos() {
+		return topos;
+	}
+
+
+
+
+	public void setTopos(Collection<Topo> topos) {
+		this.topos = topos;
 	}
 
 

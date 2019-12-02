@@ -17,20 +17,20 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/update(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}" th:object="${voie}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier une Voie</h2>
 		</div>		
 		<div class="form-group">
 			<label class="control-label col-xs-4">Nom de la voie</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required">
+                <input type="text" class="form-control" th:field="*{nomDeVoie}" name="name" required="required">
             </div>        	
         </div>
         <div class="form-group">
 			<label class="control-label col-xs-4">Cotation</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="cotation" required="required">
+                <input type="text" class="form-control" th:field="*{cotation}" name="cotation" required="required">
             </div>        	
         </div>
 		<div class="form-group text-center">

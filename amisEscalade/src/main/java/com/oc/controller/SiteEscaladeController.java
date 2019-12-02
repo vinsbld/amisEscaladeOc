@@ -65,6 +65,7 @@ public class SiteEscaladeController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
 	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
+		
 		SiteEscalade siteEscalade = null;
 		if(s.isPresent()) {
 			siteEscalade = s.get();
@@ -74,7 +75,7 @@ public class SiteEscaladeController {
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/update")
-	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("editSiteEscaladeForm") SiteEscaladeForm editSiteEscaladeForm, BindingResult result, 
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm editSiteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
 		siteEscaladeService.saveSiteEscalade(editSiteEscaladeForm, result);

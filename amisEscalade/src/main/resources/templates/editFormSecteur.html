@@ -17,26 +17,26 @@
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update(idSecteur=${idSecteur},idSiteEscalade=${idSiteEscalade})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update(idSecteur=${idSecteur},idSiteEscalade=${idSiteEscalade})}" th:object="${secteur}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier un secteur</h2>
 		</div>		
 		<div class="form-group">
 			<label class="control-label col-xs-4">Nom du secteur</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required">
+                <input type="text" class="form-control" name="name" th:field="*{nomDuSecteur}" required="required">
             </div>        	
         </div>
         <div class="form-group">
 			<label class="control-label col-xs-4">Localisation</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="localisation" required="required">
+                <input type="text" class="form-control" name="localisation" th:field="*{localisation}" required="required">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Accès</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="acces" required="required">
+                <input type="text" class="form-control" name="acces" th:field="*{acces}" required="required">
             </div>        	
         </div>	
 		<div class="form-group text-center">

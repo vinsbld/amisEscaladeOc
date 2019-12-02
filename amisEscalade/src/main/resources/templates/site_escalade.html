@@ -47,9 +47,9 @@
 			
 				<h1>Sites d'escalades</h1>
 				
-				<form th:action="@{/site_escalade}" methode="get">
+				<form th:action="@{/site_escalade}" th:object="${site}" methode="get">
 					<label>Mot clé :</label>
-					<input type="text" name="motCle" th:value="${motCle}"></input>
+					<input type="text" name="motCle" th:value="${motCle}">
 					<button class="btn btn-primary">Chercher</button>
 				</form><p></p>
 				
