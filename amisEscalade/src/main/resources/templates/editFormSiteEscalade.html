@@ -25,19 +25,19 @@
         <div class="form-group">
 			<label class="control-label col-xs-4">Nom du site</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required">
+                <input type="text" class="form-control" name="name" th:field="*{nomSiteEscalade}" required="required">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Département</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="departement" required="required">
+                <input type="text" class="form-control" name="departement" th:field="*{departement}" required="required">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Ville</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="ville" required="required">
+                <input type="text" class="form-control" name="ville" th:field="*{ville}" required="required">
             </div>        	
         </div>
 
