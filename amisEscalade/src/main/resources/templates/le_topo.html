@@ -34,7 +34,7 @@
 </head>
 
 <!--==========================
-    Topo section
+    le Topo section
   ============================-->
 
 <body>
@@ -44,27 +44,35 @@
 		<section id="page">
 			<div class="page-container">
 			<div class="custyle">
-				<h1>Topos</h1>
-				<a href="formTopo" class="btn-get-create">ajouter un topo</a>
+				<h4>
+					<p>Nom du topo : <b><a th:href="@{/topo}" th:text="${topo.name}"></a></b></p>
+				</h4>
+				<h5>
+					<p>Status : <span th:if="${topo.dispo}">dispo !</span></p>
+				</h5>
 			
-				<table class="table table-striped listTableDeco">
+				<table class="table listTableDeco">
 					<thead>
-						<tr>
-							<th>Nom du topo</th><br/>
+<!-- 						<tr>
 							<th>Lieu</th>
 							<th>Date de parution</th>	
-							<th>Modifier</th>
-							<th>Supprimer</th>
-							</tr>
+						</tr> -->
 					</thead>
 					<tbody>
-						<tr th:each="topo:${listeTopo}">
-							<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
-							<td th:text="${topo.lieu}"></td>
-							<td th:text="${topo.edate}"></td>						
+						<tr>
+							<td><b>Lieu : </b><span th:text="${topo.lieu}"></span></td>		
+							<td><b>Date de parution : </b><span th:text="${topo.edate}"></span></td>							
+						</tr>
+						<tr>
+							<td><b>Déscription : </b></td>
+							<td><span th:text="${topo.description}"></span></td>	
+						</tr>
+						<tr>
+							
+						</tr>
+						<tr>
 							<td><a class="btn btn-info btn-xs" th:href="@{topo/{idTopo}/edit(idTopo=${topo.idTopo})}">Modifier</a></td>		
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>					
-
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>	
 						</tr>
 					</tbody>
 				</table>

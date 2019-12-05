@@ -29,6 +29,8 @@ public class Topo implements Serializable{
 	@NonNull
 	private Date edate;
 	
+	private Boolean dispo;
+	
 	
 	
 	  @ManyToOne 
@@ -39,13 +41,16 @@ public class Topo implements Serializable{
 
 	}
 
-	public Topo(long idTopo, String name, @Length(max = 255) String description, String lieu, Date edate) {
+	public Topo(long idTopo, String name, @Length(max = 255) String description, String lieu, Date edate, Boolean dispo,
+			UserGrimp userGrimp) {
 		super();
 		this.idTopo = idTopo;
 		this.name = name;
 		this.description = description;
 		this.lieu = lieu;
 		this.edate = edate;
+		this.dispo = dispo;
+		this.userGrimp = userGrimp;
 	}
 
 	public long getIdTopo() {
@@ -86,6 +91,14 @@ public class Topo implements Serializable{
 
 	public void setEdate(Date edate) {
 		this.edate = edate;
+	}
+
+	public Boolean getDispo() {
+		return dispo;
+	}
+
+	public void setDispo(Boolean dispo) {
+		this.dispo = dispo;
 	}
 
 	public UserGrimp getUserGrimp() {

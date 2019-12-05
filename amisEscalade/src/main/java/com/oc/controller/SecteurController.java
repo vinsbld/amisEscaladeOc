@@ -63,7 +63,7 @@ public class SecteurController {
 			return "formSecteur";
 		}
 
-		secteurService.saveSecteur(idSiteEscalade, secteurForm, result);
+		secteurService.saveSecteur(idSiteEscalade, secteurForm);
 
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
@@ -87,7 +87,14 @@ public class SecteurController {
 	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 
 		Secteur secteur = secteurRepository.findById(idSecteur).get();
-		model.addAttribute("secteur", secteur);
+		
+		SecteurForm secForm = new SecteurForm();
+		secForm.setIdSecteur(secteur.getIdSecteur());
+		secForm.setName(secteur.getNomDuSecteur());
+		secForm.setLocalisation(secteur.getLocalisation());
+		secForm.setAcces(secteur.getAcces());
+		
+		model.addAttribute("secForm", secForm);
 
 		
 		return "editFormSecteur";

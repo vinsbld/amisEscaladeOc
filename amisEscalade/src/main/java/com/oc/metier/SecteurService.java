@@ -19,7 +19,7 @@ public class SecteurService {
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
-	public void saveSecteur(long idSite, SecteurForm secteurForm, BindingResult result) {
+	public void saveSecteur(long idSite, SecteurForm secteurForm) {
 		
 		Secteur newSecteur = new Secteur();
 		newSecteur.setNomDuSecteur(secteurForm.getNomDuSecteur());

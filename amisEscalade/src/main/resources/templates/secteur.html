@@ -63,8 +63,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<td><b>Département : </b><span th:text="${site.departement}"></span></td>
-						<td><b>Ville : </b><span th:text="${site.ville}"></span></td>
+						<tr>
+							<td><b>Département : </b></td>
+							<td><span th:text="${site.departement}"></span></td>
+						</tr>
+						<tr>
+						<td><b>Ville : </b></td>
+						<td><span th:text="${site.ville}"></span></td>
+						</tr>
 						<!-- <td><a class="btn btn-info btn-xs"
 								th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td> -->
 						</tbody>
@@ -77,20 +83,31 @@
 					
 				<table class="table listTableDeco">
 					<thead>
-						<!-- <th>Localisation</th>
-						<th>Acces</th> -->
-						<!-- <th>Modifier</th> -->
 					</thead>
 					<tbody>
 					<tr>
-						<td><b>Localisation : </b><span th:text="${secteur.localisation}"></span></td>						
-						<!-- <td><a class="btn btn-info btn-xs"
-									th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit(idSecteur=${secteur.idSecteur},idSiteEscalade=${idSiteEscalade})}">
-									Modifier</a></td> -->
+						<td><b>Localisation : </b></td>
+						<td><span th:text="${secteur.localisation}"></span></td>						
 					</tr>
-						<td><b>Acces : </b><span th:text="${secteur.acces}"></span></td>
 					<tr>
+						<td><b>Acces : </b></td>
+						<td><span th:text="${secteur.acces}"></span></td>
+					</tr>
 					</tbody>
+				</table>
+				
+				<table class="table">
+					<tbody>
+						<tr>
+							<td><a class="btn btn-info btn-xs"
+								th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit(idSecteur=${secteur.idSecteur},idSiteEscalade=${idSiteEscalade})}">Modifier</a></td>
+
+							<td><a
+								onclick="return confirm('Etes vous sûre de vouloir supprimer ce secteur ?')"
+								class="btn btn-danger btn_xs"
+								th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete(idSecteur=${secteur.idSecteur}, idSiteEscalade=${idSiteEscalade})}">Supprimer</a></td>
+						</tr>				
+					</tbody>				
 				</table>
 				
 				<!-- les voies -->

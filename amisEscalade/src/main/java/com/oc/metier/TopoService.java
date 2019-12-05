@@ -21,6 +21,7 @@ public class TopoService {
 		newTopo.setName(topoForm.getName());
 		newTopo.setLieu(topoForm.getLieu());
 		newTopo.setEdate(topoForm.getEdate());
+		newTopo.setDispo(topoForm.getDispo());
 		
 		topoRepository.save(newTopo);
 		
@@ -33,6 +34,7 @@ public class TopoService {
 		topo.setEdate(topoForm.getEdate());
 		topo.setLieu(topoForm.getLieu());
 		topo.setName(topoForm.getName());
+		topo.setDispo(topoForm.getDispo());
 		
 		topoRepository.save(topo);
 		

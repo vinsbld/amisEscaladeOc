@@ -48,7 +48,13 @@ public class SiteEscaladeController {
 			return "formSiteEscalade";
 		}
 		
-		siteEscaladeService.saveSiteEscalade(siteEscaladeForm, result);
+		SiteEscalade newSiteEscalade = new SiteEscalade();
+		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
+		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
+		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
+		newSiteEscalade.setVille(siteEscaladeForm.getVille());
+		
+		siteEscaladeService.saveSiteEscalade(newSiteEscalade);
 		
 		return "redirect:/site_escalade";
 	}
@@ -64,21 +70,31 @@ public class SiteEscaladeController {
 	
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
 	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+		
 		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
 		
 		SiteEscalade siteEscalade = null;
 		if(s.isPresent()) {
 			siteEscalade = s.get();
 		}
-		model.addAttribute("siteEscalade", siteEscalade);
+		
+		
+		SiteEscaladeForm siteForm = new SiteEscaladeForm();
+		siteForm.setName(siteEscalade.getNomSiteEscalade());
+		siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
+		siteForm.setDepartement(siteEscalade.getDepartement());
+		siteForm.setVille(siteEscalade.getVille());
+		model.addAttribute("siteForm", siteForm);
+		
 		return "editFormSiteEscalade";
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/update")
-	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm editSiteEscaladeForm, BindingResult result, 
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
-		
-		siteEscaladeService.saveSiteEscalade(editSiteEscaladeForm, result);
+
+			
+		siteEscaladeService.modifySiteEscalade(idSiteEscalade, siteEscaladeForm);
 			
 		return "redirect:/site_escalade";
 	}
@@ -86,7 +102,7 @@ public class SiteEscaladeController {
 
 	
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
-	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, Model model, final RedirectAttributes redirectAttributes) {
+	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
 		
 		siteEscaladeRepository.deleteById(idSiteEscalade);
 		

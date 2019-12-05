@@ -14,18 +14,12 @@ public class SiteEscaladeService {
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
-	public void saveSiteEscalade(SiteEscaladeForm siteEscaladeForm, BindingResult result) {
-		
-		SiteEscalade newSiteEscalade = new SiteEscalade();
-		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
-		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
-		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
-		newSiteEscalade.setVille(siteEscaladeForm.getVille());
+	public void saveSiteEscalade(SiteEscalade newSiteEscalade) {
 		
 		siteEscaladeRepository.save(newSiteEscalade);
 	}
 	
-	public void modifySiteEscalade(long idSiteEscalade, SiteEscaladeForm siteEscaladeForm, BindingResult result) {
+	public void modifySiteEscalade(long idSiteEscalade, SiteEscaladeForm siteEscaladeForm) {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		site.setNomSiteEscalade(siteEscaladeForm.getName());

@@ -646,7 +646,9 @@ body.mobile-nav-active #mobile-nav-toggle {
     margin: 5% 0;
     box-shadow: 3px 3px 2px #ccc;
     transition: 0.2s;	
+    text-align: left;
 }
+
 
 .listTableDeco:hover{
 	box-shadow: 3px 3px 0px transparent;

@@ -77,5 +77,15 @@ public class TopoController {
 		return"redirect:/topo";
 	}
 	
+	@GetMapping("/le_topo/{idTopo}/view")
+	public String leTopo(Model model, @PathVariable("idTopo") long idTopo) {
+		
+		Topo topo = topoRepository.findById(idTopo).get();
+		model.addAttribute("topo", topo);
+		
+		return"le_Topo";
+		
+	}
+	
 
 }
