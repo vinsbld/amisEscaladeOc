@@ -48,7 +48,7 @@
 					<p>Nom du topo : <b><a th:href="@{/topo}" th:text="${topo.name}"></a></b></p>
 				</h4>
 				<h5>
-					<p>Status : <span th:if="${topo.dispo}">dispo !</span></p>
+					<p>Status : <span th:if="${topo.dispo}">dispo !</span><span th:if="${!topo.dispo}">non dispo : (</span></p>
 				</h5>
 			
 				<table class="table listTableDeco">
@@ -60,21 +60,26 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><b>Lieu : </b><span th:text="${topo.lieu}"></span></td>		
-							<td><b>Date de parution : </b><span th:text="${topo.edate}"></span></td>							
+							<td><b>Lieu : </b></td>
+							<td><span th:text="${topo.lieu}"></span></td>
+						</tr>
+						<tr>			
+							<td><b>Date de parution : </b></td>
+							<td><span th:text="${topo.edate}"></span></td>							
 						</tr>
 						<tr>
 							<td><b>Déscription : </b></td>
 							<td><span th:text="${topo.description}"></span></td>	
 						</tr>
-						<tr>
-							
-						</tr>
+					</tbody>
+				</table>
+				<table class="table">
+					<tbody>
 						<tr>
 							<td><a class="btn btn-info btn-xs" th:href="@{topo/{idTopo}/edit(idTopo=${topo.idTopo})}">Modifier</a></td>		
 							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>	
 						</tr>
-					</tbody>
+					</tbody>				
 				</table>
 								
 								<div class="toggle-btn" onclick="this.classList.toggle('active')"></div>

@@ -53,18 +53,13 @@
 							<th>Nom du topo</th><br/>
 							<th>Lieu</th>
 							<th>Date de parution</th>	
-							<th>Modifier</th>
-							<th>Supprimer</th>
-							</tr>
+						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="topo:${listeTopo}">
 							<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
 							<td th:text="${topo.lieu}"></td>
-							<td th:text="${topo.edate}"></td>						
-							<td><a class="btn btn-info btn-xs" th:href="@{topo/{idTopo}/edit(idTopo=${topo.idTopo})}">Modifier</a></td>		
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>					
-
+							<td th:text="${topo.edate}"></td>									
 						</tr>
 					</tbody>
 				</table>
