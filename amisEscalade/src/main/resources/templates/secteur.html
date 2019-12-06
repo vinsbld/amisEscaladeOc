@@ -62,21 +62,20 @@
 							<!-- <th>Modifier</th> -->
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><b>Département : </b></td>
-							<td><span th:text="${site.departement}"></span></td>
-						</tr>
-						<tr>
-						<td><b>Ville : </b></td>
-						<td><span th:text="${site.ville}"></span></td>
-						</tr>
-						<!-- <td><a class="btn btn-info btn-xs"
-								th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td> -->
-						</tbody>
+						<tbody>
+							<tr>
+								<td><b>Département : </b></td>
+								<td><span th:text="${site.departement}"></span></td>
+							</tr>
+							<tr>
+								<td><b>Ville : </b></td>
+								<td><span th:text="${site.ville}"></span></td>
+							</tr>
+					</tbody>
 				</table>
 				
 				<!-- les secteurs -->
+				<p></p>
 					<h4>
 						<p>Nom du secteur : <a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}" title="consulter la liste des secteurs"><b><span th:text="${secteur.nomDuSecteur}"></span></b></a></p>
 					</h4>
@@ -85,14 +84,14 @@
 					<thead>
 					</thead>
 					<tbody>
-					<tr>
-						<td><b>Localisation : </b></td>
-						<td><span th:text="${secteur.localisation}"></span></td>						
-					</tr>
-					<tr>
-						<td><b>Acces : </b></td>
-						<td><span th:text="${secteur.acces}"></span></td>
-					</tr>
+						<tr>
+							<td><b>Localisation : </b></td>
+							<td><span th:text="${secteur.localisation}"></span></td>						
+						</tr>
+						<tr>
+							<td><b>Acces : </b></td>
+							<td><span th:text="${secteur.acces}"></span></td>
+						</tr>
 					</tbody>
 				</table>
 				
@@ -116,26 +115,22 @@
 					<h1><span th:text="${secteur.nomDuSecteur}"></span> : VOIE'S'</h1>
 					<a class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Ajouter une voie à <span th:text="${secteur.nomDuSecteur}"></span></a>
 					<thead>
-						<th>Nom de la voie</th>
-						<th>Cotation</th>
-						<th>Modifier</th>
-						<th>Supprimer</th>
+						<tr>
+							<td><b>Nom de la voie</b></td>
+							<td><b>Cotation</b></td>
+						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="vo:${voie}">
 							<td><h6><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${vo.idVoie})}" title="consulter les longueurs"><b><span th:text="${vo.nomDeVoie}"></span></b></a></h6></td>
 							<td th:text="${vo.cotation}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${vo.idVoie})}">Modifier</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette voie ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/delete(idVoie=${vo.idVoie}, idSecteur=${idSecteur}, idSiteEscalade=${idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>
-</div>
-			
+			</div>			
 		</div>
-		</section>
-		<!-- #Site d'escalade -->
-	</main>
+	</section>
+</main>
 
 </body>
 </html>

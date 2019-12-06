@@ -641,7 +641,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 # tables
 --------------------------------------------------------------*/
 .listTableDeco{
-	 border: 1px solid #ccc;
+	border: 1px solid #ccc;
     padding: 5px;
     margin: 5% 0;
     box-shadow: 3px 3px 2px #ccc;
