@@ -75,6 +75,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 		<div class="form-group text-center">
 		<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
 		</div>   
+		<!-- CSRF afin d’éviter les attaques Cross-Site Request Forgery. -->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
 
 </div>
