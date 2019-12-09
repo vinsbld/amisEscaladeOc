@@ -30,10 +30,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.oc.security.BCryptManagerUtil;
 
+import lombok.Data;
+
 
 
 @Entity
-//@Data ?
+@Data
 public class UserGrimp implements UserDetails {
 	@Id @GeneratedValue
 	private long idUserGrimp;
