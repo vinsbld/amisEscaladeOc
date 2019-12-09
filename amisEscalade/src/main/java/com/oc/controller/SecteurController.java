@@ -102,12 +102,12 @@ public class SecteurController {
 
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update")
 	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
-			@ModelAttribute("secteur") SecteurForm secteurForm, BindingResult result,
+			@ModelAttribute("secteur") SecteurForm secteurForm,
 			final RedirectAttributes redirectAttributes) {
 		
 		secteurService.modifySecteur(idSecteur, secteurForm);
 		
-		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
+		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 	}
 
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete")

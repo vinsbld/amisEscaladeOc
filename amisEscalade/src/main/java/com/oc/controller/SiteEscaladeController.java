@@ -96,7 +96,7 @@ public class SiteEscaladeController {
 			
 		siteEscaladeService.modifySiteEscalade(idSiteEscalade, siteEscaladeForm);
 			
-		return "redirect:/site_escalade";
+		return "redirect:/le_site_escalade/{idSiteEscalade}/view";
 	}
 	
 

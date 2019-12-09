@@ -123,7 +123,7 @@ public class VoieController {
 		
 		voieService.modifyVoie(idVoie, voieForm);
 		
-		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
+		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+idVoie;
 		
 	}
 			
