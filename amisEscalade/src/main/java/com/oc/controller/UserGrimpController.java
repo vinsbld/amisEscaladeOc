@@ -28,9 +28,9 @@ public class UserGrimpController {
 
 	@PostMapping("/inscription")
 	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimp,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+			final RedirectAttributes redirectAttributes) {
 
-		userGrimpService.saveUserGrimpForm(userGrimp, result);
+		userGrimpService.saveUserGrimpForm(userGrimp);
 
 			return "redirect:/index";
 			

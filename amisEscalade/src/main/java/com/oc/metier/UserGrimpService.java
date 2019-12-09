@@ -18,7 +18,7 @@ public class UserGrimpService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	public void saveUserGrimpForm(UserGrimpForm userGrimpForm, BindingResult result) {
+	public void saveUserGrimpForm(UserGrimpForm userGrimpForm) {
 
 		UserGrimp newUserGrimp = new UserGrimp();
 		newUserGrimp.setPseudo(userGrimpForm.getUsername());
@@ -27,5 +27,6 @@ public class UserGrimpService {
 
 		userGrimpRepository.save(newUserGrimp);
 	}
+	
 
 }

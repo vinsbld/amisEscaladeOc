@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cascade;
@@ -30,18 +33,20 @@ import com.oc.security.BCryptManagerUtil;
 
 
 @Entity
+//@Data ?
 public class UserGrimp implements UserDetails {
 	@Id @GeneratedValue
 	private long idUserGrimp;
-	@NonNull
+	@NotEmpty(message = "votre pseudo doit contenir minimum 2 caractères et maximum 30")
 	@Size(min = 2, max = 30)
 	@Column(unique = true)
 	private String pseudo;
-	@NonNull
+	@NonNull()
 	@Column(unique = true)
+	@Email(message = "merci de saisir une adresse mail correcte")
 	private String email;
 	@Size(min = 4)
-	@NonNull
+	@NotEmpty(message = "votre mot de passe doit contenir minimum 4 caratères")
 	private String password;
 	
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
@@ -86,6 +91,7 @@ public class UserGrimp implements UserDetails {
 		this.roles = roles;
 	}
 
+	//getAuthorities() permet de récupérer les rôles de l’utilisateur dans un format que Spring Security peut interpréter
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		String roles = org.springframework.util.StringUtils.collectionToCommaDelimitedString(getRoles().stream()
