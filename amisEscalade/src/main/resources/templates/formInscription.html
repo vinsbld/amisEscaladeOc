@@ -52,7 +52,7 @@
 		<!-- CSRF afin d’éviter les attaques Cross-Site Request Forgery. -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
-	<div class="text-center">Vous avez déjà un compte ? <a href="#">connexion</a></div>
+	<div class="text-center">Vous avez déjà un compte ? <a th:href="@{/connexion}">connexion</a></div>
 </div>
 
 </body>
