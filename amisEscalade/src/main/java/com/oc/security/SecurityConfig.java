@@ -11,47 +11,59 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.oc.entities.RoleEnum;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	private final String adminRole = RoleEnum.ADMINISTRATOR.name();
 	
+	private final UserDetailsService userDetailsService;
+	
+	/*
+	 * constructeur de la classe SecurityConfig, injection du service
+	 * UserDetailService
+	 */
 	@Autowired
-	private UserDetailsService userDetailsService;
+	public SecurityConfig(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
 			.anyRequest().permitAll()
-			.antMatchers("/association")
-			.authenticated()
+			.antMatchers("/inscription").permitAll()
+			.antMatchers("/topo").authenticated()
 			.and()
-			.formLogin()
-			.loginPage("/connexion").loginProcessingUrl("/connexion")
-			.defaultSuccessUrl("/userco")
+				.formLogin().loginPage("/connexion").defaultSuccessUrl("/index").failureUrl("/formLogIn")
+				.usernameParameter("pseudo").passwordParameter("password")
 			.and()
-			.csrf().disable();
-		
+				.logout().invalidateHttpSession(true)
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/connexion")
+			.and()
+				.csrf()
+			.and()
+				.sessionManagement().maximumSessions(1).expiredUrl("/connexion");
 
 
 	}
 	
+	//chiffrement de mot de passe
 	@Bean
 	 public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 	
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
-    }
     
-    
+	/*
+	 * précise les composants à utiliser pour authentifier les utilisateurs 
+	 * le service UserDetailsService et le type d’encodage
+	 */
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

@@ -16,12 +16,12 @@ public class UserDetailsServiceImp implements UserDetailsService{
 	private UserGrimpRepository userGrimpRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String pseudo) throws UsernameNotFoundException {
 				
-		UserGrimp userGrimp = userGrimpRepository.findByPseudo(username);
+		UserGrimp userGrimp = userGrimpRepository.findByPseudo(pseudo);
 		
 		if (userGrimp == null) {
-            throw new UsernameNotFoundException("Utilisateur inconnu : " + username);
+            throw new UsernameNotFoundException("Utilisateur inconnu : " + pseudo);
         }
 		else {
 			return userGrimp;
