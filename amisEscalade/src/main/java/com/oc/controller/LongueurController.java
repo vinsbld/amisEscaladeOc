@@ -96,11 +96,17 @@ public class LongueurController {
 		Optional<Longueur> longr = longueurRepository.findById(idLongueur);
 		
 		Longueur longueur = null;
-		model.addAttribute("longueur", longueur);
+		
 
 		if (longr.isPresent()) {
 			longueur = longr.get();
 		}
+		
+		LongueurForm longForm = new LongueurForm();
+		longForm.setDistance(longueur.getDistance());
+		longForm.setHauteur(longueur.getHauteur());
+		model.addAttribute("longueur", longForm);
+		
 		return"editFormLongueur";
 	}
 	

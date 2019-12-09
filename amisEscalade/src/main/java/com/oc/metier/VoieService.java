@@ -20,7 +20,7 @@ public class VoieService {
 	@Autowired
 	private SecteurRepository secteurRepository;
 	
-	public void saveVoie(long idSecteur, VoieForm voieForm, BindingResult result) {
+	public void saveVoie(long idSecteur, VoieForm voieForm) {
 		
 		Voie newVoie = new Voie();
 		newVoie.setNomDeVoie(voieForm.getName());
@@ -33,7 +33,7 @@ public class VoieService {
 		
 	}
 	
-	public void modifyVoie(long idVoie, VoieForm voieForm, BindingResult result) {
+	public void modifyVoie(long idVoie, VoieForm voieForm) {
 		
 		Voie voi = voieRepository.findById(idVoie).get();
 		voi.setNomDeVoie(voieForm.getName());

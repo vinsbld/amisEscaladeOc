@@ -105,7 +105,7 @@ public class SecteurController {
 			@ModelAttribute("secteur") SecteurForm secteurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
-		secteurService.modifySecteur(idSecteur, secteurForm, result);
+		secteurService.modifySecteur(idSecteur, secteurForm);
 		
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}

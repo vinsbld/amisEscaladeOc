@@ -12,10 +12,6 @@ public class viewController {
 		return "index";
 	}
 	
-	@GetMapping("/association")
-	public String asso() {
-		return "association";
-	}
 	
 	@GetMapping("/userco")
 	public String userCo() {

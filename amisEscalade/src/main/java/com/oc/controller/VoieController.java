@@ -91,7 +91,7 @@ public class VoieController {
 			return "formVoie";
 		}
 	
-		voieService.saveVoie(idSecteur,voieForm, result);
+		voieService.saveVoie(idSecteur,voieForm);
 
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 
@@ -100,16 +100,19 @@ public class VoieController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit")
 	public String editVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		
-		Voie voie = voieRepository.findById(idVoie).get();
-		model.addAttribute("voie", voie);
-		
+		Voie voie = voieRepository.findById(idVoie).get();	
 		
 		  SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		  model.addAttribute("site", site);
 		  
 		  Secteur secteur = secteurRepository.findById(idSecteur).get();
 		  model.addAttribute("secteur", secteur);
-		 
+		  
+		  VoieForm voiForm = new VoieForm();
+		  voiForm.setIdVoie(voie.getIdVoie());
+		  voiForm.setName(voie.getNomDeVoie());
+		  voiForm.setCotation(voie.getCotation());
+		  model.addAttribute("voiForm", voiForm);
 		
 		return"editFormVoie";
 	}
@@ -118,7 +121,7 @@ public class VoieController {
 	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, 
 			@ModelAttribute("voie") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
-		voieService.modifyVoie(idVoie, voieForm, result);
+		voieService.modifyVoie(idVoie, voieForm);
 		
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 		

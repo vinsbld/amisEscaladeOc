@@ -33,7 +33,7 @@ public class SecteurService {
 		
 	}
 	
-	public void modifySecteur(long idSecteur, SecteurForm secteurForm, BindingResult result) {
+	public void modifySecteur(long idSecteur, SecteurForm secteurForm) {
 		
 		Secteur sec = secteurRepository.findById(idSecteur).get();
 		sec.setNomDuSecteur(secteurForm.getNomDuSecteur());
