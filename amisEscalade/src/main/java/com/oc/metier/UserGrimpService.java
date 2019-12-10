@@ -14,16 +14,13 @@ public class UserGrimpService {
 
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;
-	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
 
 	public void saveUserGrimpForm(UserGrimpForm userGrimpForm) {
 
 		UserGrimp newUserGrimp = new UserGrimp();
 		newUserGrimp.setPseudo(userGrimpForm.getUsername());
 		newUserGrimp.setEmail(userGrimpForm.getEmail());
-		newUserGrimp.setPassword(passwordEncoder.encode(userGrimpForm.getPassword()));
+		newUserGrimp.setPassword(userGrimpForm.getPassword());
 
 		userGrimpRepository.save(newUserGrimp);
 	}
