@@ -50,10 +50,12 @@
 			
 			
 			<div class="custyle">
-			<!-- le spot -->
-			<h4>
-				<p>Nom du site : <a th:href="@{/site_escalade}" title="consulter la liste des sites"><b><span th:text="${site.nomSiteEscalade}"></span></b></a></p>
-			</h4>
+				<!-- nomDuspot -->
+				<h4>
+					Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}" title="consulter la liste des sites"></span></b></a>
+					<span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span>
+					<span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span>
+				</h4>
 				<table class="table listTableDeco">
 					<thead>
 						<tr>

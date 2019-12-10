@@ -51,15 +51,16 @@
 				<!-- nomDuspot -->
 				<h4>
 					Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}" title="consulter la liste des sites"></span></b></a>
+					<span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span>
+					<span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="non_officiel" /></img></span>
 				</h4>
-				<p><span th:if="${site.officiel}">Officiel Les amis de l'escalade !</span></p>
+				
 					<!-- le spot -->					
 					<table class="table listTableDeco" >
 <!-- 						<thead>
 							<tr>
-								<th>Département</th>
-								<th>Ville</th>
-								<th>Modifier</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead> -->
 						<tbody>
