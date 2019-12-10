@@ -52,14 +52,19 @@
 						<tr>
 							<th>Nom du topo</th><br/>
 							<th>Lieu</th>
-							<th>Date de parution</th>	
+							<th>Date de parution</th>
+							<th>Dispo</th>	
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="topo:${listeTopo}">
 							<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
 							<td th:text="${topo.lieu}"></td>
-							<td th:text="${topo.edate}"></td>									
+							<td th:text="${topo.edate}"></td>
+							<td>
+							<span th:if="${topo.dispo}"><img src="/img/dispo.png" alt="dispo" title="logo_dispo" /></img></span>
+							<span th:if="${!topo.dispo}"><img src="/img/non_dispo.png" alt="dispo" title="logo_non_dispo" /></img></span>
+							</td>									
 						</tr>
 					</tbody>
 				</table>
