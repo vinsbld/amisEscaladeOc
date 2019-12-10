@@ -21,21 +21,15 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Libraries CSS Files -->
-<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+<link href="/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 
 
@@ -49,7 +43,7 @@
 
 		<section id="indexPage">
 			<div class="indexPage-container">
-				<a href="association"><img src="img/logo_les_amis_or.png"
+				<a th:href="@{/site_escalade}"><img src="img/logo_les_amis_or.png"
 					alt="logo_les_amis" title="logo_les_amis" /></img></a>
 				<h2>un site de passionné.es pour des passionné.es</h2>
 				<a th:href="@{/site_escalade}" class="btn-get-started">visiter</a>
