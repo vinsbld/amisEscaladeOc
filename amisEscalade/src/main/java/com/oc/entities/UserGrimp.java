@@ -60,16 +60,6 @@ public class UserGrimp implements UserDetails {
 	 
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
-	
-	@Cascade(value = CascadeType.REMOVE)
-	
-	@JoinTable(
-			indexes = {@Index(name = "INDEX_USERGRIMP_ROLE", columnList = "id_user_grimp")},
-			name = "roles",
-			joinColumns = @JoinColumn(name = "id_user_grimp")
-			)
-	
-	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
 	
@@ -190,7 +180,7 @@ public class UserGrimp implements UserDetails {
 	@Override
 	public String getUsername() {
 		
-		return null;
+		return pseudo;
 	}
 
 
@@ -199,7 +189,7 @@ public class UserGrimp implements UserDetails {
 	@Override
 	public boolean isAccountNonExpired() {
 		
-		return false;
+		return true;
 	}
 
 
@@ -208,7 +198,7 @@ public class UserGrimp implements UserDetails {
 	@Override
 	public boolean isAccountNonLocked() {
 		
-		return false;
+		return true;
 	}
 
 
@@ -217,7 +207,7 @@ public class UserGrimp implements UserDetails {
 	@Override
 	public boolean isCredentialsNonExpired() {
 		
-		return false;
+		return true;
 	}
 
 
@@ -226,7 +216,7 @@ public class UserGrimp implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		
-		return false;
+		return true;
 	}
 
 

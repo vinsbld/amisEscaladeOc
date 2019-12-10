@@ -49,8 +49,8 @@
      </div>
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a sec:authorize="isAnonymous()" th:href="@{/index}">Accueil</a></li>
-          <li><a sec:authorize="isAnonymous()" href="/site_escalade" th:href="@{/site_escalade}">Sites d'escalades</a></li>
+          <li class="menu-active"><a th:href="@{/index}">Accueil</a></li>
+          <li><a href="/site_escalade" th:href="@{/site_escalade}">Sites d'escalades</a></li>
           <li><a sec:authorize="isAuthenticated()" href="/topo" th:href="@{/topo}">Topos</a></li>
           <li><a sec:authorize="isAnonymous()" href="/inscription" th:href="@{/inscription}">Inscription</a></li>
           <li><a sec:authorize="isAnonymous()" href="/connexion" th:href="@{/connexion}">Connexion</a></li>

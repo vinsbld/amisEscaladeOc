@@ -48,7 +48,7 @@
 					<p>Nom du topo : <b><a th:href="@{/topo}" th:text="${topo.name}"></a></b></p>
 				</h4>
 				<h5>
-					<p>Status : <span th:if="${topo.dispo}">dispo !</span><span th:if="${!topo.dispo}">non dispo : (</span></p>
+					<p>Status : <span th:if="${topo.dispo}" style="color:#58eb34;">dispo !</span><span th:if="${!topo.dispo}" style="color:red;">non dispo : (</span></p>
 				</h5>
 			
 				<table class="table listTableDeco">
@@ -73,6 +73,7 @@
 						</tr>
 					</tbody>
 				</table>
+				<span th:if="${topo.dispo}"><a class="btn-get-create">Résever</a></span>
 				<table class="table">
 					<tbody>
 						<tr>
