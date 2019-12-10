@@ -25,6 +25,8 @@ public class SiteEscalade implements Serializable{
 	@NonNull
 	private String ville;
 	
+	private Boolean officiel;
+	
 	@ManyToOne
 	@JoinColumn(name = "SIT_USR")
 	private UserGrimp userGrimp;
@@ -37,12 +39,16 @@ public class SiteEscalade implements Serializable{
 	}
 
 
-	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville) {
+	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville, Boolean officiel,
+			UserGrimp userGrimp, Collection<Secteur> secteur) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nomSiteEscalade = nomSiteEscalade;
 		this.departement = departement;
 		this.ville = ville;
+		this.officiel = officiel;
+		this.userGrimp = userGrimp;
+		this.secteur = secteur;
 	}
 
 
@@ -103,6 +109,16 @@ public class SiteEscalade implements Serializable{
 
 	public void setSecteur(Collection<Secteur> secteur) {
 		this.secteur = secteur;
+	}
+
+
+	public Boolean getOfficiel() {
+		return officiel;
+	}
+
+
+	public void setOfficiel(Boolean officiel) {
+		this.officiel = officiel;
 	}
 
 

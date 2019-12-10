@@ -53,6 +53,7 @@ public class SiteEscaladeController {
 		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
 		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
 		newSiteEscalade.setVille(siteEscaladeForm.getVille());
+		newSiteEscalade.setOfficiel(siteEscaladeForm.getOfficiel());
 		
 		siteEscaladeService.saveSiteEscalade(newSiteEscalade);
 		
@@ -84,6 +85,7 @@ public class SiteEscaladeController {
 		siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
 		siteForm.setDepartement(siteEscalade.getDepartement());
 		siteForm.setVille(siteEscalade.getVille());
+		siteForm.setOfficiel(siteEscalade.getOfficiel());
 		model.addAttribute("siteForm", siteForm);
 		
 		return "editFormSiteEscalade";

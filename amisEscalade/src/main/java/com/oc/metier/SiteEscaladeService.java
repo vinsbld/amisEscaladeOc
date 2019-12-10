@@ -25,6 +25,7 @@ public class SiteEscaladeService {
 		site.setNomSiteEscalade(siteEscaladeForm.getName());
 		site.setDepartement(siteEscaladeForm.getDepartement());
 		site.setVille(siteEscaladeForm.getVille());
+		site.setOfficiel(siteEscaladeForm.getOfficiel());
 		
 		siteEscaladeRepository.save(site);
 		
