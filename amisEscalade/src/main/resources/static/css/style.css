@@ -564,14 +564,14 @@ body.mobile-nav-active #mobile-nav-toggle {
 	border: 1px solid #ccc;
     padding: 5px;
     margin: 5% 0;
-    box-shadow: 3px 3px 2px #ccc;
+/*     box-shadow: 3px 3px 2px #ccc; */
     transition: 0.2s;	
     text-align: left;
 }
 
 
-.listTableDeco:hover{
+/* .listTableDeco:hover{
 	box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
-}
+} */
 
