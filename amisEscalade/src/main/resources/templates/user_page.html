@@ -52,46 +52,64 @@
 				<table class="table listTableDeco">
 					<tbody>
 						<tr>
-							<td>Pseudo : </td>
+							<td><b>Pseudo : </b></td>
 							<td th:text="${usr.pseudo}"></td>						
 						</tr>
 						<tr>
-							<td>Email : </td>
+							<td><b>Email : </b></td>
 							<td th:text="${usr.email}"></td>
+						</tr>
+						<tr>
+							<td><b>Mot de passe : </b></td>
+							<td>********</td>
 						</tr>
 					</tbody>
 				</table>
+				<table class="table">
+					<tbody>
+						<tr>
+							<td><a th:href="@{/profil/{idUserGrimp}/edit(idUserGrimp=${idUserGrimp})}">modifier </a></td>
+							<td id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer votre profil ?')" th:href="@{/profil/{idUserGrimp}/delete(idUserGrimp=${idUserGrimp})}"> supprimer</a></td>
+						</tr>						
+					</tbody>				
+				</table>			
 			</div>
-			<p></p>
+			
 			<!-- #Mes Sites -->
 			<h1>MES SPOT'S' : </h1>
 			
 			<div class="custyle">
 				<table class="table table-striped listTableDeco">
  					<tbody>
-<!-- 						<tr>
-							<td th:text="${site.nomSiteEscalade}"></td>
+						<tr th:each="site:${sitList}">
+							<td><b><span th:text="${site.nomSiteEscalade}"></span></b></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
-							<td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td>
-						</tr> -->
+							<!-- <td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td> -->
+						</tr>
 					</tbody>
 				</table>
-				<a href="/site_escalade/create" th:href="@{/site_escalade/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">Créer un spot</a>
+				<a th:href="@{/site_escalade/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">Créer un spot</a>
 			</div>
 			<p></p>
 			<!-- #Topo -->
-			<h1>MES SPOT'S' : </h1>
+			<h1>MES TOPO'S' : </h1>
 			
 			<div class="custyle">
 				<table class="table table-striped listTableDeco">
  					<tbody>
-<!-- 						<tr>
-							<td></td>
-						</tr> -->
+						<tr th:each="topo:${topList}">
+							<td><b><span th:text="${topo.name}"></span></b></td>
+							<td th:text="${topo.lieu}"></td>
+							<td th:text="${topo.edate}"></td>
+							<td>
+								<span th:if="${topo.dispo}"><img src="/img/dispo.png" alt="dispo" title="logo_dispo" /></img></span>
+								<span th:if="${!topo.dispo}"><img src="/img/non_dispo.png" alt="dispo" title="logo_non_dispo" /></img></span>
+							</td>
+						</tr>
 					</tbody>
 				</table>
-				<a th:href="@{/formTopo}" class="btn-get-create">ajouter un topo</a>
+				<a th:href="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">ajouter un topo</a>
 			</div>
 
 		</section>

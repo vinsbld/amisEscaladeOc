@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{header}">
+<head>
+<meta charset="utf-8" />
+
+  <!-- Bootstrap CSS File -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="../static/css/style.css"
+	th:href="@{/css/style_form.css}" />
+	
+<title>Modifier profil</title>
+
+</head>
+
+<body>
+	<div class="signup-form">
+    <form th:action="@{/profil/{idUserGrimp}/update(idUserGrimp=${idUserGrimp})}" th:object="${userForm}" method="post" class="form-horizontal">
+		<div class="col-xs-8 col-xs-offset-4 text-center" >
+			<h2>Modifier profil</h2>
+		</div>		
+        <div class="form-group">
+			<label class="control-label col-xs-4">Pseudo</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" name="username" th:field="${userForm.username}" required="required">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Email</label>
+			<div class="col-xs-8">
+                <input type="email" class="form-control" name="email" th:field="${userForm.email}" required="required">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Mot de passe</label>
+			<div class="col-xs-8">
+                <input type="password" class="form-control" name="password" th:field="${userForm.password}" required="required">
+            </div>        	
+        </div>
+		<div class="form-group">
+			<label class="control-label col-xs-4">Confirmez mot de passe</label>
+			<div class="col-xs-8">
+                <input type="password" class="form-control" name="confirm_password" required="required">
+            </div>        	
+        </div>
+
+		<div class="form-group text-center">
+		<button type="submit" class="btn btn-primary btn-lg ">Envoyer</button>   
+		</div>   
+		<!-- CSRF afin d’éviter les attaques Cross-Site Request Forgery. -->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    </form>
+</div>
+
+</body>
+</html>

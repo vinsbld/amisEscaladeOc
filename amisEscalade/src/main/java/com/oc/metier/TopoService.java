@@ -14,15 +14,8 @@ public class TopoService {
 	@Autowired
 	private TopoRepository topoRepository;
 	
-	public void saveTopoForm(TopoForm topoForm, BindingResult result) {
-		
-		Topo newTopo = new Topo();
-		newTopo.setDescription(topoForm.getDescription());
-		newTopo.setName(topoForm.getName());
-		newTopo.setLieu(topoForm.getLieu());
-		newTopo.setEdate(topoForm.getEdate());
-		newTopo.setDispo(topoForm.getDispo());
-		
+	public void saveTopoForm(long idUserGrimp, Topo newTopo) {
+				
 		topoRepository.save(newTopo);
 		
 	}

@@ -6,17 +6,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 <head>
 <meta charset="utf-8" />
 
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Favicons -->
-  <link href="img/mountain.png" rel="icon">
-  <link href="img/mountain.png" rel="mountain">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
-
   <!-- Bootstrap CSS File -->
   <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,10 +13,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
   <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/lib/animate/animate.min.css" rel="stylesheet">
 
-  <!-- Main Stylesheet File -->
-  <link href="/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
-
-<link rel="stylesheet" type="text/css" href="../static/css/style.css"
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css"
 	th:href="@{/css/style_form.css}" />
 	
 <title>Formulaire topo</title>
@@ -36,7 +22,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/formTopo}" method="post" class="form-horizontal">
+    <form th:action="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Formulaire topo</h2>
 		</div>		

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.dao.TopoRepository;
 import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Topo;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.UserGrimpForm;
 import com.oc.metier.UserGrimpService;
@@ -32,6 +34,9 @@ public class UserGrimpController {
 	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
+	
+	@Autowired
+	private TopoRepository topoRepository;
 	
 	@GetMapping("/inscription")
 	public String formInsc() {
@@ -55,7 +60,46 @@ public class UserGrimpController {
 		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
 		model.addAttribute("usr", usr);
 		
+		List<SiteEscalade> site = siteEscaladeRepository.findByUserGrimp(idUserGrimp);
+		model.addAttribute("sitList", site);
+		
+		List<Topo> top = topoRepository.findByUserG(idUserGrimp);
+		model.addAttribute("topList", top);
+		
 		return "user_page";
+	}
+	
+	@GetMapping("/profil/{idUserGrimp}/edit")
+	public String editProfil(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+		
+		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		
+		UserGrimpForm userForm = new UserGrimpForm();
+		userForm.setUsername(usr.getPseudo());
+		userForm.setEmail(usr.getEmail());
+		userForm.setPassword(usr.getPassword());
+		
+		model.addAttribute("userForm", userForm);
+		
+		return "editFormInscription";
+	}
+	
+	@PostMapping("/profil/{idUserGrimp}/update")
+	public String updateProfil(@PathVariable("idUserGrimp") long idUserGrimp, @ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, 
+			final RedirectAttributes redirectAttributes) {
+		
+		userGrimpService.modifyProfil(idUserGrimp, userGrimpForm);
+		
+		return "redirect:/profil/"+idUserGrimp;
+		
+	}
+	
+	@GetMapping("/profil/{idUserGrimp}/delete")
+	public String deleteUser(@PathVariable("idUserGrimp") long idUserGrimp, final RedirectAttributes redirectAttributes) {
+		
+		userGrimpRepository.deleteById(idUserGrimp);
+		
+		return "redirect:/index";
 	}
 	
 

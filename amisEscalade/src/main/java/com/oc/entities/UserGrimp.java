@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -46,10 +47,10 @@ public class UserGrimp implements UserDetails {
 	private String password;
 	
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
-	private Collection<SiteEscalade>siteEscalades;
+	private Collection<SiteEscalade> siteEscalades;
 		
-	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY) 
-	private Collection<Topo>topos;
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = CascadeType.ALL) 
+	private Collection<Topo> topos;
 	 
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)

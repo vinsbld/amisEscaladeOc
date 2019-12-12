@@ -28,7 +28,7 @@ public class Topo implements Serializable{
 	private String lieu;
 	@NonNull
 	private Date edate;
-	
+	@NonNull
 	private Boolean dispo;
 	
 	

@@ -25,5 +25,16 @@ public class UserGrimpService {
 		userGrimpRepository.save(newUserGrimp);
 	}
 	
+	public void modifyProfil(long idUserGrimp, UserGrimpForm userGrimpForm) {
+		
+		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		usr.setPseudo(userGrimpForm.getUsername());
+		usr.setEmail(userGrimpForm.getEmail());
+		usr.setPassword(userGrimpForm.getPassword());
+		
+		userGrimpRepository.save(usr);
+		
+	}
+	
 
 }

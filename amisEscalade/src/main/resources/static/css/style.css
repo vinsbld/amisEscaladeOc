@@ -14,6 +14,12 @@ background: #fff;
 }
 
 
+a{
+	color: grey;
+}
+ #supp a:hover{
+ 	color: red;
+ }
 
 a:hover, a:active, a:focus {
   color: #2dca98;
@@ -269,13 +275,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* hypertext */
 
-a{
-	color: grey;
-}
-
-a :hover{	
-	color: #2dc997;
-}
 
 
 .btn-valid{

@@ -69,7 +69,7 @@ public class SiteEscaladeController {
 		
 		siteEscaladeRepository.save(newSiteEscalade);
 		
-		return "redirect:/site_escalade";
+		return "redirect:/profil/"+idUserGrimp;
 	}
 	
 	@GetMapping("/site_escalade")
@@ -90,8 +90,7 @@ public class SiteEscaladeController {
 		if(s.isPresent()) {
 			siteEscalade = s.get();
 		}
-		
-		
+				
 		SiteEscaladeForm siteForm = new SiteEscaladeForm();
 		siteForm.setName(siteEscalade.getNomSiteEscalade());
 		siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
@@ -103,7 +102,7 @@ public class SiteEscaladeController {
 		return "editFormSiteEscalade";
 	}
 	
-	@PostMapping("/site_escalade/{idSiteEscalade}/update")
+	@PostMapping("/site_escalade/{idSiteEscalade}/{idUserGrimp}/update")
 	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 
