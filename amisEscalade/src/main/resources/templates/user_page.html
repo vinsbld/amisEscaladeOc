@@ -80,12 +80,20 @@
 			
 			<div class="custyle">
 				<table class="table table-striped listTableDeco">
+					<thead>
+						<tr>
+							<th>Nom du spot</th>
+							<th>Département</th>
+							<th>Ville</th>
+							<th>Officiel</th>	
+						</tr>
+					</thead>
  					<tbody>
 						<tr th:each="site:${sitList}">
 							<td><b><a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${site.nomSiteEscalade}"></span></a></b></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
-							<!-- <td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td> -->
+							<td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td>
 						</tr>
 					</tbody>
 				</table>
