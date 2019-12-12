@@ -103,7 +103,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<table class="table">
+				<table class="table" sec:authorize="isAuthenticated()">
 					<tbody>
 						<tr>
 							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Modifier</a></td>
@@ -115,19 +115,19 @@
 				<!-- les longueurs -->
 				<table class="table table-striped listTableDeco">
 					<h1><span th:text="${voie.nomDeVoie}"></span> : LONGUEUR'S'</h1>
-					<button class="btn-get-create"><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Ajouter une longueur à <span th:text="${voie.nomDeVoie}"></span></a></button>
+					<a sec:authorize="isAuthenticated()" class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur}, idVoie=${voie.idVoie})}">Ajouter une longueur à <span th:text="${voie.nomDeVoie}"></span></a>
 					<thead>
 						<th>Distance</th>
 						<th>Hauteur</th>
-						<th>Modifier</th>
-						<th>Supprimer</th>
+						<th sec:authorize="isAuthenticated()">Modifier</th>
+						<th sec:authorize="isAuthenticated()">Supprimer</th>
 					</thead>
 					<tbody>
 						<tr th:each="longr:${longueur}">
 							<td th:text="${longr.distance}"></td>
 							<td th:text="${longr.hauteur}"></td>
-							<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette Longueur ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
+							<td sec:authorize="isAuthenticated()"><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
+							<td sec:authorize="isAuthenticated()"><a onclick="return confirm('Etes vous sûre de vouloir supprimer cette Longueur ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete(idLongueur=${longr.idLongueur}, idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>

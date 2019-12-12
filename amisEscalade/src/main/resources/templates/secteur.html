@@ -97,7 +97,7 @@
 					</tbody>
 				</table>
 				
-				<table class="table">
+				<table class="table" sec:authorize="isAuthenticated()">
 					<tbody>
 						<tr>
 							<td><a class="btn btn-info btn-xs"
@@ -115,7 +115,7 @@
 				<table class="table table-striped listTableDeco">
 			
 					<h1><span th:text="${secteur.nomDuSecteur}"></span> : VOIE'S'</h1>
-					<a class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Ajouter une voie à <span th:text="${secteur.nomDuSecteur}"></span></a>
+					<a sec:authorize="isAuthenticated()" class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Ajouter une voie à <span th:text="${secteur.nomDuSecteur}"></span></a>
 					<thead>
 						<tr>
 							<td><b>Nom de la voie</b></td>
