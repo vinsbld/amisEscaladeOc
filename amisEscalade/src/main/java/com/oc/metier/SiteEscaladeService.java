@@ -14,7 +14,7 @@ public class SiteEscaladeService {
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
-	public void saveSiteEscalade(SiteEscalade newSiteEscalade) {
+	public void saveSiteEscalade(long idUserGrimp, SiteEscalade newSiteEscalade) {
 		
 		siteEscaladeRepository.save(newSiteEscalade);
 	}

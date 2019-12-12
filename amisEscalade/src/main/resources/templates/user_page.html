@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{header}">
+
+
+<head>
+<meta charset="utf-8" />
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Favicons -->
+<link href="/img/mountain.png" rel="icon">
+<link href="/img/mountain.png" rel="mountain">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<!--==========================
+    Page profil
+  ============================-->
+
+<body>
+
+	<main id="main">
+
+		<section id="page">
+			<div class="page-container">
+			
+			<!-- #Mon Profil -->
+			<h1>MON PROFIL : </h1>
+			
+			<div class="custyle">
+				<table class="table listTableDeco">
+					<tbody>
+						<tr>
+							<td>Pseudo : </td>
+							<td th:text="${usr.pseudo}"></td>						
+						</tr>
+						<tr>
+							<td>Email : </td>
+							<td th:text="${usr.email}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p></p>
+			<!-- #Mes Sites -->
+			<h1>MES SPOT'S' : </h1>
+			
+			<div class="custyle">
+				<table class="table table-striped listTableDeco">
+ 					<tbody>
+<!-- 						<tr>
+							<td th:text="${site.nomSiteEscalade}"></td>
+							<td th:text="${site.departement}"></td>
+							<td th:text="${site.ville}"></td>
+							<td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td>
+						</tr> -->
+					</tbody>
+				</table>
+				<a href="/site_escalade/create" th:href="@{/site_escalade/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">Créer un spot</a>
+			</div>
+			<p></p>
+			<!-- #Topo -->
+			<h1>MES SPOT'S' : </h1>
+			
+			<div class="custyle">
+				<table class="table table-striped listTableDeco">
+ 					<tbody>
+<!-- 						<tr>
+							<td></td>
+						</tr> -->
+					</tbody>
+				</table>
+				<a th:href="@{/formTopo}" class="btn-get-create">ajouter un topo</a>
+			</div>
+
+		</section>
+		
+	</main>
+
+</body>
+</html>

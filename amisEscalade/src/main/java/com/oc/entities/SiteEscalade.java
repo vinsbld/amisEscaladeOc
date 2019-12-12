@@ -10,16 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
 
 @Entity
-/*
- * @NamedQuery(name = "SiteEscalade.findByName", query =
- * "SELECT s FROM SiteEscalade s WHERE LOWER(s.nomSiteEscalade)")
- */
 public class SiteEscalade implements Serializable{
 	@Id @GeneratedValue
 	private long idSiteEscalade;

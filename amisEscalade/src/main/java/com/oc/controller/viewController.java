@@ -11,14 +11,5 @@ public class viewController {
 	public String index() {
 		return "index";
 	}
-	
-	
-	@GetMapping("/userco")
-	public String userCo() {
-		return "userGrimperPage";
-	}
-	
-
-
 
 }

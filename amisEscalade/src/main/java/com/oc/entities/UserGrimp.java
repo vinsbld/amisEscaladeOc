@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,16 +12,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -51,21 +45,18 @@ public class UserGrimp implements UserDetails {
 	@NotEmpty(message = "votre mot de passe doit contenir minimum 4 caratères")
 	private String password;
 	
-	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
 	private Collection<SiteEscalade>siteEscalades;
-	
-	
-	  @OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY) 
-	  private Collection<Topo>topos;
+		
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY) 
+	private Collection<Topo>topos;
 	 
 	
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
 	
-	
-	
-	
+		
 	public UserGrimp () {
 		this.roles = Collections.singletonList(RoleEnum.USER);
 	}

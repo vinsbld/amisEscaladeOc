@@ -8,7 +8,7 @@
   <!-- Bootstrap CSS File -->
   <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="../static/css/style.css"
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css"
 	th:href="@{/css/style_form.css}" />
 	
 <title>Formulaire Site</title>
@@ -18,7 +18,7 @@
 <body>
 
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/create}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'un site d'escalade</h2>
 		</div>		
@@ -56,6 +56,6 @@
 		<!-- CSRF afin d’éviter les attaques Cross-Site Request Forgery. -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
     </form>
-
+</div>
 </body>
 </html>

@@ -35,10 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/inscription", "/lib/**", "/js/**", "/img/**", "/css/**","/index", "/site_escalade", "/connexion", "/le_site_escalade").permitAll()
+				/*
+				 * .antMatchers("/inscription", "/lib/**", "/js/**", "/img/**",
+				 * "/css/**","/index", "/site_escalade", "/connexion",
+				 * "/le_site_escalade/{idSiteEscalade}/view").permitAll() .and()
+				 * .authorizeRequests() .anyRequest().authenticated()
+				 */
+			.antMatchers("/topo").authenticated()
 			.and()
 			.authorizeRequests()
-			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			.and()
 				.formLogin().loginPage("/connexion").defaultSuccessUrl("/index").failureUrl("/connexion")
 				.usernameParameter("username").passwordParameter("password")

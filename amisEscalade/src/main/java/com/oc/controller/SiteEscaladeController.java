@@ -18,8 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.UserGrimp;
 import com.oc.forms.SiteEscaladeForm;
 import com.oc.metier.SiteEscaladeService;
 
@@ -34,14 +36,21 @@ public class SiteEscaladeController {
 	
 	@Autowired
 	private SecteurRepository secteurRepository;
+	
+	@Autowired
+	private UserGrimpRepository userGrimpRepository;
 
-	@GetMapping("/site_escalade/create")
-	public String formSit() {
+	@GetMapping("/site_escalade/{idUserGrimp}/create")
+	public String formSit(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+		
+		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
+		model.addAttribute("usr", userG);
+		
 		return"formSiteEscalade";
 	}
 
-	@PostMapping("/site_escalade/create")
-	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
+	@PostMapping("/site_escalade/{idUserGrimp}/create")
+	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idUserGrimp") long idUserGrimp, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
 		if(result.hasErrors()) {
@@ -55,7 +64,10 @@ public class SiteEscaladeController {
 		newSiteEscalade.setVille(siteEscaladeForm.getVille());
 		newSiteEscalade.setOfficiel(siteEscaladeForm.getOfficiel());
 		
-		siteEscaladeService.saveSiteEscalade(newSiteEscalade);
+		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
+		newSiteEscalade.setUserGrimp(userG);
+		
+		siteEscaladeRepository.save(newSiteEscalade);
 		
 		return "redirect:/site_escalade";
 	}
@@ -69,8 +81,8 @@ public class SiteEscaladeController {
 		return "site_escalade";
 	}
 	
-	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
-	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+	@GetMapping("/site_escalade/{idSiteEscalade}/{idUserGrimp}/edit")
+	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idUserGrimp") long idUserGrimp, Model model) {
 		
 		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
 		
@@ -87,7 +99,7 @@ public class SiteEscaladeController {
 		siteForm.setVille(siteEscalade.getVille());
 		siteForm.setOfficiel(siteEscalade.getOfficiel());
 		model.addAttribute("siteForm", siteForm);
-		
+	
 		return "editFormSiteEscalade";
 	}
 	
