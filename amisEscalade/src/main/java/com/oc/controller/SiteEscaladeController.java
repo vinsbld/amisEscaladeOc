@@ -132,7 +132,6 @@ public class SiteEscaladeController {
 		List<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
 		model.addAttribute("sec", sec);
 		
-		
 		return"le_site_escalade";
 	}
 

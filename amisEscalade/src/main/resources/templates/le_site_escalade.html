@@ -74,7 +74,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<table class="table" sec:authorize="isAuthenticated()">
+					<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
 						<tbody>
 							<tr>
 								<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>

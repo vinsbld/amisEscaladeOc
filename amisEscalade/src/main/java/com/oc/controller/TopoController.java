@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,11 +35,15 @@ public class TopoController {
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;
 	
-	@GetMapping("/topo")
-	public String topoPage(Model model) {
+	
+	@GetMapping("/topo/{idUserGrimp}")
+	public String topoPage(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
 		
 		List<Topo> topo = topoRepository.findAll();
 		model.addAttribute("listeTopo", topo);
+		
+		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
+		model.addAttribute("usr", userG);
 		
 		return "topo";
 	}
@@ -96,15 +101,20 @@ public class TopoController {
 		return"redirect:/topo";
 	}
 	
-	@GetMapping("/le_topo/{idTopo}/view")
-	public String leTopo(Model model, @PathVariable("idTopo") long idTopo) {
+	@GetMapping("/le_topo/{idTopo}/{idUserGrimp}/view")
+	public String leTopo(Model model, @PathVariable("idTopo") long idTopo, @PathVariable("idUserGrimp") long idUserGrimp) {
 		
 		Topo topo = topoRepository.findById(idTopo).get();
 		model.addAttribute("topo", topo);
+		
+		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		model.addAttribute("usr", usr);
 		
 		return"le_Topo";
 		
 	}
 	
+	
+
 
 }

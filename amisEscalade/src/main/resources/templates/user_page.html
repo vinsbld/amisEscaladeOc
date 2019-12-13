@@ -108,7 +108,7 @@
 				<table class="table table-striped listTableDeco">
  					<tbody>
 						<tr th:each="topo:${topList}">
-							<td><b><span th:text="${topo.name}"></span></b></td>
+							<td><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}"><b><span th:text="${topo.name}"></span></b></a></td>
 							<td th:text="${topo.lieu}"></td>
 							<td th:text="${topo.edate}"></td>
 							<td>
