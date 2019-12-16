@@ -81,8 +81,8 @@ public class SiteEscaladeController {
 		return "site_escalade";
 	}
 	
-	@GetMapping("/site_escalade/{idSiteEscalade}/{idUserGrimp}/edit")
-	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idUserGrimp") long idUserGrimp, Model model) {
+	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
+	public String editSite(@PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		
 		Optional<SiteEscalade> s =siteEscaladeRepository.findById(idSiteEscalade);
 		
@@ -102,14 +102,14 @@ public class SiteEscaladeController {
 		return "editFormSiteEscalade";
 	}
 	
-	@PostMapping("/site_escalade/{idSiteEscalade}/{idUserGrimp}/update")
-	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
+	@PostMapping("/site_escalade/{idSiteEscalade}/update")
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, 
 			final RedirectAttributes redirectAttributes) {
 
 			
 		siteEscaladeService.modifySiteEscalade(idSiteEscalade, siteEscaladeForm);
 			
-		return "redirect:/le_site_escalade/{idSiteEscalade}/view";
+		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
 	
 

@@ -78,7 +78,7 @@
 						<tbody>
 							<tr>
 								<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
-								<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{site_escalade/{idSiteEscalade}/delete/(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
+								<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/delete/(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
 							</tr>
 						</tbody>	
 					</table>
@@ -89,10 +89,12 @@
 
 					<table class="table table-striped listTableDeco">
 					
-						<a sec:authorize="isAuthenticated()" class="btn-get-create"
+					<div sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+						<a class="btn-get-create"
 							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
 							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span>
 						</a>
+					</div>	
 						
 						<thead>
 							<th>Nom du secteur</th>

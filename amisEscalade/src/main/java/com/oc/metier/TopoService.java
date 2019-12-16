@@ -2,7 +2,6 @@ package com.oc.metier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import com.oc.dao.TopoRepository;
 import com.oc.entities.Topo;
@@ -20,7 +19,7 @@ public class TopoService {
 		
 	}
 	
-	public void modifyTopo(long idTopo, TopoForm topoForm, BindingResult result) {
+	public void modifyTopo(long idTopo, TopoForm topoForm) {
 		
 		Topo topo = topoRepository.findById(idTopo).get();
 		topo.setDescription(topoForm.getDescription());

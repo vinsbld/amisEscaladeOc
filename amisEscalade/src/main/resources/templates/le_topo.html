@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 
@@ -45,7 +45,7 @@
 			<div class="page-container">
 			<div class="custyle">
 				<h4>
-					<p>Nom du topo : <b><a th:href="@{/topo}" th:text="${topo.name}"></a></b></p>
+					<p>Nom du topo : <b><a th:href="@{/topo/{idUserGrimp}(idUserGrimp=${usr.idUserGrimp})}" th:text="${topo.name}"></a></b></p>
 				</h4>
 				<h5>
 					<p>Status : <span th:if="${topo.dispo}" style="color:#58eb34;">dispo !</span><span th:if="${!topo.dispo}" style="color:red;">non dispo : (</span></p>
@@ -70,12 +70,12 @@
 						</tr>
 					</tbody>
 				</table>
-				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo}"><a class="btn-get-create">Résever</a></span>
+				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp}"><a class="btn-get-create">Résever</a></span>
 				<table class="table">
 					<tbody>
 						<tr sec:autorize="isAuthenticated()" th:if="${topo.userGrimp.idUserGrimp}==${usr.idUserGrimp}">
-							<td><a class="btn btn-info btn-xs" th:href="@{topo/{idTopo}/edit(idTopo=${topo.idTopo})}">Modifier</a></td>		
-							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>	
+							<td><a class="btn btn-info btn-xs" th:href="@{/topo/{idTopo}/{idUserGrimp}/edit(idTopo=${topo.idTopo}, idUserGrimp=${idUserGrimp})}">Modifier</a></td>		
+							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/{idUserGrimp}/delete(idTopo=${topo.idTopo}, idUserGrimp=${idUserGrimp})}">Supprimer</a></td>	
 						</tr>
 					</tbody>				
 				</table>			

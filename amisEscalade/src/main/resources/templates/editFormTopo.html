@@ -36,7 +36,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/topo/{idTopo}/update(idTopo=${idTopo})}" th:object="${topo}" method="post" class="form-horizontal">
+    <form th:action="@{/topo/{idTopo}/{idUserGrimp}/update(idTopo=${idTopo}, idUserGrimp=${idUserGrimp})}" th:object="${topo}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier un topo</h2>
 		</div>		

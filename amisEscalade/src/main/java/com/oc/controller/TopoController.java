@@ -75,8 +75,8 @@ public class TopoController {
 		return "redirect:/profil/"+idUserGrimp;
 	}
 	
-	@GetMapping("topo/{idTopo}/edit")
-	public String editTopo(@PathVariable("idTopo") long idTopo, Model model) {
+	@GetMapping("/topo/{idTopo}/{idUserGrimp}/edit")
+	public String editTopo(@PathVariable("idTopo") long idTopo, Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
 		 
 		Topo topo = topoRepository.findById(idTopo).get();
 		model.addAttribute("topo", topo);
@@ -84,21 +84,21 @@ public class TopoController {
 		return "editFormTopo";
 	}
 	
-	@PostMapping("topo/{idTopo}/update")
-	public String updateTopo(@PathVariable("idTopo") long idTopo, Model model, @ModelAttribute("editFormTopo") TopoForm topoForm, BindingResult result,
+	@PostMapping("/topo/{idTopo}/{idUserGrimp}/update")
+	public String updateTopo(@PathVariable("idTopo") long idTopo, @PathVariable("idUserGrimp") long idUserGrimp, Model model, @ModelAttribute("editFormTopo") TopoForm topoForm,
 			final RedirectAttributes redirectAttributes) {
 		
-		topoService.modifyTopo(idTopo, topoForm, result);
+		topoService.modifyTopo(idTopo, topoForm);
 		
-		return"redirect:/topo";
+		return "redirect:/profil/"+idUserGrimp;
 	}
 	
-	@GetMapping("/topo/{idTopo}/delete")
-	public String deleteTopo(@PathVariable("idTopo") long idTopo, Model model, final RedirectAttributes redirectAttributes) {
+	@GetMapping("/topo/{idTopo}/{idUserGrimp}/delete")
+	public String deleteTopo(@PathVariable("idTopo") long idTopo, Model model, @PathVariable("idUserGrimp") long idUserGrimp, final RedirectAttributes redirectAttributes) {
 	
 		topoRepository.deleteById(idTopo);
 	
-		return"redirect:/topo";
+		return "redirect:/profil/"+idUserGrimp;
 	}
 	
 	@GetMapping("/le_topo/{idTopo}/{idUserGrimp}/view")
