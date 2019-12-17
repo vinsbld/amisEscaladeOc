@@ -119,7 +119,14 @@
 					</tbody>
 				</table>
 				<p></p>
-				<a th:href="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">ajouter un topo</a>
+				<table>
+					<tbody>
+						<tr>
+							<td><a th:href="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">ajouter un topo</a></td>
+							<td><a th:href="@{/topo/{idUserGrimp}/mes_reservations(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">gérer mes demandes</a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 
 		</section>

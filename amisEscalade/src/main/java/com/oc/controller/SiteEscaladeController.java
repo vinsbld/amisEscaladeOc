@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SecteurRepository;
@@ -46,6 +43,8 @@ public class SiteEscaladeController {
 		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
 		model.addAttribute("usr", userG);
 		
+		
+		
 		return"formSiteEscalade";
 	}
 
@@ -58,10 +57,23 @@ public class SiteEscaladeController {
 		}
 		
 		SiteEscalade newSiteEscalade = new SiteEscalade();
+		/*
+		 * Optional<CommunesAndCdp> communes =
+		 * communesAndCdpRepository.findByIdCities(siteEscaladeForm.getIdSiteEscalade())
+		 * ;
+		 */
+		
+		/* newSiteEscalade.setCommunesAndCdp(communes.get()); */
+		/*
+		 * newSiteEscalade.setNomSiteEscalade(communesAndCdpRepository.get);
+		 * newSiteEscalade.setDepartement(communesAndCdpRepository.
+		 * getDepartmentCartography(),
+		 * communesAndCdpRepository.getDepartmentNameCartography());
+		 */
 		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
-		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName());
-		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement());
-		newSiteEscalade.setVille(siteEscaladeForm.getVille());
+		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName()); 
+		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
+		newSiteEscalade.setVille(siteEscaladeForm.getVille()); 
 		newSiteEscalade.setOfficiel(siteEscaladeForm.getOfficiel());
 		
 		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();

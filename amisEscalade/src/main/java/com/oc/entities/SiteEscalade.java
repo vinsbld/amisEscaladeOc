@@ -34,6 +34,7 @@ public class SiteEscalade implements Serializable{
 	@OneToMany(mappedBy ="siteEscalade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur;
 	
+	
 	public SiteEscalade() {
 
 	}
@@ -120,8 +121,6 @@ public class SiteEscalade implements Serializable{
 	public void setOfficiel(Boolean officiel) {
 		this.officiel = officiel;
 	}
-
-
 
 
 	

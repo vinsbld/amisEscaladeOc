@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{header}">
+
+
+<head>
+<meta charset="utf-8" />
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Favicons -->
+<link href="img/mountain.png" rel="icon">
+<link href="img/mountain.png" rel="mountain">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+
+</head>
+
+<!--==========================
+    Topo section
+  ============================-->
+
+<body>
+
+	<main id="main">
+
+		<section id="page">
+			<div class="page-container">
+			<div class="custyle">
+				<h1>MES RESERVATIONS TOPO'S'</h1>
+			
+					<table class="table table-striped listTableDeco">
+						<h2>Mes demandes topo's'</h2>
+						<thead>
+							<tr>
+								<th>Nom du topo</th>
+								<th>Lieu</th>
+								<th>Date de parution</th>
+								<th>Dispo</th>	
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="topo:${topList}">
+								<td><b><a th:href="@{/le_topo/{idTopo}/{idUserGrimp}/view(idTopo=${topo.idTopo}, idUserGrimp=${usr.idUserGrimp})}" th:text="${topo.name}"></a></b></td>
+								<td th:text="${topo.lieu}"></td>
+								<td th:text="${topo.edate}"></td>
+								<td>
+								<span th:if="${topo.dispo}"><img src="/img/dispo.png" alt="dispo" title="logo_dispo" /></img></span>
+								<span th:if="${!topo.dispo}"><img src="/img/non_dispo.png" alt="dispo" title="logo_non_dispo" /></img></span>
+								</td>									
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-striped listTableDeco">
+					<h2>Mes prêts topo's'</h2>
+						<thead>
+							<tr>
+								<th>Nom du topo</th>
+								<th>Lieu</th>
+								<th>Date de prêt</th>
+								<th>Dispo</th>	
+							</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+					</table>
+				</div>			
+			</div>
+		</section>
+		<!-- #Site d'escalade -->
+	</main>
+
+</body>
+</html>

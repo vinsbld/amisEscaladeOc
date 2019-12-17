@@ -48,6 +48,18 @@ public class TopoController {
 		return "topo";
 	}
 	
+	@GetMapping("/topo/{idUserGrimp}/mes_reservations")
+	public String topoResa(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+		
+		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		model.addAttribute("usr", usr);
+		
+		List<Topo> top = topoRepository.findByUserG(idUserGrimp);
+		model.addAttribute("topList", top);
+		
+		return "reservation_topo";
+	}
+	
 	@GetMapping("/formTopo/{idUserGrimp}/create")
 	public String formTop(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
 		
