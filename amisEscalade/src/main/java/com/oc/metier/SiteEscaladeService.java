@@ -2,7 +2,6 @@ package com.oc.metier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import com.oc.dao.SiteEscaladeRepository;
 import com.oc.entities.SiteEscalade;
@@ -25,7 +24,7 @@ public class SiteEscaladeService {
 		site.setNomSiteEscalade(siteEscaladeForm.getName());
 		site.setDepartement(siteEscaladeForm.getDepartement());
 		site.setVille(siteEscaladeForm.getVille());
-		site.setOfficiel(siteEscaladeForm.getOfficiel());
+		site.setOfficiel(siteEscaladeForm.isOfficiel());
 		
 		siteEscaladeRepository.save(site);
 		

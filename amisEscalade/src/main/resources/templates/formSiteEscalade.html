@@ -42,7 +42,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
             </div>        	
         </div>
 
-		<div class="form-group" ><!-- sec:authorize="hasRole('ADMINISTRATOR')" -->
+		<div sec:authorize="hasRole('ADMINISTRATOR')" class="form-group" >
 			<label class="control-label col-xs-4">Taguer Officiel Les amis de l'escalade : </label>
 				<div class="col-xs-8">
 	           		<input type="radio"  name="officiel" value="true" required="required"> oui<br/>

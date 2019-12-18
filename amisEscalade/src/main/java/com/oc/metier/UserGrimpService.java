@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.google.common.base.Strings;
 import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.UserGrimpForm;
@@ -31,6 +32,7 @@ public class UserGrimpService {
 		usr.setPseudo(userGrimpForm.getUsername());
 		usr.setEmail(userGrimpForm.getEmail());
 		usr.setPassword(userGrimpForm.getPassword());
+	
 		
 		userGrimpRepository.save(usr);
 		

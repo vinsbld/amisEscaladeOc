@@ -57,6 +57,10 @@ public class UserGrimp implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
 	
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
+	private Collection<Reservation> reservations;
+	
+	
 		
 	public UserGrimp () {
 		this.roles = Collections.singletonList(RoleEnum.USER);

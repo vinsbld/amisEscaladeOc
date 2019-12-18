@@ -5,80 +5,76 @@ import java.sql.Date;
 public class ReservationForm {
 
 	private long idResa;
-	private String demandeur;
-	private String proprietaire;
+	private String emprunteur;
+	private String proprietaireTopo;
 	private String nomDuTopoResa;
 	private Date dateDeLaDemande;
-	private boolean accepter;
-	private long idProprietaire;
-	private long idTopo;
+	private boolean accepterDemande;
 	
 	public ReservationForm() {
 
 	}
-	
-	public ReservationForm(long idResa, String demandeur, String proprietaire, String nomDuTopoResa,
-			Date dateDeLaDemande, boolean accepter, long idProprietaire, long idTopo) {
+
+	public ReservationForm(long idResa, String emprunteur, String proprietaireTopo, String nomDuTopoResa,
+			Date dateDeLaDemande, boolean accepterDemande) {
 		super();
 		this.idResa = idResa;
-		this.demandeur = demandeur;
-		this.proprietaire = proprietaire;
+		this.emprunteur = emprunteur;
+		this.proprietaireTopo = proprietaireTopo;
 		this.nomDuTopoResa = nomDuTopoResa;
 		this.dateDeLaDemande = dateDeLaDemande;
-		this.accepter = accepter;
-		this.idProprietaire = idProprietaire;
-		this.idTopo = idTopo;
+		this.accepterDemande = accepterDemande;
 	}
-	
+
 	public long getIdResa() {
 		return idResa;
 	}
+
 	public void setIdResa(long idResa) {
 		this.idResa = idResa;
 	}
-	public String getDemandeur() {
-		return demandeur;
+
+	public String getEmprunteur() {
+		return emprunteur;
 	}
-	public void setDemandeur(String demandeur) {
-		this.demandeur = demandeur;
+
+	public void setEmprunteur(String emprunteur) {
+		this.emprunteur = emprunteur;
 	}
-	public String getProprietaire() {
-		return proprietaire;
+
+	public String getProprietaireTopo() {
+		return proprietaireTopo;
 	}
-	public void setProprietaire(String proprietaire) {
-		this.proprietaire = proprietaire;
+
+	public void setProprietaireTopo(String proprietaireTopo) {
+		this.proprietaireTopo = proprietaireTopo;
 	}
+
 	public String getNomDuTopoResa() {
 		return nomDuTopoResa;
 	}
+
 	public void setNomDuTopoResa(String nomDuTopoResa) {
 		this.nomDuTopoResa = nomDuTopoResa;
 	}
+
 	public Date getDateDeLaDemande() {
 		return dateDeLaDemande;
 	}
+
 	public void setDateDeLaDemande(Date dateDeLaDemande) {
 		this.dateDeLaDemande = dateDeLaDemande;
 	}
-	public boolean isAccepter() {
-		return accepter;
+
+	public boolean isAccepterDemande() {
+		return accepterDemande;
 	}
-	public void setAccepter(boolean accepter) {
-		this.accepter = accepter;
+
+	public void setAccepterDemande(boolean accepterDemande) {
+		this.accepterDemande = accepterDemande;
 	}
-	public long getIdProprietaire() {
-		return idProprietaire;
-	}
-	public void setIdProprietaire(long idProprietaire) {
-		this.idProprietaire = idProprietaire;
-	}
-	public long getIdTopo() {
-		return idTopo;
-	}
-	public void setIdTopo(long idTopo) {
-		this.idTopo = idTopo;
-	}
-	
+
+
 	
 	
 }

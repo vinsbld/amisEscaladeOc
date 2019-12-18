@@ -15,11 +15,11 @@ public class Reservation implements Serializable {
 
 	@Id @GeneratedValue
 	private long idResa;
-	private String demandeur;
-	private String proprietaire;
+	private String emprunteur;
+	private String proprietaireTopo;
 	private String nomDuTopoResa;
 	private Date dateDeLaDemande;
-	private boolean accepter;
+	private boolean accepterDemande;
 	
 	@ManyToOne
 	@JoinColumn(name = "USR_PRT")
@@ -32,15 +32,15 @@ public class Reservation implements Serializable {
 
 	}
 
-	public Reservation(long idResa, String demandeur, String proprietaire, String nomDuTopoResa, Date dateDeLaDemande,
-			boolean accepter, UserGrimp userGrimp, Topo topo) {
+	public Reservation(long idResa, String emprunteur, String proprietaireTopo, String nomDuTopoResa,
+			Date dateDeLaDemande, boolean accepterDemande, UserGrimp userGrimp, Topo topo) {
 		super();
 		this.idResa = idResa;
-		this.demandeur = demandeur;
-		this.proprietaire = proprietaire;
+		this.emprunteur = emprunteur;
+		this.proprietaireTopo = proprietaireTopo;
 		this.nomDuTopoResa = nomDuTopoResa;
 		this.dateDeLaDemande = dateDeLaDemande;
-		this.accepter = accepter;
+		this.accepterDemande = accepterDemande;
 		this.userGrimp = userGrimp;
 		this.topo = topo;
 	}
@@ -53,20 +53,20 @@ public class Reservation implements Serializable {
 		this.idResa = idResa;
 	}
 
-	public String getDemandeur() {
-		return demandeur;
+	public String getEmprunteur() {
+		return emprunteur;
 	}
 
-	public void setDemandeur(String demandeur) {
-		this.demandeur = demandeur;
+	public void setEmprunteur(String emprunteur) {
+		this.emprunteur = emprunteur;
 	}
 
-	public String getProprietaire() {
-		return proprietaire;
+	public String getProprietaireTopo() {
+		return proprietaireTopo;
 	}
 
-	public void setProprietaire(String proprietaire) {
-		this.proprietaire = proprietaire;
+	public void setProprietaireTopo(String proprietaireTopo) {
+		this.proprietaireTopo = proprietaireTopo;
 	}
 
 	public String getNomDuTopoResa() {
@@ -85,12 +85,12 @@ public class Reservation implements Serializable {
 		this.dateDeLaDemande = dateDeLaDemande;
 	}
 
-	public boolean isAccepter() {
-		return accepter;
+	public boolean isAccepterDemande() {
+		return accepterDemande;
 	}
 
-	public void setAccepter(boolean accepter) {
-		this.accepter = accepter;
+	public void setAccepterDemande(boolean accepterDemande) {
+		this.accepterDemande = accepterDemande;
 	}
 
 	public UserGrimp getUserGrimp() {

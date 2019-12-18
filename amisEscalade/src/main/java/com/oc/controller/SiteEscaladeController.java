@@ -57,24 +57,11 @@ public class SiteEscaladeController {
 		}
 		
 		SiteEscalade newSiteEscalade = new SiteEscalade();
-		/*
-		 * Optional<CommunesAndCdp> communes =
-		 * communesAndCdpRepository.findByIdCities(siteEscaladeForm.getIdSiteEscalade())
-		 * ;
-		 */
-		
-		/* newSiteEscalade.setCommunesAndCdp(communes.get()); */
-		/*
-		 * newSiteEscalade.setNomSiteEscalade(communesAndCdpRepository.get);
-		 * newSiteEscalade.setDepartement(communesAndCdpRepository.
-		 * getDepartmentCartography(),
-		 * communesAndCdpRepository.getDepartmentNameCartography());
-		 */
 		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
 		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getName()); 
 		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
 		newSiteEscalade.setVille(siteEscaladeForm.getVille()); 
-		newSiteEscalade.setOfficiel(siteEscaladeForm.getOfficiel());
+		newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
 		
 		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
 		newSiteEscalade.setUserGrimp(userG);
@@ -108,7 +95,7 @@ public class SiteEscaladeController {
 		siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
 		siteForm.setDepartement(siteEscalade.getDepartement());
 		siteForm.setVille(siteEscalade.getVille());
-		siteForm.setOfficiel(siteEscalade.getOfficiel());
+		siteForm.setOfficiel(siteEscalade.isOfficiel());
 		model.addAttribute("siteForm", siteForm);
 	
 		return "editFormSiteEscalade";

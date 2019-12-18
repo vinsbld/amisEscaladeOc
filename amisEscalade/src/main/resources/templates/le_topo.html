@@ -70,7 +70,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp}"><a class="btn-get-create">Résever</a></span>
+				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp}"><a class="btn-get-create" th:href="@{/reservation/{idTopo}/demande(idTopo=${topo.idTopo})}">Résever</a></span>
 				<table class="table">
 					<tbody>
 						<tr sec:autorize="isAuthenticated()" th:if="${topo.userGrimp.idUserGrimp}==${usr.idUserGrimp}">
