@@ -1,4 +1,4 @@
-package com.oc.controller;
+package com.oc.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +60,7 @@ public class UserGrimpController {
 		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
 		model.addAttribute("usr", usr);
 		
-		List<SiteEscalade> site = siteEscaladeRepository.findByUserGrimp(idUserGrimp);
+		Iterable<SiteEscalade> site = siteEscaladeRepository.findByUserGrimp(idUserGrimp);
 		model.addAttribute("sitList", site);
 		
 		List<Topo> top = topoRepository.findByUserG(idUserGrimp);

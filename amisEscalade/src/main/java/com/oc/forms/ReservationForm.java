@@ -10,13 +10,14 @@ public class ReservationForm {
 	private String nomDuTopoResa;
 	private Date dateDeLaDemande;
 	private boolean accepterDemande;
+	private boolean demandeEnCours;
 	
 	public ReservationForm() {
 
 	}
 
 	public ReservationForm(long idResa, String emprunteur, String proprietaireTopo, String nomDuTopoResa,
-			Date dateDeLaDemande, boolean accepterDemande) {
+			Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours) {
 		super();
 		this.idResa = idResa;
 		this.emprunteur = emprunteur;
@@ -24,6 +25,7 @@ public class ReservationForm {
 		this.nomDuTopoResa = nomDuTopoResa;
 		this.dateDeLaDemande = dateDeLaDemande;
 		this.accepterDemande = accepterDemande;
+		this.demandeEnCours = demandeEnCours;
 	}
 
 	public long getIdResa() {
@@ -74,6 +76,13 @@ public class ReservationForm {
 		this.accepterDemande = accepterDemande;
 	}
 
+	public boolean isDemandeEnCours() {
+		return demandeEnCours;
+	}
+
+	public void setDemandeEnCours(boolean demandeEnCours) {
+		this.demandeEnCours = demandeEnCours;
+	}
 
 	
 	

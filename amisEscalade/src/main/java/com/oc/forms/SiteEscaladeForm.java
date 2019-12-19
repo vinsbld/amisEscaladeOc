@@ -1,13 +1,17 @@
 package com.oc.forms;
 
-public class SiteEscaladeForm {
+import java.io.Serializable;
+
+public class SiteEscaladeForm implements Serializable{
 	
 	private long idSiteEscalade;
+	// champs
 	private String name;
 	private String departement;
 	private String ville;
 	private boolean officiel;
 	
+	// constructeurs
 	public SiteEscaladeForm() {
 
 	}
@@ -21,6 +25,7 @@ public class SiteEscaladeForm {
 		this.officiel = officiel;
 	}
 
+	// getters and setters
 	public long getIdSiteEscalade() {
 		return idSiteEscalade;
 	}

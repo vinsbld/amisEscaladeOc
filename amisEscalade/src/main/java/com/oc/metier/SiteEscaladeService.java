@@ -1,22 +1,21 @@
 package com.oc.metier;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.oc.dao.SiteEscaladeRepository;
 import com.oc.entities.SiteEscalade;
 import com.oc.forms.SiteEscaladeForm;
 
 @Service
-public class SiteEscaladeService {
+public class SiteEscaladeService  {
 	
+	// injections repositories
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
-	
-	public void saveSiteEscalade(long idUserGrimp, SiteEscalade newSiteEscalade) {
-		
-		siteEscaladeRepository.save(newSiteEscalade);
-	}
+
 	
 	public void modifySiteEscalade(long idSiteEscalade, SiteEscaladeForm siteEscaladeForm) {
 		

@@ -3,7 +3,7 @@ package com.oc.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,16 +20,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private final String adminRole = RoleEnum.ADMINISTRATOR.name();
 	
+	
 	private final UserDetailsService userDetailsService;
 	
 	/*
 	 * constructeur de la classe SecurityConfig, injection du service
 	 * UserDetailService
+	 * Lazy évite la boucle de "l'oeuf est la poule" 
+	 * entre UserDetailsService et UserDetailsService 
 	 */
 	@Autowired
 	public SecurityConfig(UserDetailsService userDetailsService) {
+		super();
 		this.userDetailsService = userDetailsService;
 	}
+	
+	//chiffrement de mot de passe
+	@Bean
+	 public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+	
+
+
+	/*
+	 * précise les composants à utiliser pour authentifier les utilisateurs 
+	 * le service UserDetailsService et le type d’encodage
+	 */
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -60,21 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	}
 	
-	//chiffrement de mot de passe
-	@Bean
-	 public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
+
     
-	/*
-	 * précise les composants à utiliser pour authentifier les utilisateurs 
-	 * le service UserDetailsService et le type d’encodage
-	 */
-    @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+
 }
 	
 

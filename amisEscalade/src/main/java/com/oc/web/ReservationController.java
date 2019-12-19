@@ -1,4 +1,4 @@
-package com.oc.controller;
+package com.oc.web;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -53,6 +53,10 @@ public class ReservationController {
 		newReservation.setProprietaireTopo(userGrimp.getPseudo());
 		newReservation.setNomDuTopoResa(tpo.getName());
 		newReservation.setDateDeLaDemande(date);
+		newReservation.setEmprunteur(usr.getPseudo());
+		newReservation.setAccepterDemande(false);
+		newReservation.setDemandeEnCours(true);
+		newReservation.setTopo(tpo);
 
 		
 		reservationRepository.save(newReservation);
@@ -61,5 +65,6 @@ public class ReservationController {
 		
 		return"redirect:/index";
 	}
+	
 
 }

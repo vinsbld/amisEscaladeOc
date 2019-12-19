@@ -20,12 +20,14 @@ public class Reservation implements Serializable {
 	private String nomDuTopoResa;
 	private Date dateDeLaDemande;
 	private boolean accepterDemande;
+	private boolean demandeEnCours;
 	
 	@ManyToOne
-	@JoinColumn(name = "USR_PRT")
+	@JoinColumn(name = "USR_RES")
 	private UserGrimp userGrimp;
 	
 	@OneToOne
+	@JoinColumn(name = "TPO_RES")
 	private Topo topo;
 
 	public Reservation() {
@@ -33,7 +35,7 @@ public class Reservation implements Serializable {
 	}
 
 	public Reservation(long idResa, String emprunteur, String proprietaireTopo, String nomDuTopoResa,
-			Date dateDeLaDemande, boolean accepterDemande, UserGrimp userGrimp, Topo topo) {
+			Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours, UserGrimp userGrimp, Topo topo) {
 		super();
 		this.idResa = idResa;
 		this.emprunteur = emprunteur;
@@ -41,6 +43,7 @@ public class Reservation implements Serializable {
 		this.nomDuTopoResa = nomDuTopoResa;
 		this.dateDeLaDemande = dateDeLaDemande;
 		this.accepterDemande = accepterDemande;
+		this.demandeEnCours = demandeEnCours;
 		this.userGrimp = userGrimp;
 		this.topo = topo;
 	}
@@ -93,6 +96,14 @@ public class Reservation implements Serializable {
 		this.accepterDemande = accepterDemande;
 	}
 
+	public boolean isDemandeEnCours() {
+		return demandeEnCours;
+	}
+
+	public void setDemandeEnCours(boolean demandeEnCours) {
+		this.demandeEnCours = demandeEnCours;
+	}
+
 	public UserGrimp getUserGrimp() {
 		return userGrimp;
 	}
@@ -110,6 +121,5 @@ public class Reservation implements Serializable {
 	}
 
 
-	
 	
 }

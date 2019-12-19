@@ -16,30 +16,34 @@ import org.springframework.lang.NonNull;
 
 @Entity
 public class SiteEscalade implements Serializable{
+	
 	@Id @GeneratedValue
 	private long idSiteEscalade;
+	
+	// attributs d'un site d'escalade
 	@NonNull
 	private String nomSiteEscalade;
 	@NonNull
 	private String departement;
 	@NonNull
-	private String ville;
-	
+	private String ville;	
 	private boolean officiel;
 	
+	// clé étrangère site d'escalade lié à un utilisateur
 	@ManyToOne
 	@JoinColumn(name = "SIT_USR")
 	private UserGrimp userGrimp;
 	
+	// un site d'escalade a une collection de secteurs
 	@OneToMany(mappedBy ="siteEscalade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur;
 	
-	
+	// constructeur par défaut
 	public SiteEscalade() {
 
 	}
 
-
+	// constructeur avec paramètres
 	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville, boolean officiel,
 			UserGrimp userGrimp, Collection<Secteur> secteur) {
 		super();
@@ -52,7 +56,7 @@ public class SiteEscalade implements Serializable{
 		this.secteur = secteur;
 	}
 
-
+	// getters and setters
 	public long getIdSiteEscalade() {
 		return idSiteEscalade;
 	}

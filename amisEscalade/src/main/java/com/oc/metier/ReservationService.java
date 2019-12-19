@@ -1,6 +1,8 @@
 package com.oc.metier;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,10 @@ public class ReservationService {
 				
 		
 	}
+	
+	public List<Reservation> resaList (String pseudo) {
+	return reservtionRepository.resaList(pseudo);
+		
+}
 
 }

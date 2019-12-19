@@ -32,8 +32,10 @@ import lombok.Data;
 @Entity
 @Data
 public class UserGrimp implements UserDetails {
+	
 	@Id @GeneratedValue
 	private long idUserGrimp;
+	// attributs d'un utilisateur
 	@NotEmpty(message = "votre pseudo doit contenir minimum 2 caractères et maximum 30")
 	@Size(min = 2, max = 30)
 	@Column(unique = true)
@@ -46,38 +48,47 @@ public class UserGrimp implements UserDetails {
 	@NotEmpty(message = "votre mot de passe doit contenir minimum 4 caratères")
 	private String password;
 	
+	// un utilisateur a une collection de sites
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
 	private Collection<SiteEscalade> siteEscalades;
-		
+	
+	// un utilisateur a une collection de topos
 	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = CascadeType.ALL) 
 	private Collection<Topo> topos;
 	 
+	// un utilisateur a une collection de reservations
+	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
+	private Collection<Reservation> reservations;
 	
+	// collection de rôles
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
 	
-	@OneToMany(mappedBy = "userGrimp", fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
-	private Collection<Reservation> reservations;
-	
-	
-		
+	// constructeur par défaut
 	public UserGrimp () {
 		this.roles = Collections.singletonList(RoleEnum.USER);
 	}
 
-
-
-
-	public UserGrimp(long idUserGrimp, @Size(min = 2, max = 30) String pseudo, String email,
-			@Size(min = 4) String password, Collection<SiteEscalade> siteEscalades, Collection<RoleEnum> roles) {
+	// constructeur avec paramètres
+	public UserGrimp(long idUserGrimp,
+			@NotEmpty(message = "votre pseudo doit contenir minimum 2 caractères et maximum 30") @Size(min = 2, max = 30) String pseudo,
+			@Email(message = "merci de saisir une adresse mail correcte") String email,
+			@Size(min = 4) @NotEmpty(message = "votre mot de passe doit contenir minimum 4 caratères") String password,
+			Collection<SiteEscalade> siteEscalades, Collection<Topo> topos, Collection<RoleEnum> roles,
+			Collection<Reservation> reservations) {
+		super();
 		this.idUserGrimp = idUserGrimp;
 		this.pseudo = pseudo;
 		this.email = email;
-		this.password = BCryptManagerUtil.passwordencoder().encode(password);
+		this.password = password;
 		this.siteEscalades = siteEscalades;
+		this.topos = topos;
 		this.roles = roles;
+		this.reservations = reservations;
 	}
+
+
 
 	//getAuthorities() permet de récupérer les rôles de l’utilisateur dans un format que Spring Security peut interpréter
 	@Override
@@ -94,7 +105,7 @@ public class UserGrimp implements UserDetails {
     }
 
 
-
+	// getters and setters
 
 	public long getIdUserGrimp() {
 		return idUserGrimp;
@@ -229,6 +240,14 @@ public class UserGrimp implements UserDetails {
 		this.topos = topos;
 	}
 
+
+	public Collection<Reservation> getReservations() {
+		return reservations;
+	}
+	
+	public void setReservations(Collection<Reservation> reservations) {
+	this.reservations = reservations;	
+	}
 
 	
 }

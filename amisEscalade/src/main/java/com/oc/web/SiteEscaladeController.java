@@ -1,4 +1,4 @@
-package com.oc.controller;
+package com.oc.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +74,7 @@ public class SiteEscaladeController {
 	@GetMapping("/site_escalade")
 	public String siteEscal(Model model) {
 		
-		List<SiteEscalade> listeSite = siteEscaladeRepository.findAll();
+		Iterable<SiteEscalade> listeSite = siteEscaladeRepository.findAll();
 		model.addAttribute("listSite", listeSite);
 
 		return "site_escalade";
@@ -90,13 +90,15 @@ public class SiteEscaladeController {
 			siteEscalade = s.get();
 		}
 				
-		SiteEscaladeForm siteForm = new SiteEscaladeForm();
-		siteForm.setName(siteEscalade.getNomSiteEscalade());
-		siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
-		siteForm.setDepartement(siteEscalade.getDepartement());
-		siteForm.setVille(siteEscalade.getVille());
-		siteForm.setOfficiel(siteEscalade.isOfficiel());
-		model.addAttribute("siteForm", siteForm);
+		/*
+		 * SiteEscaladeForm siteForm = new SiteEscaladeForm();
+		 * siteForm.setName(siteEscalade.getNomSiteEscalade());
+		 * siteForm.setIdSiteEscalade(siteEscalade.getIdSiteEscalade());
+		 * siteForm.setDepartement(siteEscalade.getDepartement());
+		 * siteForm.setVille(siteEscalade.getVille());
+		 * siteForm.setOfficiel(siteEscalade.isOfficiel());
+		 * model.addAttribute("siteForm", siteForm);
+		 */
 	
 		return "editFormSiteEscalade";
 	}
