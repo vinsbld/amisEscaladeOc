@@ -1,11 +1,8 @@
 package com.oc.metier;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
-import com.google.common.base.Strings;
 import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.UserGrimpForm;

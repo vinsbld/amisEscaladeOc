@@ -20,13 +20,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private final String adminRole = RoleEnum.ADMINISTRATOR.name();
 	
-	
 	private final UserDetailsService userDetailsService;
 	
 	/*
 	 * constructeur de la classe SecurityConfig, injection du service
 	 * UserDetailService
-	 * Lazy évite la boucle de "l'oeuf est la poule" 
+	 * @Lazy éviterait la boucle de "l'oeuf est la poule" 
 	 * entre UserDetailsService et UserDetailsService 
 	 */
 	@Autowired
@@ -41,8 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 	
-
-
 	/*
 	 * précise les composants à utiliser pour authentifier les utilisateurs 
 	 * le service UserDetailsService et le type d’encodage
