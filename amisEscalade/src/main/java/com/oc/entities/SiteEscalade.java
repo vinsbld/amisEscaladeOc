@@ -17,6 +17,11 @@ import org.springframework.lang.NonNull;
 @Entity
 public class SiteEscalade implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @GeneratedValue
 	private long idSiteEscalade;
 	
@@ -26,10 +31,12 @@ public class SiteEscalade implements Serializable{
 	@NonNull
 	private String departement;
 	@NonNull
-	private String ville;	
+	private String ville;
+	@NonNull
+	private int codePostal;
 	private boolean officiel;
 	
-	// clé étrangère site d'escalade lié à un utilisateur
+	// clé étrangère sites d'escalades lié à un utilisateur
 	@ManyToOne
 	@JoinColumn(name = "SIT_USR")
 	private UserGrimp userGrimp;
@@ -44,88 +51,86 @@ public class SiteEscalade implements Serializable{
 	}
 
 	// constructeur avec paramètres
-	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville, boolean officiel,
-			UserGrimp userGrimp, Collection<Secteur> secteur) {
+	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville, int codePostal,
+			boolean officiel, UserGrimp userGrimp, Collection<Secteur> secteur) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nomSiteEscalade = nomSiteEscalade;
 		this.departement = departement;
 		this.ville = ville;
+		this.codePostal = codePostal;
 		this.officiel = officiel;
 		this.userGrimp = userGrimp;
 		this.secteur = secteur;
 	}
-
+	
 	// getters and setters
 	public long getIdSiteEscalade() {
 		return idSiteEscalade;
 	}
 
-
 	public void setIdSiteEscalade(long idSiteEscalade) {
 		this.idSiteEscalade = idSiteEscalade;
 	}
-
 
 	public String getNomSiteEscalade() {
 		return nomSiteEscalade;
 	}
 
-
 	public void setNomSiteEscalade(String nomSiteEscalade) {
 		this.nomSiteEscalade = nomSiteEscalade;
 	}
-
 
 	public String getDepartement() {
 		return departement;
 	}
 
-
 	public void setDepartement(String departement) {
 		this.departement = departement;
 	}
-
 
 	public String getVille() {
 		return ville;
 	}
 
-
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
 
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
 
 	public boolean isOfficiel() {
 		return officiel;
 	}
 
-
 	public void setOfficiel(boolean officiel) {
 		this.officiel = officiel;
 	}
-
 
 	public UserGrimp getUserGrimp() {
 		return userGrimp;
 	}
 
-
 	public void setUserGrimp(UserGrimp userGrimp) {
 		this.userGrimp = userGrimp;
 	}
-
 
 	public Collection<Secteur> getSecteur() {
 		return secteur;
 	}
 
-
 	public void setSecteur(Collection<Secteur> secteur) {
 		this.secteur = secteur;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-	
 }

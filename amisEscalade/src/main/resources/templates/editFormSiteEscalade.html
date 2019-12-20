@@ -40,6 +40,12 @@
                 <input type="text" class="form-control" name="ville" th:field="*{ville}" required="required">
             </div>        	
         </div>
+        <div class="form-group">
+			<label class="control-label col-xs-4">Code Postal</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" name="codePostal" th:field="*{codePostal}" required="required"></input>
+            </div>        	
+        </div>
         <div sec:authorize="hasRole('ADMINISTRATOR')" class="form-group">
 			<label class="control-label col-xs-4">Taguer Officiel Les amis de l'escalade : </label>
 				<div class="col-xs-8">

@@ -3,6 +3,7 @@ package com.oc.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,9 +31,6 @@ public class SiteEscaladeController {
 	@Autowired
 	private SecteurRepository secteurRepository;
 	
-	@Autowired
-	private UserGrimpRepository userGrimpRepository;
-	
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
@@ -58,17 +56,17 @@ public class SiteEscaladeController {
 	}
 	
 	/*============== #Création ======================*/
-	@GetMapping("/site_escalade/{idUserGrimp}/create")
-	public String formSit(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+	@GetMapping("/site_escalade/create")
+	public String formSit(Model model) {
 		
-		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
-		model.addAttribute("usr", userG);
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
 	
 		return"formSiteEscalade";
 	}
 
-	@PostMapping("/site_escalade/{idUserGrimp}/create")
-	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idUserGrimp") long idUserGrimp, BindingResult result, 
+	@PostMapping("/site_escalade/create")
+	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
 		if(result.hasErrors()) {
@@ -79,15 +77,16 @@ public class SiteEscaladeController {
 		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
 		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
 		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
-		newSiteEscalade.setVille(siteEscaladeForm.getVille()); 
+		newSiteEscalade.setVille(siteEscaladeForm.getVille());
+		newSiteEscalade.setCodePostal(siteEscaladeForm.getCodePostal());
 		newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
 		
-		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
-		newSiteEscalade.setUserGrimp(userG);
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		newSiteEscalade.setUserGrimp(usr);
 		
 		siteEscaladeRepository.save(newSiteEscalade);
 		
-		return "redirect:/profil/"+idUserGrimp;
+		return "redirect:/site_escalade";
 	}
 	
 	/*============== #Modification ======================*/
@@ -100,6 +99,7 @@ public class SiteEscaladeController {
 		siteForm.setSiteName(site.getNomSiteEscalade());
 		siteForm.setDepartement(site.getDepartement());
 		siteForm.setVille(site.getVille());
+		siteForm.setCodePostal(site.getCodePostal());
 		siteForm.setOfficiel(site.isOfficiel());
 		model.addAttribute("siteForm", siteForm);
 		 
@@ -114,6 +114,7 @@ public class SiteEscaladeController {
 		site.setNomSiteEscalade(siteEscaladeForm.getSiteName());
 		site.setDepartement(siteEscaladeForm.getDepartement());
 		site.setVille(siteEscaladeForm.getVille());
+		site.setCodePostal(siteEscaladeForm.getCodePostal());
 		site.setOfficiel(siteEscaladeForm.isOfficiel());
 		siteEscaladeRepository.save(site);
 			

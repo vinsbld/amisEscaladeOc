@@ -19,7 +19,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 <body>
 
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/create}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'un site d'escalade</h2>
 		</div>		
@@ -41,7 +41,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
                 <input type="text" class="form-control" name="ville" required="required"></input>
             </div>        	
         </div>
-
+        <div class="form-group">
+			<label class="control-label col-xs-4">Code Postal</label>
+			<div class="col-xs-8">
+                <input type="text" class="form-control" name="codePostal" required="required"></input>
+            </div>        	
+        </div>
 		<div sec:authorize="hasRole('ADMINISTRATOR')" class="form-group" >
 			<label class="control-label col-xs-4">Taguer Officiel Les amis de l'escalade : </label>
 				<div class="col-xs-8">
