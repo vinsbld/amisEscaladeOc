@@ -1,10 +1,6 @@
 package com.oc.web;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.LongueurRepository;
@@ -24,27 +19,39 @@ import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.Voie;
 import com.oc.forms.LongueurForm;
-import com.oc.metier.LongueurService;
 
 
 @Controller
 public class LongueurController {
 	
-	@Autowired
-	private LongueurService longueurService;
-	
+	// injections repositories
 	@Autowired
 	private LongueurRepository longueurRepository;
-	
 	@Autowired
 	private VoieRepository voieRepository;
-	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
-	
 	@Autowired
 	private SecteurRepository secteurRepository;
 	
+	
+	// get and post Mapping
+	/*============== #Pages ======================*/
+	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur")
+	public String longueurVoie(Model model, @PathVariable("idVoie") long idVoie, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur){
+		
+		Voie voie = voieRepository.findById(idVoie).get();		
+		model.addAttribute("voie", voie);
+		
+		Secteur secteur = secteurRepository.findById(idSecteur).get();
+		model.addAttribute("secteur", secteur);
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+		
+		return "voie";
+	}
+	/*============== #Création ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create")
 	public String formLong(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie) {
 		
@@ -66,47 +73,27 @@ public class LongueurController {
 		
 		if (result.hasErrors()) {
 			return "formLongueur";
+		}else {
+			Longueur newLongueur = new Longueur();
+			newLongueur.setDistance(longueurForm.getDistance());
+			newLongueur.setHauteur(longueurForm.getHauteur());
+			Voie voie = voieRepository.findById(idVoie).get();
+			newLongueur.setVoie(voie);
+			longueurRepository.save(newLongueur);
 		}
-		
-		longueurService.saveLongueur(idVoie, longueurForm, result);
-		
-		return"redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
-		
+		return"redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;	
 	}
 	
-	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur")
-	public String longueurVoie(Model model, @PathVariable("idVoie") long idVoie, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur)
-			{
-		
-		Voie voie = voieRepository.findById(idVoie).get();		
-		model.addAttribute("voie", voie);
-		
-		Secteur secteur = secteurRepository.findById(idSecteur).get();
-		model.addAttribute("secteur", secteur);
-		
-		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
-		model.addAttribute("site", site);
-		
-		return "voie";
-	}
-	
+	/*============== #Modification ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit")
 	public String editSecteur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model) {
 		
-		Optional<Longueur> longr = longueurRepository.findById(idLongueur);
-		
-		Longueur longueur = null;
-		
-
-		if (longr.isPresent()) {
-			longueur = longr.get();
-		}
-		
-		LongueurForm longForm = new LongueurForm();
-		longForm.setDistance(longueur.getDistance());
-		longForm.setHauteur(longueur.getHauteur());
-		model.addAttribute("longueur", longForm);
-		
+			Longueur longueur = longueurRepository.findById(idLongueur).get();
+			LongueurForm longForm = new LongueurForm();
+			longForm.setDistance(longueur.getDistance());
+			longForm.setHauteur(longueur.getHauteur());
+			model.addAttribute("longueur", longForm);
+			
 		return"editFormLongueur";
 	}
 	
@@ -114,11 +101,15 @@ public class LongueurController {
 	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("editFormLongueur") LongueurForm longueurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
-		longueurService.modifyLongueur(idLongueur, longueurForm, result);
+		Longueur longr = longueurRepository.findById(idLongueur).get();
+		longr.setDistance(longueurForm.getDistance());
+		longr.setHauteur(longueurForm.getHauteur());
+		longueurRepository.save(longr);
 		
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
 	}
 	
+	/*============== #Suppression ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete")
 	public String deleteLongueur(@PathVariable("idLongueur") long idLongueur, @PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
 		
@@ -126,6 +117,5 @@ public class LongueurController {
 		
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
 	}
-	
 
 }

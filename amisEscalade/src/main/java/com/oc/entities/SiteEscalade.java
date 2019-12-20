@@ -16,12 +16,8 @@ import org.springframework.lang.NonNull;
 
 @Entity
 public class SiteEscalade implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idSiteEscalade;
 	
@@ -36,7 +32,7 @@ public class SiteEscalade implements Serializable{
 	private int codePostal;
 	private boolean officiel;
 	
-	// clé étrangère les sites d'escalades sont liés à un utilisateur
+	// clé étrangère, les sites d'escalades sont liés à un utilisateur
 	@ManyToOne
 	@JoinColumn(name = "SIT_USR")
 	private UserGrimp userGrimp;

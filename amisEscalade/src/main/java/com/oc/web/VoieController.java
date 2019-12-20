@@ -1,7 +1,5 @@
 package com.oc.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +26,10 @@ public class VoieController {
 	// injections repositories
 	@Autowired
 	private VoieRepository voieRepository;
-
 	@Autowired
-	private SecteurRepository secteurRepository;
-	
+	private SecteurRepository secteurRepository;	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
-	
 	@Autowired 
 	private LongueurRepository longueurRepository;
 	
@@ -52,7 +47,7 @@ public class VoieController {
 	Voie voie = voieRepository.findById(idVoie).get();
 	model.addAttribute("voie", voie);
 	
-	List<Longueur> longueur = longueurRepository.findByVoie(idVoie);
+	Iterable<Longueur> longueur = longueurRepository.findByVoie(idVoie);
 	model.addAttribute("longueur", longueur);
 	
 	return "voie";

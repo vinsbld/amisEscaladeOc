@@ -1,35 +1,37 @@
 package com.oc.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Longueur implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idLongueur;
+	
+	// attributs d'une longueur
 	@NotNull
 	private int distance;
 	@NotNull
 	private int hauteur;
 	
+	// clé étrangère, les longueurs sont liées a des voies
 	@ManyToOne
 	@JoinColumn(name = "LONGR_VOI")
 	private Voie voie;
 	
+	// constructeur par défaut
 	public Longueur() {
 
 	}
-
+	
+	// constructeur avec paramètres
 	public Longueur(long idLongueur, @NotNull int distance, @NotNull int hauteur, Voie voie) {
 		super();
 		this.idLongueur = idLongueur;
@@ -38,6 +40,7 @@ public class Longueur implements Serializable {
 		this.voie = voie;
 	}
 
+	// getters and setters
 	public long getIdLongueur() {
 		return idLongueur;
 	}
@@ -70,6 +73,8 @@ public class Longueur implements Serializable {
 		this.voie = voie;
 	}
 
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

@@ -26,10 +26,8 @@ public class SecteurController {
 	// injections repositories
 	@Autowired
 	private SecteurRepository secteurRepository;
-	
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
-	
 	@Autowired
 	private VoieRepository voieRepository;
 	

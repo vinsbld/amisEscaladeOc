@@ -24,7 +24,6 @@ public class SiteEscaladeController {
 	//injections repositories
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
-	
 	@Autowired
 	private SecteurRepository secteurRepository;
 	
@@ -68,21 +67,19 @@ public class SiteEscaladeController {
 		
 		if(result.hasErrors()) {
 			return "formSiteEscalade";
-		}		
-		
-		SiteEscalade newSiteEscalade = new SiteEscalade();
-		newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
-		newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
-		newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
-		newSiteEscalade.setVille(siteEscaladeForm.getVille());
-		newSiteEscalade.setCodePostal(siteEscaladeForm.getCodePostal());
-		newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
-		
-		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		newSiteEscalade.setUserGrimp(usr);
-		
-		siteEscaladeRepository.save(newSiteEscalade);
-		
+		}else {
+			SiteEscalade newSiteEscalade = new SiteEscalade();
+			newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
+			newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
+			newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
+			newSiteEscalade.setVille(siteEscaladeForm.getVille());
+			newSiteEscalade.setCodePostal(siteEscaladeForm.getCodePostal());
+			newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
+			UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			newSiteEscalade.setUserGrimp(usr);
+			siteEscaladeRepository.save(newSiteEscalade);
+		}
+
 		return "redirect:/site_escalade";
 	}
 	
@@ -127,6 +124,5 @@ public class SiteEscaladeController {
 		return "redirect:/site_escalade";
 				
 	}
-	
 	
 }
