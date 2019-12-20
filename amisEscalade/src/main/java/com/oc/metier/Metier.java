@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.dao.VoieRepository;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Voie;
 
 @Service("métier")
 public class Metier implements IMetier {
@@ -19,6 +21,8 @@ public class Metier implements IMetier {
 	private SiteEscaladeRepository siteEscaladeRepository;
 	@Autowired
 	private SecteurRepository secteurRepository;
+	@Autowired
+	private VoieRepository voieRepository;
 	
 	// interface implémentation
 	/* ================== #Sites escalades ================== */
@@ -40,6 +44,16 @@ public class Metier implements IMetier {
 
 	@Override
 	public List<Secteur> findBySite(long idSite) {
-		return null;
+		return Lists.newArrayList(secteurRepository.findBySite(idSite));
+	}
+	
+	/* ================== #Secteurs ================== */
+	@Override
+	public List<Voie> getAllVoies(){
+		return Lists.newArrayList(voieRepository.findAll());
+	}
+	@Override
+	public List<Voie> findBySecteur(long idVoie){
+		return Lists.newArrayList(voieRepository.findBySecteur(idVoie));
 	}
 }

@@ -16,25 +16,32 @@ import org.springframework.lang.NonNull;
 
 @Entity
 public class Voie implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idVoie;
+	
+	// attributs de voie
 	@NonNull
 	private String nomDeVoie;
 	@NonNull
 	private String cotation;
 	
+	// clé étrangère, les voies sont liés a un secteur 
 	@ManyToOne
 	@JoinColumn(name = "VOI_SECT")
 	private Secteur secteur;
 	
+	// une voie a une collection de longueurs
 	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Longueur> longueur;
 	
+	// constructeur par défaut
 	public Voie() {
 
 	}
-
+	
+	// constructeur avec paramètres
 	public Voie(long idVoie, String nomDeVoie, String cotation, Secteur secteur, Collection<Longueur> longueur) {
 		super();
 		this.idVoie = idVoie;
@@ -44,6 +51,7 @@ public class Voie implements Serializable {
 		this.longueur = longueur;
 	}
 
+	// getters and setters
 	public long getIdVoie() {
 		return idVoie;
 	}
@@ -84,6 +92,8 @@ public class Voie implements Serializable {
 		this.longueur = longueur;
 	}
 
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

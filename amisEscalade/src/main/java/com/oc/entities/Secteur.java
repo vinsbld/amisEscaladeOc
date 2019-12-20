@@ -29,7 +29,7 @@ public class Secteur implements Serializable {
 	@NonNull
 	private String acces;
 	
-	// clé étrangère les secteurs sont liés à un site d'escalade
+	// clé étrangère, les secteurs sont liés à un site d'escalade
 	@ManyToOne
 	@JoinColumn(name = "SECT_SIT")
 	private SiteEscalade siteEscalade;

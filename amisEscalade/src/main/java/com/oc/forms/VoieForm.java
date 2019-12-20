@@ -1,12 +1,16 @@
 package com.oc.forms;
 
+import java.io.Serializable;
 
-public class VoieForm {
+public class VoieForm implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private long idVoie;
+	// champs
 	private String name;
 	private String cotation;
 	
+	//constructeurs
 	public VoieForm() {
 
 	}
@@ -18,6 +22,7 @@ public class VoieForm {
 		this.cotation = cotation;
 	}
 
+	// getters and setters
 	public long getIdVoie() {
 		return idVoie;
 	}
@@ -42,6 +47,8 @@ public class VoieForm {
 		this.cotation = cotation;
 	}
 
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

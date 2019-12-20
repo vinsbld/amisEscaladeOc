@@ -2,8 +2,6 @@
 
 package com.oc.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +45,7 @@ public class SecteurController {
 		Secteur secteur =secteurRepository.findById(idSecteur).get();
 		model.addAttribute("secteur", secteur);
 		
-		List<Voie> voie = voieRepository.findBySecteur(idSecteur);
+		Iterable<Voie> voie = voieRepository.findBySecteur(idSecteur);
 		model.addAttribute("voie", voie);
 		
 		return "secteur";

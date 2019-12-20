@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Voie;
 
 public interface IMetier {
 	
@@ -20,5 +21,12 @@ public interface IMetier {
 	
 	// liste des secteurs appartenants a un site d'escalade
 	public List<Secteur> findBySite(long idSite);
+
+	/* ================== #Voies ================== */
+	// liste des voies
+	public List<Voie> getAllVoies();
+	
+	// liste des voies appartenants un un secteur
+	public List<Voie> findBySecteur(long idVoie);
 
 }
