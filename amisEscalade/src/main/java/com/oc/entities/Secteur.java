@@ -2,7 +2,6 @@ package com.oc.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,8 +17,11 @@ import org.springframework.lang.NonNull;
 @Entity
 public class Secteur implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idSecteur;
+	
+	// attributs d'un secteur
 	@NonNull
 	private String nomDuSecteur;
 	@NonNull
@@ -27,18 +29,21 @@ public class Secteur implements Serializable {
 	@NonNull
 	private String acces;
 	
+	// clé étrangère les secteurs sont liés à un site d'escalade
 	@ManyToOne
 	@JoinColumn(name = "SECT_SIT")
 	private SiteEscalade siteEscalade;
 	
+	// un secteur a une collection de voies
 	@OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Voie> voie;
 	
-	
+	// contructeur par défaut
 	public Secteur() {
 
 	}
-
+	
+	// constructeur avec paramètres
 	public Secteur(long idSecteur, String nomDuSecteur, String localisation, String acces) {
 		super();
 		this.idSecteur = idSecteur;
@@ -47,7 +52,7 @@ public class Secteur implements Serializable {
 		this.acces = acces;
 	}
 
-
+	// getters and setters
 	public long getIdSecteur() {
 		return idSecteur;
 	}
@@ -95,6 +100,5 @@ public class Secteur implements Serializable {
 	public void setVoie(Collection<Voie> voie) {
 		this.voie = voie;
 	}
-	
-	
+		
 }

@@ -1,7 +1,5 @@
 package com.oc.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
-import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.UserGrimp;
@@ -49,7 +46,7 @@ public class SiteEscaladeController {
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 		
-		List<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
+		Iterable<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
 		model.addAttribute("sec", sec);
 		
 		return"le_site_escalade";

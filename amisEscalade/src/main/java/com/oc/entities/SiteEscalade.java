@@ -36,7 +36,7 @@ public class SiteEscalade implements Serializable{
 	private int codePostal;
 	private boolean officiel;
 	
-	// clé étrangère sites d'escalades lié à un utilisateur
+	// clé étrangère les sites d'escalades sont liés à un utilisateur
 	@ManyToOne
 	@JoinColumn(name = "SIT_USR")
 	private UserGrimp userGrimp;

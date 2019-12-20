@@ -1,12 +1,8 @@
 package com.oc.web;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.LongueurRepository;
@@ -26,7 +21,6 @@ import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.Voie;
 import com.oc.forms.VoieForm;
-import com.oc.metier.SecteurService;
 import com.oc.metier.VoieService;
 
 @Controller
@@ -37,9 +31,6 @@ public class VoieController {
 	
 	@Autowired
 	private VoieRepository voieRepository;
-	
-	@Autowired
-	private SecteurService secteurService;
 
 	@Autowired
 	private SecteurRepository secteurRepository;

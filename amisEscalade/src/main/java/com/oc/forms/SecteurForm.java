@@ -1,19 +1,20 @@
 package com.oc.forms;
 
+import java.io.Serializable;
 
+public class SecteurForm implements Serializable {
 
-
-public class SecteurForm {
-
+	private static final long serialVersionUID = 1L;
 	private long idSecteur;
+	// champs
 	private String name;
 	private String localisation;
 	private String acces;
 	
+	// constructeurs
 	public SecteurForm() {
 
 	}
-
 
 	public SecteurForm(long idSecteur, String name, String localisation, String acces) {
 		super();
@@ -23,9 +24,7 @@ public class SecteurForm {
 		this.acces = acces;
 	}
 
-
-
-
+	// getters and setters
 	public long getIdSecteur() {
 		return idSecteur;
 	}
@@ -69,7 +68,9 @@ public class SecteurForm {
 	public void setAcces(String acces) {
 		this.acces = acces;
 	}
-	
-	
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }
