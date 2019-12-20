@@ -21,8 +21,8 @@ import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.Voie;
 import com.oc.forms.SecteurForm;
+import com.oc.metier.Metier;
 import com.oc.metier.SecteurService;
-import com.oc.metier.SiteEscaladeService;
 
 @Controller
 public class SecteurController {
@@ -37,7 +37,7 @@ public class SecteurController {
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
 	@Autowired
-	private SiteEscaladeService siteEscaladeService;
+	private Metier metier;
 	
 	@Autowired
 	private VoieRepository voieRepository;

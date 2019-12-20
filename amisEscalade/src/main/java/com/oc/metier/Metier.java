@@ -17,6 +17,7 @@ public class Metier implements IMetier {
 	private SiteEscaladeRepository siteEscaladeRepository;
 	
 	// interface implémentation
+	/* ================== #Sites escalades ================== */
 	@Override
 	public List<SiteEscalade> getAllSites() {
 		return Lists.newArrayList(siteEscaladeRepository.findAll());

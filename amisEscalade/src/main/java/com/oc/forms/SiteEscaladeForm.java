@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 public class SiteEscaladeForm implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long idSiteEscalade;
 	// champs
-	private String name;
+	private String siteName;
 	private String departement;
 	private String ville;
 	private boolean officiel;
@@ -16,14 +20,15 @@ public class SiteEscaladeForm implements Serializable{
 
 	}
 
-	public SiteEscaladeForm(long idSiteEscalade, String name, String departement, String ville, boolean officiel) {
+	public SiteEscaladeForm(long idSiteEscalade, String siteName, String departement, String ville, boolean officiel) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
-		this.name = name;
+		this.siteName = siteName;
 		this.departement = departement;
 		this.ville = ville;
 		this.officiel = officiel;
 	}
+
 
 	// getters and setters
 	public long getIdSiteEscalade() {
@@ -34,12 +39,12 @@ public class SiteEscaladeForm implements Serializable{
 		this.idSiteEscalade = idSiteEscalade;
 	}
 
-	public String getName() {
-		return name;
+	public String getSiteName() {
+		return siteName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSiteName(String siteName) {
+		this.siteName = siteName;
 	}
 
 	public String getDepartement() {
@@ -66,6 +71,9 @@ public class SiteEscaladeForm implements Serializable{
 		this.officiel = officiel;
 	}
 
-	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 }
