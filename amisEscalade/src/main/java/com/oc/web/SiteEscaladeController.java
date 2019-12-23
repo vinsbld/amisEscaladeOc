@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.oc.dao.CodexRepository;
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.entities.Codex;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.UserGrimp;
@@ -26,6 +28,8 @@ public class SiteEscaladeController {
 	private SiteEscaladeRepository siteEscaladeRepository;
 	@Autowired
 	private SecteurRepository secteurRepository;
+	@Autowired
+	private CodexRepository codexRepository;
 	
 	
 	// get and post Mapping
@@ -57,6 +61,9 @@ public class SiteEscaladeController {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+
+		Iterable<Codex> cdxList = codexRepository.findAll();
+		model.addAttribute("cdxList", cdxList);
 	
 		return"formSiteEscalade";
 	}
@@ -86,6 +93,9 @@ public class SiteEscaladeController {
 	/*============== #Modification ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
 	public String editSite(@ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+		
+		Iterable<Codex> cdxList = codexRepository.findAll();
+		model.addAttribute("cdxList", cdxList);
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		SiteEscaladeForm siteForm = new SiteEscaladeForm();

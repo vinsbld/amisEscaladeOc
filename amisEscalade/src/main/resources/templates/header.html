@@ -54,7 +54,7 @@
           <li><a sec:authorize="isAuthenticated()" href="/topo" th:href="@{/topo/{idUserGrimp}(idUserGrimp=${#authentication.getPrincipal().getIdUserGrimp()})}">Topos</a></li>
           <li><a sec:authorize="isAnonymous()" href="/inscription" th:href="@{/inscription}">Inscription</a></li>
           <li><a sec:authorize="isAnonymous()" href="/connexion" th:href="@{/connexion}">Connexion</a></li>
-          <li><a sec:authorize="isAuthenticated()" th:href="@{/profil/{idUserGrimp}(idUserGrimp=${#authentication.getPrincipal().getIdUserGrimp()})}"><span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></a></li>
+          <li><a sec:authorize="isAuthenticated()" th:href="@{/profil}"><span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></a></li>
           <li><form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
                 <input type="submit" value="Déconnexion" />
           	  </form>

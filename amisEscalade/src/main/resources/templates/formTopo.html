@@ -41,7 +41,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         <div class="form-group">
 			<label class="control-label col-xs-4">Lieu</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="lieu" required="required">
+                <select size="1" name="lieu" data-placeholder="lieu" class="chosen-select form-control">
+                	<option th:each="cne : ${cdxList}" th:value="${cne.commune}" th:text="${cne.commune}+' '+${cne.codePostal}+' '+${cne.departement}"></option>
+                </select>
             </div>        	
         </div>
 		<div class="form-group">

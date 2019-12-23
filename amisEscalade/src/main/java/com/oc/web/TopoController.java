@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.oc.dao.CodexRepository;
 import com.oc.dao.TopoRepository;
 import com.oc.dao.UserGrimpRepository;
+import com.oc.entities.Codex;
 import com.oc.entities.Topo;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.TopoForm;
@@ -25,6 +27,8 @@ public class TopoController {
 	private TopoRepository topoRepository;
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;
+	@Autowired
+	private CodexRepository codexRepository;
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
@@ -59,6 +63,9 @@ public class TopoController {
 		
 		UserGrimp userG = userGrimpRepository.findById(idUserGrimp).get();
 		model.addAttribute("usr", userG);
+		
+		Iterable<Codex> cdxList = codexRepository.findAll();
+		model.addAttribute("cdxList", cdxList);
 		
 		return "formTopo";
 	}

@@ -1,6 +1,7 @@
 package com.oc.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,16 +32,16 @@ public class UserGrimpController {
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
-	@GetMapping("/profil/{idUserGrimp}")
-	public String consulterProfil(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+	@GetMapping("/profil")
+	public String consulterProfil(Model model) {
 		
-		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		Iterable<SiteEscalade> site = siteEscaladeRepository.findByUserGrimp(idUserGrimp);
+		Iterable<SiteEscalade> site = siteEscaladeRepository.findByUserGrimp(usr.getIdUserGrimp());
 		model.addAttribute("sitList", site);
 		
-		Iterable<Topo> top = topoRepository.findByUserG(idUserGrimp);
+		Iterable<Topo> top = topoRepository.findByUserG(usr.getIdUserGrimp());
 		model.addAttribute("topList", top);
 		
 		return "user_page";
@@ -69,10 +70,10 @@ public class UserGrimpController {
 	}
 	
 	/*============== #Modification ======================*/
-	@GetMapping("/profil/{idUserGrimp}/edit")
-	public String editProfil(Model model, @PathVariable("idUserGrimp") long idUserGrimp) {
+	@GetMapping("/profil/edit")
+	public String editProfil(Model model) {
 		
-		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserGrimpForm userForm = new UserGrimpForm();
 		userForm.setUsername(usr.getPseudo());
 		userForm.setEmail(usr.getEmail());
@@ -82,28 +83,29 @@ public class UserGrimpController {
 		return "editFormInscription";
 	}
 	
-	@PostMapping("/profil/{idUserGrimp}/update")
-	public String updateProfil(@PathVariable("idUserGrimp") long idUserGrimp, @ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
+	@PostMapping("/profil/update")
+	public String updateProfil(@ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
 			return "editFormInscription";
 		}else {
-		UserGrimp usr = userGrimpRepository.findById(idUserGrimp).get();
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		usr.setPseudo(userGrimpForm.getUsername());
 		usr.setEmail(userGrimpForm.getEmail());
 		usr.setPassword(userGrimpForm.getPassword());
 		userGrimpRepository.save(usr);
 		}
-		return "redirect:/profil/"+idUserGrimp;
+		return "redirect:/profil";
 		
 	}
 	
 	/*============== #Suppression ======================*/
-	@GetMapping("/profil/{idUserGrimp}/delete")
-	public String deleteUser(@PathVariable("idUserGrimp") long idUserGrimp, final RedirectAttributes redirectAttributes) {
+	@GetMapping("/profil/delete")
+	public String deleteUser(final RedirectAttributes redirectAttributes) {
 		
-		userGrimpRepository.deleteById(idUserGrimp);
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userGrimpRepository.deleteById(usr.getIdUserGrimp());
 		
 		return "redirect:/index";
 	}	

@@ -41,6 +41,11 @@ public class SiteEscalade implements Serializable{
 	@OneToMany(mappedBy ="siteEscalade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur;
 	
+	// lé étrangére, les sites d'escalades sont créer d'après certains éléments du codex
+	@ManyToOne
+	@JoinColumn(name = "CDX_STE")
+	private Codex codex;
+	
 	// constructeur par défaut
 	public SiteEscalade() {
 
@@ -127,6 +132,14 @@ public class SiteEscalade implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Codex getCodex() {
+		return codex;
+	}
+
+	public void setCodex(Codex codex) {
+		this.codex = codex;
 	}
 
 }
