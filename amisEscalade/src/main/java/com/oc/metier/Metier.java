@@ -9,10 +9,12 @@ import com.google.common.collect.Lists;
 import com.oc.dao.LongueurRepository;
 import com.oc.dao.SecteurRepository;
 import com.oc.dao.SiteEscaladeRepository;
+import com.oc.dao.TopoRepository;
 import com.oc.dao.VoieRepository;
 import com.oc.entities.Longueur;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Topo;
 import com.oc.entities.Voie;
 
 @Service("métier")
@@ -27,6 +29,8 @@ public class Metier implements IMetier {
 	private VoieRepository voieRepository;
 	@Autowired
 	private LongueurRepository longueurRepository;
+	@Autowired
+	private TopoRepository topoRepository;
 	
 	// interface implémentation
 	/* ================== #Sites escalades ================== */
@@ -61,8 +65,8 @@ public class Metier implements IMetier {
 	public List<Voie> findBySecteur(long idVoie){
 		return Lists.newArrayList(voieRepository.findBySecteur(idVoie));
 	}
+	
 	/* ================== #Longueurs ================== */
-
 	@Override
 	public List<Longueur> getAllLongueurs() {
 		return Lists.newArrayList(longueurRepository.findAll());
@@ -73,4 +77,14 @@ public class Metier implements IMetier {
 		return Lists.newArrayList(longueurRepository.findByVoie(idVoie));
 	}
 	
+	/* ================== #Topos ================== */
+	@Override
+	public List<Topo> getAllTopo(){
+		return Lists.newArrayList(topoRepository.findAll());
+	}
+	
+	@Override
+	public List<Topo> findByUserG(long id){
+		return Lists.newArrayList(topoRepository.findByUserG(id));
+	}
 }

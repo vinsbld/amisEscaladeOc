@@ -101,11 +101,14 @@ public class LongueurController {
 	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("editFormLongueur") LongueurForm longueurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		if (result.hasErrors()) {
+			return "editFormLongueur";
+		}else {
 		Longueur longr = longueurRepository.findById(idLongueur).get();
 		longr.setDistance(longueurForm.getDistance());
 		longr.setHauteur(longueurForm.getHauteur());
 		longueurRepository.save(longr);
-		
+		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
 	}
 	

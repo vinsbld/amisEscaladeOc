@@ -65,8 +65,7 @@ public class SecteurController {
 
 		if (result.hasErrors()) {
 			return "formSecteur";
-		}
-		
+		}else {
 		Secteur newSecteur = new Secteur();
 		newSecteur.setNomDuSecteur(secteurForm.getNomDuSecteur());
 		newSecteur.setLocalisation(secteurForm.getLocalisation());
@@ -74,7 +73,7 @@ public class SecteurController {
 		SiteEscalade siteSec = siteEscaladeRepository.findById(idSiteEscalade).get();
 		newSecteur.setSiteEscalade(siteSec);
 		secteurRepository.save(newSecteur);
-
+		}
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
 	
@@ -94,16 +93,19 @@ public class SecteurController {
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update")
-	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
+	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, BindingResult result,
 			@ModelAttribute("secteur") SecteurForm secteurForm,
 			final RedirectAttributes redirectAttributes) {
 		
+		if (result.hasErrors()) {
+			return "editFormSecteur";
+		}else {
 		Secteur sec = secteurRepository.findById(idSecteur).get();
 		sec.setNomDuSecteur(secteurForm.getNomDuSecteur());
 		sec.setLocalisation(secteurForm.getLocalisation());
 		sec.setAcces(secteurForm.getAcces());
 		secteurRepository.save(sec);
-		
+		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 	}
 	

@@ -10,15 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
 
 @Entity
 public class Topo implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idTopo;
 	
@@ -31,9 +29,7 @@ public class Topo implements Serializable{
 	private String description;
 	@NonNull
 	private String lieu;
-	// seule la date est utilisée pas l'heure 
 	@NonNull
-	/* @Temporal(TemporalType.DATE) */
 	private Date edate;
 	@NonNull
 	private Boolean dispo;
@@ -131,7 +127,9 @@ public class Topo implements Serializable{
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	 
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

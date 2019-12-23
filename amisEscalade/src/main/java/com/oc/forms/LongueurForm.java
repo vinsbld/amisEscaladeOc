@@ -1,7 +1,10 @@
 package com.oc.forms;
 
-public class LongueurForm {
-	
+import java.io.Serializable;
+
+public class LongueurForm implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private long idLongueur;
 	// champs
 	private int distance;
@@ -42,6 +45,10 @@ public class LongueurForm {
 
 	public void setHauteur(int hauteur) {
 		this.hauteur = hauteur;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

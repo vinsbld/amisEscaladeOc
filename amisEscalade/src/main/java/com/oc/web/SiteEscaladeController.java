@@ -101,9 +101,12 @@ public class SiteEscaladeController {
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/update")
-	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, 
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
-
+		
+		if (result.hasErrors()) {
+			return "editFormSiteEscalade";
+		}else {
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		site.setNomSiteEscalade(siteEscaladeForm.getSiteName());
 		site.setDepartement(siteEscaladeForm.getDepartement());
@@ -111,7 +114,7 @@ public class SiteEscaladeController {
 		site.setCodePostal(siteEscaladeForm.getCodePostal());
 		site.setOfficiel(siteEscaladeForm.isOfficiel());
 		siteEscaladeRepository.save(site);
-			
+		}
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
 	

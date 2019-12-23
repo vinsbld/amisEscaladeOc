@@ -1,14 +1,17 @@
 package com.oc.forms;
 
+import java.io.Serializable;
 
-
-public class UserGrimpForm {
+public class UserGrimpForm implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private long id_user;
+	// champs
 	private String username;
 	private String email;
 	private String password;
 	
+	// constructeurs
 	public UserGrimpForm() {
 
 	}
@@ -21,6 +24,7 @@ public class UserGrimpForm {
 		this.password = password;
 	}
 
+	// getters and setters
 	public long getId_user() {
 		return id_user;
 	}
@@ -52,8 +56,9 @@ public class UserGrimpForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+		
 }

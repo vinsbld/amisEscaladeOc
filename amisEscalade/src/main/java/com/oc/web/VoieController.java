@@ -72,14 +72,14 @@ public class VoieController {
 		
 		if (result.hasErrors()) {
 			return "formVoie";
-		}
+		}else {
 		Voie newVoie = new Voie();
 		newVoie.setNomDeVoie(voieForm.getName());
 		newVoie.setCotation(voieForm.getCotation());
 		Secteur voieSec = secteurRepository.findById(idSecteur).get();
 		newVoie.setSecteur(voieSec);
 		voieRepository.save(newVoie);
-		
+		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 	}
 	
@@ -106,11 +106,14 @@ public class VoieController {
 	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, 
 			@ModelAttribute("voie") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
+		if (result.hasErrors()) {
+			return "editFormVoie";
+		}else {
 		Voie voie = voieRepository.findById(idVoie).get();
 		voie.setNomDeVoie(voieForm.getName());
 		voie.setCotation(voieForm.getCotation());
 		voieRepository.save(voie);
-		
+		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+idVoie;	
 	}
 	

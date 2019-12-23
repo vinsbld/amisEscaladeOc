@@ -1,15 +1,19 @@
 package com.oc.forms;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class TopoForm {
-	
+public class TopoForm implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	// champs
 	private String name;
 	private String description;
 	private String lieu;
 	private Date edate;
 	private Boolean dispo;
 	
+	// constructeurs
 	public TopoForm() {
 
 	}
@@ -23,6 +27,7 @@ public class TopoForm {
 		this.dispo = dispo;
 	}
 
+	// getters and setters
 	public String getName() {
 		return name;
 	}
@@ -63,5 +68,8 @@ public class TopoForm {
 		this.dispo = dispo;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

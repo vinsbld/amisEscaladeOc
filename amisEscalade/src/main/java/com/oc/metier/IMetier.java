@@ -5,6 +5,7 @@ import java.util.List;
 import com.oc.entities.Longueur;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.Topo;
 import com.oc.entities.Voie;
 
 public interface IMetier {
@@ -36,4 +37,13 @@ public interface IMetier {
 	
 	// liste des longueurs appartenants a une voie
 	public List<Longueur> findByVoie(long idVoie);
+	
+	/* ================== #Topos ================== */
+	// liste des topos
+	public List<Topo> getAllTopo();
+	
+	// liste des topos appartenats a un utilisateur
+	public List<Topo> findByUserG(long id);
+
+	
 }
