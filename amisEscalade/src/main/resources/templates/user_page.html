@@ -85,6 +85,7 @@
 							<th>Nom du spot</th>
 							<th>Département</th>
 							<th>Ville</th>
+							<th>Code postal</th>
 							<th>Officiel</th>	
 						</tr>
 					</thead>
@@ -93,6 +94,7 @@
 							<td><b><a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><span th:text="${site.nomSiteEscalade}"></span></a></b></td>
 							<td th:text="${site.departement}"></td>
 							<td th:text="${site.ville}"></td>
+							<td th:text="${site.codePostal}"></td>
 							<td><span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span><span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="logo_non_officiel" /></img></span></td>
 						</tr>
 					</tbody>
@@ -108,7 +110,7 @@
 				<table class="table table-striped listTableDeco">
  					<tbody>
 						<tr th:each="topo:${topList}">
-							<td><a th:href="@{/le_topo/{idTopo}/{idUserGrimp}/view(idTopo=${topo.idTopo}, idUserGrimp=${usr.idUserGrimp})}"><b><span th:text="${topo.name}"></span></b></a></td>
+							<td><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}"><b><span th:text="${topo.name}"></span></b></a></td>
 							<td th:text="${topo.lieu}"></td>
 							<td th:text="${topo.edate}"></td>
 							<td>
@@ -122,8 +124,8 @@
 				<table>
 					<tbody>
 						<tr>
-							<td><a th:href="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">ajouter un topo</a></td>
-							<td><a th:href="@{/topo/{idUserGrimp}/mes_reservations(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">gérer mes demandes</a></td>
+							<td><a th:href="@{/formTopo/create}" class="btn-get-create">ajouter un topo</a></td>
+							<td><a th:href="@{/topo/mes_reservations}" class="btn-get-create">gérer mes demandes</a></td>
 						</tr>
 					</tbody>
 				</table>

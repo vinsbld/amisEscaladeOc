@@ -58,7 +58,7 @@
 						</thead>
 						<tbody>
 							<tr th:each="topo:${topList}">
-								<td><b><a th:href="@{/le_topo/{idTopo}/{idUserGrimp}/view(idTopo=${topo.idTopo}, idUserGrimp=${usr.idUserGrimp})}" th:text="${topo.name}"></a></b></td>
+								<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
 								<td th:text="${topo.lieu}"></td>
 								<td th:text="${topo.edate}"></td>
 								<td>

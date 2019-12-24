@@ -76,47 +76,30 @@
 								<td><b>Code postal : </b></td>
 								<td th:text="${site.codePostal}"></td>
 							</tr>
-							<tr>
-								<td><b>Commentaires : </b></td>
-								<td><a th:href="@{/site/{idSiteEscalade}/commentaire(idSiteEscalade=${site.idSiteEscalade})}">Cliquez ici</a></td>
-							</tr>
 						</tbody>
 					</table>
-					<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
-						<tbody>
-							<tr>
-								<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
-								<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce spot ?')" class="btn btn-danger btn_xs" th:href="@{/site_escalade/{idSiteEscalade}/delete/(idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></td>
-							</tr>
-						</tbody>	
-					</table>
-	
-					<!-- les secteurs -->
-					
-					<h1><span th:text="|${site.nomSiteEscalade} : SECTEUR'S'|"></span></h1>
-
-					<table class="table table-striped listTableDeco">
-					
-					<div sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
-						<a class="btn-get-create"
-							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
-							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span>
-						</a>
-					</div>	
-						
+					<!-- Les commentaires -->
+					<table class="table listTableDeco">
 						<thead>
-							<th>Nom du secteur</th>
-							<th>Localisation</th>
+
 						</thead>
 						<tbody>
-							<tr th:each="secteur:${sec}">
-								<td><h6><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><b><span th:text="${secteur.nomDuSecteur}"></span></b></a></h6></td>
-								<td th:text="${secteur.localisation}"></td>
-							</tr>							
+							<tr>
+								<th>Pseudo du grimpeur : <br/>Date : </th>
+							</tr>
+							<tr>
+								<td><textarea rows="5" cols="40" wrap="hard" readonly="readonly"></textarea></td>
+							</tr>
 						</tbody>
 					</table>
+					<form method="post" th:action="@{/commentaire}"><textarea rows="5" cols="40" wrap="hard"></textarea>
+						<div class="form-group text-center">
+							<button type="submit" class="btn-get-create">Envoyer</button>
+						</div>
+					</form>
+					<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+					</table>
 				</div>
-
 			</div>
 		</section>
 		<!-- #Site d'escalade -->

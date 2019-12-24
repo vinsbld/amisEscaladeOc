@@ -51,7 +51,7 @@
         <ul class="nav-menu">
           <li><a th:href="@{/index}">Accueil</a></li>
           <li><a href="/site_escalade" th:href="@{/site_escalade}">Sites d'escalades</a></li>
-          <li><a sec:authorize="isAuthenticated()" href="/topo" th:href="@{/topo/{idUserGrimp}(idUserGrimp=${#authentication.getPrincipal().getIdUserGrimp()})}">Topos</a></li>
+          <li><a sec:authorize="isAuthenticated()" href="/topo" th:href="@{/topo}">Topos</a></li>
           <li><a sec:authorize="isAnonymous()" href="/inscription" th:href="@{/inscription}">Inscription</a></li>
           <li><a sec:authorize="isAnonymous()" href="/connexion" th:href="@{/connexion}">Connexion</a></li>
           <li><a sec:authorize="isAuthenticated()" th:href="@{/profil}"><span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></a></li>

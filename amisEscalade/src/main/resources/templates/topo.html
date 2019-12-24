@@ -45,7 +45,7 @@
 			<div class="page-container">
 			<div class="custyle">
 				<h1>TOPO'S'</h1>
-				<a th:href="@{/formTopo/{idUserGrimp}/create(idUserGrimp=${usr.idUserGrimp})}" class="btn-get-create">ajouter un topo</a>
+				<a th:href="@{/formTopo/create}" class="btn-get-create">ajouter un topo</a>
 			
 				<table class="table table-striped listTableDeco">
 					<thead>
@@ -58,7 +58,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="topo:${listeTopo}">
-							<td><b><a th:href="@{/le_topo/{idTopo}/{idUserGrimp}/view(idTopo=${topo.idTopo}, idUserGrimp=${usr.idUserGrimp})}" th:text="${topo.name}"></a></b></td>
+							<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
 							<td th:text="${topo.lieu}"></td>
 							<td th:text="${topo.edate}"></td>
 							<td>
