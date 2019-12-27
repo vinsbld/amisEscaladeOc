@@ -57,12 +57,6 @@
 				
 					<!-- le spot -->					
 					<table class="table listTableDeco" >
-<!-- 						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead> -->
 						<tbody>
 							<tr>
 								<td><b>Département : </b></td>
@@ -82,21 +76,17 @@
 					<table class="table listTableDeco">
 						<tbody>
 							<tr th:each="cm:${cmtr}">
-								<td><span th:text="${cm.date}"></span>
-									<span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}">
-										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}">Modifier</a>
-										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></span>
-									</span><br/>
-								<textarea rows="5" cols="40" wrap="hard" readonly="readonly" th:text="${cm.comments}"></textarea></td>		
+								<td><span th:text="${cm.date}"></span><br/>
+								<form method="post" th:action="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cmtr.idCom}, idSiteEscalade=${site.idSiteEscalade})}">
+									<textarea name="comments" rows="5" cols="40" wrap="hard" th:text="${cm.comments}"></textarea>
+										<div class="form-group text-center">
+											<button type="submit" class="btn-get-create">Modifier</button>
+										</div>
+								</form>		
 							</tr>
 						</tbody>
 					</table>
-					<form method="post" th:action="@{/commentaire/site/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">
-					<textarea name="comments" rows="5" cols="40" wrap="hard"></textarea>
-						<div class="form-group text-center">
-							<button type="submit" class="btn-get-create">Envoyer</button>
-						</div>
-					</form>
+
 					<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
 					</table>
 				</div>

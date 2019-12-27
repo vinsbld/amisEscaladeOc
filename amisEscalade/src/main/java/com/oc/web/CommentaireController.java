@@ -1,14 +1,12 @@
 package com.oc.web;
 
-import java.sql.PseudoColumnUsage;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +29,6 @@ public class CommentaireController {
 	private SiteEscaladeRepository siteEscaladeRepository;
 	@Autowired
 	private CommentaireRepository commentaireRepository;
-	@Autowired
-	private UserGrimpRepository userGrimpRepository;
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
@@ -43,12 +39,11 @@ public class CommentaireController {
 		model.addAttribute("site", site);
 		
 		Iterable<Commentaire> cmtr = commentaireRepository.findComBySite(site.getIdSiteEscalade());
-				model.addAttribute("cmtr", cmtr);
+		model.addAttribute("cmtr", cmtr);
 					
 		return "commentaire_site";
 	}
-	
-	
+		
 	/*============== #Création ======================*/
 	@PostMapping("/commentaire/site/{idSiteEscalade}")
 	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, final RedirectAttributes redirectAttributes) {
@@ -67,7 +62,59 @@ public class CommentaireController {
 		
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
 	}
+	
 	/*============== #Modification ======================*/
-	/*============== #Suppression ======================*/
+	@GetMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
+	public String editComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
 
+		Commentaire com = commentaireRepository.findById(idCom).get();
+		model.addAttribute("cmtr", com);
+		
+		CommentaireForm comForm = new CommentaireForm();
+		comForm.setIdCom(com.getIdCom());
+		comForm.setDate(com.getDate());
+		com.setUserGrimp(usr);
+		com.setSiteEscalade(site);
+			
+		return "editFormCommentaire";
+	}
+	
+	@PostMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
+	public String postEditComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom, @ModelAttribute("editFormCommentaire")CommentaireForm commentaireForm , BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+		
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		Commentaire com = commentaireRepository.findById(idCom).get();
+		com.setComments(commentaireForm.getComments());
+		com.setDate(date);
+		com.setSiteEscalade(site);
+		com.setUserGrimp(usr);
+		commentaireRepository.save(com);
+		
+		return"redirect:/site/"+idSiteEscalade+"/commentaire";
+	}
+		
+	/*============== #Suppression ======================*/
+	@GetMapping("/commentaire/{idCom}/site/{idSiteEscalade}/delete")
+	public String deleteComnt(@PathVariable("idCom")Long idCom,@PathVariable("idSiteEscalade") Long idSiteEscalade, Model model) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		commentaireRepository.deleteById(idCom);
+		
+		return"redirect:/site/"+idSiteEscalade+"/commentaire";
+	}
 }
