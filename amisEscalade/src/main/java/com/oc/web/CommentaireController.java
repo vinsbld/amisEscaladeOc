@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.CommentaireRepository;
 import com.oc.dao.SiteEscaladeRepository;
-import com.oc.dao.UserGrimpRepository;
 import com.oc.entities.Commentaire;
 import com.oc.entities.SiteEscalade;
 import com.oc.entities.UserGrimp;

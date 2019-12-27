@@ -78,12 +78,6 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
-		<!-- lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.20</version>
-		</dependency>
 		<!-- Googe Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -91,7 +85,6 @@
 			<version>16.0.1</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
