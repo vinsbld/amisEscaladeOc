@@ -80,19 +80,15 @@
 					</table>
 					<!-- Les commentaires -->
 					<table class="table listTableDeco">
-						<thead>
-
-						</thead>
 						<tbody>
-							<tr>
-								<th>Pseudo du grimpeur : <br/>Date : </th>
-							</tr>
-							<tr>
-								<td><textarea rows="5" cols="40" wrap="hard" readonly="readonly"></textarea></td>
+							<tr th:each="cm:${cmtr}">
+								<td><span th:text="${cm.date}"></span><br/>
+								<textarea rows="5" cols="40" wrap="hard" readonly="readonly" th:text="${cm.comments}"></textarea></td>		
 							</tr>
 						</tbody>
 					</table>
-					<form method="post" th:action="@{/commentaire}"><textarea rows="5" cols="40" wrap="hard"></textarea>
+					<form method="post" th:action="@{/commentaire/site/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">
+					<textarea name="comments" rows="5" cols="40" wrap="hard"></textarea>
 						<div class="form-group text-center">
 							<button type="submit" class="btn-get-create">Envoyer</button>
 						</div>

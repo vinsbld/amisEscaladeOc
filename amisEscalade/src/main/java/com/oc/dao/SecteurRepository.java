@@ -10,6 +10,8 @@ import com.oc.entities.Secteur;
 
 @Repository
 public interface SecteurRepository extends CrudRepository<Secteur, Long> {
+	
+	// trouver un secteur appartenant à un site d'escalade
 @Query("select sec from Secteur sec where sec.siteEscalade.idSiteEscalade = :x")
 public Iterable<Secteur> findBySite(@Param("x") long idSite);
 }

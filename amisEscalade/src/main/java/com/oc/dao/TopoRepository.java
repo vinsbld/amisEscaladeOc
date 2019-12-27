@@ -9,6 +9,12 @@ import com.oc.entities.Topo;
 
 @RepositoryRestResource
 public interface TopoRepository extends JpaRepository<Topo, Long>{
-@Query("SELECT top FROM Topo top WHERE top.userGrimp.idUserGrimp = :x")
-public Iterable<Topo> findByUserG(@Param("x") long id);
+	
+	// trouver un topo appartenant à un utilistateur (par idUtilisateur)
+	@Query("SELECT top FROM Topo top WHERE top.userGrimp.idUserGrimp = :x")
+	public Iterable<Topo> findByUserG(@Param("x") long id);
+
+	// trouver un topo par son nom
+	@Query("select tpo from Topo tpo where tpo.name = :x")
+	public Topo getTopoName(@Param("x") String name);
 }

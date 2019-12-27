@@ -72,8 +72,11 @@ public class TopoController {
 	public String ajouterTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
+			return "formTopo";	
+		}else if(topoRepository.getTopoName(topoForm.getName())!=null) {
 			return "formTopo";
-		}else {
+		}
+		else {
 		Topo newTopo = new Topo();
 		newTopo.setDescription(topoForm.getDescription());
 		newTopo.setName(topoForm.getName());
@@ -112,10 +115,15 @@ public class TopoController {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+		Topo tpo = topoRepository.getTopoName(topoForm.getName());
 		
 		if (result.hasErrors()) {
 			return "editFormTopo";
-		}else {
+			}
+			else if(tpo != null && tpo.getIdTopo() != idTopo) {
+				return "formTopo";
+			}
+		else {
 		Topo topo = topoRepository.findById(idTopo).get();
 		topo.setName(topoForm.getName());
 		topo.setDescription(topoForm.getDescription());
