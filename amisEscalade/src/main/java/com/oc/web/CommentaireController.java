@@ -1,6 +1,7 @@
 package com.oc.web;
 
 import java.sql.PseudoColumnUsage;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,11 +45,6 @@ public class CommentaireController {
 		Iterable<Commentaire> cmtr = commentaireRepository.findComBySite(site.getIdSiteEscalade());
 				model.addAttribute("cmtr", cmtr);
 					
-		UserGrimp user = new UserGrimp();
-		UserGrimp usr = userGrimpRepository.findByPseudo(user.getPseudo());				
-		Iterable<Commentaire> com = commentaireRepository.findComByUserGrimpName(usr.getPseudo());
-		model.addAttribute("com", com);
-		
 		return "commentaire_site";
 	}
 	
@@ -57,6 +53,7 @@ public class CommentaireController {
 	@PostMapping("/commentaire/site/{idSiteEscalade}")
 	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, final RedirectAttributes redirectAttributes) {
 
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		Commentaire newCommentaire = new Commentaire();
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
@@ -65,7 +62,7 @@ public class CommentaireController {
 		newCommentaire.setSiteEscalade(site);
 		newCommentaire.setUserGrimp(usr);
 		newCommentaire.setComments(commentaireForm.getComments());
-		newCommentaire.setDate(new Date());
+		newCommentaire.setDate(date);
 		commentaireRepository.save(newCommentaire);
 		
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
