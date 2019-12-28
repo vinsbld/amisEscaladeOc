@@ -44,31 +44,19 @@
 
 		<section id="page">
 			<div class="page-container">
-
-				
-
 				<div class="custyle">
 				<!-- nomDuspot -->
 				<h4>
 					Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}" title="consulter la liste des sites"></span></b></a>
 					<span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span>
 					<span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="non_officiel" /></img></span>
-				</h4>
-				
+				</h4>				
 					<!-- le spot -->					
 					<table class="table listTableDeco" >
 						<tbody>
 							<tr>
-								<td><b>Département : </b></td>
-								<td th:text="${site.departement}"></td>
-							</tr>
-							<tr>
-								<td><b>Ville : </b></td>
-								<td th:text="${site.ville}"></td>
-							</tr>
-							<tr>
-								<td><b>Code postal : </b></td>
-								<td th:text="${site.codePostal}"></td>
+								<td><b>Lieu : </b></td>
+								<td th:text="${site.lieu}"></td>
 							</tr>
 						</tbody>
 					</table>

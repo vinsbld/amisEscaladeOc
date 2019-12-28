@@ -17,7 +17,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 </head>
 
 <body>
-
 	<div class="signup-form">
     <form th:action="@{/site_escalade/create}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
@@ -29,37 +28,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
                 <input type="text" class="form-control" name="siteName" required="required"></input>
             </div>        	
         </div>
-<!--         <div class="form-group">
+        <div class="form-group">
 			<label class="control-label col-xs-4">Choisissez un lieu</label>
 			<div class="col-xs-8">
-                <select size="1" id="codexId" name="codexId" data-placeholder="lieu" class="chosen-select form-control">
+                <select size="1" name="lieu" data-placeholder="lieu" class="chosen-select form-control">
                 	<option th:each="cne : ${cdxList}" th:value="${cne.commune}" th:text="${cne.commune}+' '+${cne.codePostal}+' '+${cne.departement}"></option>
                 </select>
         	</div>    
-        </div> -->
-		<div class="form-group">
-			<label class="control-label col-xs-4">Département</label>
-			<div class="col-xs-8">
-                <select size="1" name="departement" data-placeholder="departement" class="chosen-select form-control">
-                	<option th:each="dpt : ${cdxList}" th:value="${dpt.departement}" th:text="${dpt.departement}"></option>
-                </select>
-            </div>        	
-        </div>       
-		<div class="form-group">
-			<label class="control-label col-xs-4">Ville</label>
-			<div class="col-xs-8">
-                <select size="1" name="ville" data-placeholder="ville" class="chosen-select form-control">
-                	<option th:each="cne : ${cdxList}" th:value="${cne.commune}" th:text="${cne.commune}"></option>
-                </select>
-            </div>        	
-        </div>
-        <div class="form-group">
-			<label class="control-label col-xs-4">Code Postal</label>
-			<div class="col-xs-8">
-                <select size="1" name="codePostal" data-placeholder="codePostal" class="chosen-select form-control">
-                	<option th:each="cdp : ${cdxList}" th:value="${cdp.codePostal}" th:text="${cdp.codePostal}"></option>
-                </select>
-            </div>        	
         </div>
 		<div sec:authorize="hasRole('ADMINISTRATOR')" class="form-group" >
 			<label class="control-label col-xs-4">Taguer Officiel Les amis de l'escalade : </label>

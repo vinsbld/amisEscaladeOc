@@ -29,26 +29,10 @@
             </div>        	
         </div>
 		<div class="form-group">
-			<label class="control-label col-xs-4">Département</label>
+			<label class="control-label col-xs-4">Lieu</label>
 			<div class="col-xs-8">
-            	<select th:field="*{departement}" size="1" name="departement" data-placeholder="departement" class="chosen-select form-control">
-                	<option th:each="dpt : ${cdxList}" th:value="${dpt.departement}" th:text="${dpt.departement}"></option>
-                </select>
-            </div>        	
-        </div>
-		<div class="form-group">
-			<label class="control-label col-xs-4">Ville</label>
-			<div class="col-xs-8">
-            	<select th:field="*{ville}" size="1" name="ville" data-placeholder="ville" class="chosen-select form-control">
-                	<option th:each="cne : ${cdxList}" th:value="${cne.commune}" th:text="${cne.commune}"></option>
-                </select>
-            </div>        	
-        </div>
-        <div class="form-group">
-			<label class="control-label col-xs-4">Code Postal</label>
-			<div class="col-xs-8">
-                <select th:field="*{codePostal}" size="1" name="codePostal" data-placeholder="codePostal" class="chosen-select form-control">
-                	<option  th:each="cdp : ${cdxList}" th:value="${cdp.codePostal}" th:text="${cdp.codePostal}"></option>
+            	<select th:field="*{lieu}" size="1" name="lieu" data-placeholder="lieu" class="chosen-select form-control">
+                	<option th:each="cx : ${cdxList}" th:value="${cx.commune}" th:text="${cx.commune}+' '+${cx.codePostal}+' '+${cx.departement}"></option>
                 </select>
             </div>        	
         </div>

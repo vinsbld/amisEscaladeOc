@@ -44,9 +44,6 @@
 
 		<section id="page">
 			<div class="page-container">
-
-				
-
 				<div class="custyle">
 				<!-- nomDuspot -->
 				<h4>
@@ -57,24 +54,10 @@
 				
 					<!-- le spot -->					
 					<table class="table listTableDeco" >
-<!-- 						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead> -->
 						<tbody>
 							<tr>
-								<td><b>Département : </b></td>
-								<td th:text="${site.departement}"></td>
-							</tr>
-							<tr>
-								<td><b>Ville : </b></td>
-								<td th:text="${site.ville}"></td>
-							</tr>
-							<tr>
-								<td><b>Code postal : </b></td>
-								<td th:text="${site.codePostal}"></td>
+								<td><b>Lieu : </b></td>
+								<td th:text="${site.lieu}"></td>
 							</tr>
 							<tr>
 								<td><b>Commentaires : </b></td>
@@ -92,7 +75,6 @@
 					</table>
 	
 					<!-- les secteurs -->
-					
 					<h1><span th:text="|${site.nomSiteEscalade} : SECTEUR'S'|"></span></h1>
 
 					<table class="table table-striped listTableDeco">
@@ -102,8 +84,7 @@
 							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
 							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span>
 						</a>
-					</div>	
-						
+					</div>		
 						<thead>
 							<th>Nom du secteur</th>
 							<th>Localisation</th>

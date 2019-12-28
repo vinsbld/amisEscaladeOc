@@ -25,11 +25,7 @@ public class SiteEscalade implements Serializable{
 	@NonNull
 	private String nomSiteEscalade;
 	@NonNull
-	private String departement;
-	@NonNull
-	private String ville;
-	@NonNull
-	private int codePostal;
+	private String lieu;
 	private boolean officiel;
 	
 	// clé étrangère, les sites d'escalades sont liés à un utilisateur
@@ -56,22 +52,19 @@ public class SiteEscalade implements Serializable{
 	}
 
 	// constructeur avec paramètres
-	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String departement, String ville, int codePostal,
-			boolean officiel, UserGrimp userGrimp, Collection<Secteur> secteur, Codex codex,
-			Collection<Commentaire> commentaires) {
+	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String lieu, boolean officiel, UserGrimp userGrimp,
+			Collection<Secteur> secteur, Codex codex, Collection<Commentaire> commentaires) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nomSiteEscalade = nomSiteEscalade;
-		this.departement = departement;
-		this.ville = ville;
-		this.codePostal = codePostal;
+		this.lieu = lieu;
 		this.officiel = officiel;
 		this.userGrimp = userGrimp;
 		this.secteur = secteur;
 		this.codex = codex;
 		this.commentaires = commentaires;
 	}
-	
+
 	// getters and setters
 	public long getIdSiteEscalade() {
 		return idSiteEscalade;
@@ -89,28 +82,12 @@ public class SiteEscalade implements Serializable{
 		this.nomSiteEscalade = nomSiteEscalade;
 	}
 
-	public String getDepartement() {
-		return departement;
+	public String getLieu() {
+		return lieu;
 	}
 
-	public void setDepartement(String departement) {
-		this.departement = departement;
-	}
-
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	public int getCodePostal() {
-		return codePostal;
-	}
-
-	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
 	}
 
 	public boolean isOfficiel() {
@@ -137,10 +114,6 @@ public class SiteEscalade implements Serializable{
 		this.secteur = secteur;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public Codex getCodex() {
 		return codex;
 	}
@@ -156,5 +129,9 @@ public class SiteEscalade implements Serializable{
 	public void setCommentaires(Collection<Commentaire> commentaires) {
 		this.commentaires = commentaires;
 	}
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

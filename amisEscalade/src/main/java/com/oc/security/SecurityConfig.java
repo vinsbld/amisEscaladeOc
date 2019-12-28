@@ -10,10 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.oc.entities.RoleEnum;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	private final String adminRole = RoleEnum.ADMINISTRATOR.name();
 	
 	private final UserDetailsService userDetailsService;
 	
@@ -71,6 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 				.sessionManagement().maximumSessions(1).expiredUrl("/connexion");
 
+	}
+
+	public String getAdminRole() {
+		return adminRole;
 	}
 
 }

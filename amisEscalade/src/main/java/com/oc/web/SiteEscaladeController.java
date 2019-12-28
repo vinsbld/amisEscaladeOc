@@ -39,6 +39,9 @@ public class SiteEscaladeController {
 		
 		Iterable<SiteEscalade> listeSite = siteEscaladeRepository.findAll();
 		model.addAttribute("listSite", listeSite);
+		
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
+		model.addAttribute("cdxList", cdxList);
 
 		return "site_escalade";
 	}
@@ -62,7 +65,7 @@ public class SiteEscaladeController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 
-		Iterable<Codex> cdxList = codexRepository.findAll();
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 	
 		return"formSiteEscalade";
@@ -78,9 +81,7 @@ public class SiteEscaladeController {
 			SiteEscalade newSiteEscalade = new SiteEscalade();
 			newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
 			newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
-			newSiteEscalade.setDepartement(siteEscaladeForm.getDepartement()); 
-			newSiteEscalade.setVille(siteEscaladeForm.getVille());
-			newSiteEscalade.setCodePostal(siteEscaladeForm.getCodePostal());
+			newSiteEscalade.setLieu(siteEscaladeForm.getLieu());
 			newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
 			UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			newSiteEscalade.setUserGrimp(usr);
@@ -94,16 +95,14 @@ public class SiteEscaladeController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
 	public String editSite(@ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		
-		Iterable<Codex> cdxList = codexRepository.findAll();
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		SiteEscaladeForm siteForm = new SiteEscaladeForm();
 		siteForm.setIdSiteEscalade(site.getIdSiteEscalade());
 		siteForm.setSiteName(site.getNomSiteEscalade());
-		siteForm.setDepartement(site.getDepartement());
-		siteForm.setVille(site.getVille());
-		siteForm.setCodePostal(site.getCodePostal());
+		siteForm.setLieu(site.getLieu());
 		siteForm.setOfficiel(site.isOfficiel());
 		model.addAttribute("siteForm", siteForm);
 		 
@@ -119,9 +118,7 @@ public class SiteEscaladeController {
 		}else {
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		site.setNomSiteEscalade(siteEscaladeForm.getSiteName());
-		site.setDepartement(siteEscaladeForm.getDepartement());
-		site.setVille(siteEscaladeForm.getVille());
-		site.setCodePostal(siteEscaladeForm.getCodePostal());
+		site.setLieu(siteEscaladeForm.getLieu());
 		site.setOfficiel(siteEscaladeForm.isOfficiel());
 		siteEscaladeRepository.save(site);
 		}

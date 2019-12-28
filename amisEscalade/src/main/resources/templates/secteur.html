@@ -58,20 +58,11 @@
 				</h4>
 				<table class="table listTableDeco">
 					<thead>
-						<tr>
-							<!-- <th>Département</th>
-							<th>Ville</th> -->
-							<!-- <th>Modifier</th> -->
-						</tr>
 					</thead>
 						<tbody>
 							<tr>
-								<td><b>Département : </b></td>
-								<td><span th:text="${site.departement}"></span></td>
-							</tr>
-							<tr>
-								<td><b>Ville : </b></td>
-								<td><span th:text="${site.ville}"></span></td>
+								<td><b>Lieu : </b></td>
+								<td><span th:text="${site.commune}+' '+${site.codePostal}+' '+${site.departement}"></span></td>
 							</tr>
 					</tbody>
 				</table>

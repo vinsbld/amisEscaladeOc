@@ -62,7 +62,7 @@ public class TopoController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		Iterable<Codex> cdxList = codexRepository.findAll();
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
 		return "formTopo";
@@ -96,6 +96,9 @@ public class TopoController {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+		
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
+		model.addAttribute("cdxList", cdxList);
 		
 		Topo topo = topoRepository.findById(idTopo).get();
 		TopoForm tpoFrm = new TopoForm();

@@ -8,9 +8,7 @@ public class SiteEscaladeForm implements Serializable{
 	private long idSiteEscalade;
 	// champs
 	private String siteName;
-	private String departement;
-	private String ville;
-	private int codePostal;
+	private String lieu;
 	private boolean officiel;
 	
 	// constructeurs
@@ -18,14 +16,11 @@ public class SiteEscaladeForm implements Serializable{
 
 	}
 
-	public SiteEscaladeForm(long idSiteEscalade, String siteName, String departement, String ville, int codePostal,
-			boolean officiel) {
+	public SiteEscaladeForm(long idSiteEscalade, String siteName, String lieu, boolean officiel) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.siteName = siteName;
-		this.departement = departement;
-		this.ville = ville;
-		this.codePostal = codePostal;
+		this.lieu = lieu;
 		this.officiel = officiel;
 	}
 
@@ -46,28 +41,12 @@ public class SiteEscaladeForm implements Serializable{
 		this.siteName = siteName;
 	}
 
-	public String getDepartement() {
-		return departement;
+	public String getLieu() {
+		return lieu;
 	}
 
-	public void setDepartement(String departement) {
-		this.departement = departement;
-	}
-
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	public int getCodePostal() {
-		return codePostal;
-	}
-
-	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
 	}
 
 	public boolean isOfficiel() {
