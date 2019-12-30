@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Reservation implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idResa;
 	private String emprunteur;
@@ -120,6 +121,8 @@ public class Reservation implements Serializable {
 		this.topo = topo;
 	}
 
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

@@ -36,19 +36,26 @@ public class Voie implements Serializable {
 	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Longueur> longueur;
 	
+	// clé étrangére, une voie est définit par une cotation
+	@ManyToOne
+	@JoinColumn(name = "COT_VOI")
+	private Rating rating;
+	
 	// constructeur par défaut
 	public Voie() {
 
 	}
 	
 	// constructeur avec paramètres
-	public Voie(long idVoie, String nomDeVoie, String cotation, Secteur secteur, Collection<Longueur> longueur) {
+	public Voie(long idVoie, String nomDeVoie, String cotation, Secteur secteur, Collection<Longueur> longueur,
+			Rating rating) {
 		super();
 		this.idVoie = idVoie;
 		this.nomDeVoie = nomDeVoie;
 		this.cotation = cotation;
 		this.secteur = secteur;
 		this.longueur = longueur;
+		this.rating = rating;
 	}
 
 	// getters and setters
@@ -95,5 +102,14 @@ public class Voie implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public Rating getRating() {
+		return rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
+	
 	
 }

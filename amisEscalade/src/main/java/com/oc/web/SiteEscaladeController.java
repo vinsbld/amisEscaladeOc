@@ -81,7 +81,7 @@ public class SiteEscaladeController {
 			SiteEscalade newSiteEscalade = new SiteEscalade();
 			newSiteEscalade.setIdSiteEscalade(siteEscaladeForm.getIdSiteEscalade());
 			newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
-			newSiteEscalade.setLieu(siteEscaladeForm.getLieu());
+			newSiteEscalade.setLieu(siteEscaladeForm.getLieu());			
 			newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
 			UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			newSiteEscalade.setUserGrimp(usr);

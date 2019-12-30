@@ -123,9 +123,9 @@ public class TopoController {
 		if (result.hasErrors()) {
 			return "editFormTopo";
 			}
-			else if(tpo != null && tpo.getIdTopo() != idTopo) {
-				return "formTopo";
-			}
+		/*
+		 * else if(tpo != null && tpo.getIdTopo() != idTopo) { return "formTopo"; }
+		 */
 		else {
 		Topo topo = topoRepository.findById(idTopo).get();
 		topo.setName(topoForm.getName());
@@ -148,19 +148,6 @@ public class TopoController {
 		topoRepository.deleteById(idTopo);
 	
 		return "redirect:/profil";
-	}
-	
-	/*============== #Reservations ======================*/
-	@GetMapping("/topo/mes_reservations")
-	public String topoResa(Model model) {
-		
-		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		model.addAttribute("usr", usr);
-		
-		Iterable<Topo> top = topoRepository.findByUserG(usr.getIdUserGrimp());
-		model.addAttribute("topList", top);
-		
-		return "reservation_topo";
 	}
 
 }

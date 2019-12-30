@@ -47,13 +47,13 @@
 				<h1>MES RESERVATIONS TOPO'S'</h1>
 			
 					<table class="table table-striped listTableDeco">
-						<h2>Mes demandes topo's'</h2>
+						<h2>Mes demandes de prêts</h2>
 						<thead>
 							<tr>
 								<th>Nom du topo</th>
 								<th>Lieu</th>
 								<th>Date de parution</th>
-								<th>Dispo</th>	
+								<th>propriétaire</th>	
 							</tr>
 						</thead>
 						<tbody>
@@ -69,17 +69,22 @@
 						</tbody>
 					</table>
 					<table class="table table-striped listTableDeco">
-					<h2>Mes prêts topo's'</h2>
+					<h2>Mes prêts en cours</h2>
 						<thead>
 							<tr>
 								<th>Nom du topo</th>
 								<th>Lieu</th>
 								<th>Date de prêt</th>
-								<th>Dispo</th>	
+								<th>Emprunteur</th>	
 							</tr>
 						</thead>
 						<tbody>
-						
+							<tr th:each="r:${res}">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${r.pseudo}"></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>			
