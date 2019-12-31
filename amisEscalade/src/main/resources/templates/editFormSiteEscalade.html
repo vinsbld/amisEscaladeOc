@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{header}">
 <head>
@@ -36,7 +37,7 @@
                 </select>
             </div>        	
         </div>
-        <div sec:authorize="hasRole('ADMINISTRATOR')" class="form-group">
+        <div sec:authorize="hasAuthority('ADMINISTRATOR')" class="form-group">
 			<label class="control-label col-xs-4">Taguer Officiel Les amis de l'escalade : </label>
 				<div class="col-xs-8">
 	           		<input type="radio"  name="officiel" value="true" required="required" checked> oui<br/>

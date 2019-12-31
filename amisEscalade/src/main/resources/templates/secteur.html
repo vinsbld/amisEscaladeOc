@@ -88,7 +88,7 @@
 					</tbody>
 				</table>
 				
-				<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+				<table class="table" sec:authorize="isAuthenticated()" th:if="${(site.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 					<tbody>
 						<tr>
 							<td><a class="btn btn-info btn-xs"
@@ -106,7 +106,7 @@
 				<table class="table table-striped listTableDeco">
 			
 					<h1><span th:text="${secteur.nomDuSecteur}"></span> : VOIE'S'</h1>
-					<div sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+					<div sec:authorize="isAuthenticated()" th:if="${(site.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 						<a class="btn-get-create" th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create(idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}">Ajouter une voie à <span th:text="${secteur.nomDuSecteur}"></span></a>
 					</div>
 					<thead>

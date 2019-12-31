@@ -2,6 +2,8 @@ package com.oc.web;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,19 +42,24 @@ public class CommentaireController {
 		Iterable<Commentaire> cmtr = commentaireRepository.findComBySite(site.getIdSiteEscalade());
 		model.addAttribute("cmtr", cmtr);
 					
-		return "commentaire_site";
+		return "/commentaire_site";
 	}
 		
 	/*============== #Création ======================*/
 	@PostMapping("/commentaire/site/{idSiteEscalade}")
 	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, final RedirectAttributes redirectAttributes) {
-
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		Commentaire newCommentaire = new Commentaire();
+		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
+		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+		
+		if(commentaireForm.getComments()=="") {
+			return "redirect:/site/"+idSiteEscalade+"/commentaire";
+		}else {
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
+		Commentaire newCommentaire = new Commentaire();
 		newCommentaire.setSiteEscalade(site);
 		newCommentaire.setUserGrimp(usr);
 		newCommentaire.setComments(commentaireForm.getComments());
@@ -60,8 +67,12 @@ public class CommentaireController {
 		commentaireRepository.save(newCommentaire);
 		
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
+		}
 	}
-	
+	private boolean isNullOrEmpty(String comments) {
+		return false;
+	}
+
 	/*============== #Modification ======================*/
 	@GetMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
 	public String editComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom) {
@@ -81,7 +92,7 @@ public class CommentaireController {
 		com.setUserGrimp(usr);
 		com.setSiteEscalade(site);
 			
-		return "editFormCommentaire";
+		return "/editFormCommentaire";
 	}
 	
 	@PostMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")

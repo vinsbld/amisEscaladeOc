@@ -110,6 +110,5 @@ public class Voie implements Serializable {
 	public void setRating(Rating rating) {
 		this.rating = rating;
 	}
-	
-	
+		
 }

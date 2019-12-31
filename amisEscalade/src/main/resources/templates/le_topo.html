@@ -73,7 +73,7 @@
 				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp}"><form th:action="@{/reservation/{idTopo}/demande(idTopo=${topo.idTopo})}" method="post"><button type="submit" class="btn-get-create">Résever</button></form></span>
 				<table class="table">
 					<tbody>
-						<tr sec:autorize="isAuthenticated()" th:if="${topo.userGrimp.idUserGrimp}==${usr.idUserGrimp}">
+						<tr sec:authorize="isAuthenticated()" th:if="${(topo.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 							<td><a class="btn btn-info btn-xs" th:href="@{/topo/{idTopo}/edit(idTopo=${topo.idTopo})}">Modifier</a></td>		
 							<td><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce topo ?')" class="btn btn-danger btn_xs" th:href="@{/topo/{idTopo}/delete(idTopo=${topo.idTopo})}">Supprimer</a></td>	
 						</tr>

@@ -2,6 +2,8 @@ package com.oc.entities;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -18,6 +20,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -65,7 +68,7 @@ public class UserGrimp implements UserDetails {
 	// collection de rôles
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
-	private Collection<RoleEnum> roles;
+	private List<RoleEnum> roles;
 	
 	// constructeur par défaut
 	public UserGrimp () {
@@ -78,7 +81,7 @@ public class UserGrimp implements UserDetails {
 			@Email(message = "merci de saisir une adresse mail correcte") String email,
 			@Size(min = 4) @NotEmpty(message = "votre mot de passe doit contenir minimum 4 caratères") String password,
 			Collection<SiteEscalade> siteEscalades, Collection<Topo> topos, Collection<Reservation> reservations,
-			Collection<Commentaire> commentaires, Collection<RoleEnum> roles) {
+			Collection<Commentaire> commentaires, List<RoleEnum> roles) {
 		super();
 		this.idUserGrimp = idUserGrimp;
 		this.pseudo = pseudo;
@@ -138,11 +141,11 @@ public class UserGrimp implements UserDetails {
 		this.siteEscalades = siteEscalades;
 	}
 
-	public Collection<RoleEnum> getRoles() {
+	public List<RoleEnum> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<RoleEnum> roles) {
+	public void setRoles(List<RoleEnum> roles) {
 		this.roles = roles;
 	}
 

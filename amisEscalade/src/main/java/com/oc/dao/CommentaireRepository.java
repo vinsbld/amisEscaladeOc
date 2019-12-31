@@ -15,4 +15,5 @@ public interface CommentaireRepository extends CrudRepository<Commentaire, Long>
 	// touver un commentaire appartenant un utilisateur (par pseudo)
 	@Query("SELECT com FROM Commentaire com WHERE com.userGrimp.pseudo = :x")
 	public Iterable<Commentaire> findComByUserGrimpName(@Param("x") String pseudo);
+	
 }

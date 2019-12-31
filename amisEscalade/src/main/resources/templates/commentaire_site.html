@@ -35,7 +35,7 @@
 
 
 <!--==========================
-    Site d'escalade section
+    Commentaire section
   ============================-->
 
 <body>
@@ -50,7 +50,7 @@
 				<div class="custyle">
 				<!-- nomDuspot -->
 				<h4>
-					Nom du site : <a th:href="@{/site_escalade}"><b><span th:text="${site.nomSiteEscalade}" title="consulter la liste des sites"></span></b></a>
+					Nom du site : <a th:href="@{/le_site_escalade/{idSiteEscalade}/view(idSiteEscalade=${site.idSiteEscalade})}"><b><span th:text="${site.nomSiteEscalade}" title="consulter la liste des sites"></span></b></a>
 					<span th:if="${site.officiel}"><img src="/img/officiel.png" alt="officiel" title="logo_officiel" /></img></span>
 					<span th:if="${!site.officiel}"><img src="/img/non_officiel.png" alt="non_officiel" title="non_officiel" /></img></span>
 				</h4>
@@ -68,16 +68,17 @@
 					<table class="table listTableDeco">
 						<tbody>
 							<tr th:each="cm:${cmtr}">
-								<td><span th:text="${cm.date}"></span>
-									<span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}"><!--  or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')} -->
-										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}">Modifier</a>
-										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}">Supprimer</a></span>
-									</span><br/>
-								<textarea rows="5" cols="40" wrap="hard" readonly="readonly" th:text="${cm.comments}"></textarea></td>		
-							</tr>
+								<td><span th:text="${cm.date}" style="text-decoration: underline;"></span>
+									<span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}">
+										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Modifier</a>
+										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Supprimer</a></span>
+									</span><br/><br/>
+								<div th:text="${cm.comments}"></div></td>		
+							</tr>							
 						</tbody>
 					</table>
-					<span >
+					
+					<span sec:authorize="isAuthenticated()">
 						<form method="post" th:action="@{/commentaire/site/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}">
 							<textarea name="comments" rows="5" cols="40" wrap="hard"></textarea>
 								<div class="form-group text-center">
@@ -88,7 +89,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- #Site d'escalade -->
+		<!-- #Commentaire -->
 	</main>
 
 </body>

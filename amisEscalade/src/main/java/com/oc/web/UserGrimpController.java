@@ -50,6 +50,7 @@ public class UserGrimpController {
 	/*============== #Création ======================*/
 	@GetMapping("/inscription")
 	public String formInsc() {
+
 		return "formInscription";
 	}
 	
@@ -59,14 +60,22 @@ public class UserGrimpController {
 		
 		if (result.hasErrors()) {
 			return "formInscription";
-		}else {
+		} 
+		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername()) !=null || 
+				userGrimpRepository.getUsrEmail(userGrimpForm.getEmail()) !=null || 
+				userGrimpForm.getUsername().length() < 2 && userGrimpForm.getUsername().length() > 30 ||
+				userGrimpForm.getPassword().length() < 4) {
+			return "formInscription";	
+		}
+		else {
 		UserGrimp newUserGrimp = new UserGrimp();
 		newUserGrimp.setPseudo(userGrimpForm.getUsername());
 		newUserGrimp.setEmail(userGrimpForm.getEmail());
 		newUserGrimp.setPassword(userGrimpForm.getPassword());
 		userGrimpRepository.save(newUserGrimp);
 		}
-			return "redirect:/index";	
+
+			return "redirect:/connexion";	
 	}
 	
 	/*============== #Modification ======================*/

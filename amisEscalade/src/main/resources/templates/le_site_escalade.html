@@ -65,7 +65,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<table class="table" sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+					<table class="table" sec:authorize="isAuthenticated()" th:if="${(site.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 						<tbody>
 							<tr>
 								<td><a class="btn btn-info btn-xs" th:href="@{/site_escalade/{idSiteEscalade}/edit(idSiteEscalade=${site.idSiteEscalade})}">Modifier</a></td>
@@ -79,7 +79,7 @@
 
 					<table class="table table-striped listTableDeco">
 					
-					<div sec:authorize="isAuthenticated()" th:if="${site.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()}">
+					<div sec:authorize="isAuthenticated()" th:if="${(site.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 						<a class="btn-get-create"
 							th:href="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${site.idSiteEscalade})}">
 							Ajouter un secteur à <span th:text="${site.nomSiteEscalade}"></span>

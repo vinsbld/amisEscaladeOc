@@ -102,6 +102,9 @@ public class VoieController {
 		Secteur secteur = secteurRepository.findById(idSecteur).get();
 		model.addAttribute("secteur", secteur);
 		
+		Iterable<Rating> rate = ratingRepository.findAll();
+		model.addAttribute("rate", rate);
+		
 		Voie voie = voieRepository.findById(idVoie).get();
 		VoieForm voiForm = new VoieForm();
 		voiForm.setIdVoie(voie.getIdVoie());
