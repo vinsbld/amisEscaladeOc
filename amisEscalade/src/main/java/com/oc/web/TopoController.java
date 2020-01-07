@@ -73,8 +73,6 @@ public class TopoController {
 		
 		if (result.hasErrors()) {
 			return "formTopo";	
-		}else if(topoRepository.getTopoName(topoForm.getName())!=null) {
-			return "formTopo";
 		}
 		else {
 		Topo newTopo = new Topo();

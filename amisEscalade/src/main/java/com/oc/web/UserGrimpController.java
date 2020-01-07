@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -96,10 +95,16 @@ public class UserGrimpController {
 	public String updateProfil(@ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserGrimp ur = userGrimpRepository.findByPseudo(userGrimpForm.getUsername());
+		
 		if (result.hasErrors()) {
 			return "editFormInscription";
-		}else {
-		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}else if (ur !=null && usr.getIdUserGrimp() != ur.getIdUserGrimp()) {
+			return"editFormInscription";
+		}
+		
+		else {
 		usr.setPseudo(userGrimpForm.getUsername());
 		usr.setEmail(userGrimpForm.getEmail());
 		usr.setPassword(userGrimpForm.getPassword());

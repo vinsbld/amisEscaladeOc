@@ -96,15 +96,13 @@ public class LongueurController {
 		return"redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;	
 	}
 	
-	private boolean isNaN(int distance) {
-	
-		return false;
-	}
+
 	/*============== #Modification ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit")
 	public String editSecteur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model) {
 		
 			Longueur longueur = longueurRepository.findById(idLongueur).get();
+			
 			LongueurForm longForm = new LongueurForm();
 			longForm.setDistance(longueur.getDistance());
 			longForm.setHauteur(longueur.getHauteur());
@@ -119,7 +117,10 @@ public class LongueurController {
 		
 		if (result.hasErrors()) {
 			return "editFormLongueur";
-		}else {
+		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
+			return"editFormLongueur";
+		}
+		else {
 		Longueur longr = longueurRepository.findById(idLongueur).get();
 		longr.setDistance(longueurForm.getDistance());
 		longr.setHauteur(longueurForm.getHauteur());
@@ -135,6 +136,11 @@ public class LongueurController {
 		longueurRepository.deleteById(idLongueur);
 		
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
+	}
+	
+	private boolean isNaN(int distance) {
+		
+		return false;
 	}
 
 }

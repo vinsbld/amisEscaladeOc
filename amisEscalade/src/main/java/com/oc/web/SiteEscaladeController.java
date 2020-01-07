@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.CodexRepository;
@@ -36,13 +37,23 @@ public class SiteEscaladeController {
 	/*============== #Pages ======================*/
 	@GetMapping("/site_escalade")
 	public String siteEscal(Model model) {
-		
+				
 		Iterable<SiteEscalade> listeSite = siteEscaladeRepository.findAll();
 		model.addAttribute("listSite", listeSite);
 		
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 
+		return "site_escalade";
+	}
+	
+	@GetMapping("/site_escalade/result")
+	public String siteResult(Model model, @RequestParam(name = "mc", defaultValue = "")String mc) {
+		
+		Iterable<SiteEscalade> listeSite = siteEscaladeRepository.chercher("%"+mc+"%");
+		model.addAttribute("mc", mc);
+		model.addAttribute("listSite", listeSite);
+		
 		return "site_escalade";
 	}
 	

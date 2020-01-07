@@ -47,14 +47,14 @@
 			
 				<h1>Sites d'escalades</h1>
 				
-				<form th:action="@{/site_escalade}" th:object="${site}" methode="get">
+				<form th:action="@{/site_escalade/result}" methode="get">
 					<label>Mot clé :</label>
-					<input type="text" name="motCle" th:value="${motCle}">
+					<input type="text" name="mc" th:value="${mc}">
 					<button class="btn btn-primary">Chercher</button>
 				</form><p></p>
-				
+
 				<a sec:authorize="isAuthenticated()" th:href="@{/site_escalade/create}" class="btn-get-create">Créer un spot</a>
-				
+
 			<div class="custyle">
 				<table class="table table-striped listTableDeco">
 					<thead>
