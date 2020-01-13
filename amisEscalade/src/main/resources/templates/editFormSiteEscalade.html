@@ -33,7 +33,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 			<label class="control-label col-xs-4">Lieu</label>
 			<div class="col-xs-8">
             	<select th:field="*{lieu}" size="1" name="lieu" data-placeholder="lieu" class="chosen-select form-control">
-                	<option th:each="cx : ${cdxList}" th:value="${cx.commune}" th:text="${cx.commune}+' '+${cx.codePostal}+' '+${cx.departement}"></option>
+                	<option th:each="cx : ${cdxList}" th:value="${cx.commune}+' '+${cx.codePostal}+' '+${cx.departement}" th:text="${cx.commune}+' '+${cx.codePostal}+' '+${cx.departement}"></option>
                 </select>
             </div>        	
         </div>

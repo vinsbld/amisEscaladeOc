@@ -17,4 +17,5 @@ public interface TopoRepository extends JpaRepository<Topo, Long>{
 	// trouver un topo par son nom
 	@Query("select tpo from Topo tpo where tpo.name = :x")
 	public Topo getTopoName(@Param("x") String name);
+	
 }

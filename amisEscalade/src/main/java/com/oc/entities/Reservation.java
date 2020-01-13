@@ -16,9 +16,6 @@ public class Reservation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue
 	private long idResa;
-	private String emprunteur;
-	private String proprietaireTopo;
-	private String nomDuTopoResa;
 	private Date dateDeLaDemande;
 	private boolean accepterDemande;
 	private boolean demandeEnCours;
@@ -27,7 +24,7 @@ public class Reservation implements Serializable {
 	@JoinColumn(name = "USR_RES")
 	private UserGrimp userGrimp;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "TPO_RES")
 	private Topo topo;
 
@@ -35,13 +32,10 @@ public class Reservation implements Serializable {
 
 	}
 
-	public Reservation(long idResa, String emprunteur, String proprietaireTopo, String nomDuTopoResa,
-			Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours, UserGrimp userGrimp, Topo topo) {
+	public Reservation(long idResa, Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours,
+			UserGrimp userGrimp, Topo topo) {
 		super();
 		this.idResa = idResa;
-		this.emprunteur = emprunteur;
-		this.proprietaireTopo = proprietaireTopo;
-		this.nomDuTopoResa = nomDuTopoResa;
 		this.dateDeLaDemande = dateDeLaDemande;
 		this.accepterDemande = accepterDemande;
 		this.demandeEnCours = demandeEnCours;
@@ -55,30 +49,6 @@ public class Reservation implements Serializable {
 
 	public void setIdResa(long idResa) {
 		this.idResa = idResa;
-	}
-
-	public String getEmprunteur() {
-		return emprunteur;
-	}
-
-	public void setEmprunteur(String emprunteur) {
-		this.emprunteur = emprunteur;
-	}
-
-	public String getProprietaireTopo() {
-		return proprietaireTopo;
-	}
-
-	public void setProprietaireTopo(String proprietaireTopo) {
-		this.proprietaireTopo = proprietaireTopo;
-	}
-
-	public String getNomDuTopoResa() {
-		return nomDuTopoResa;
-	}
-
-	public void setNomDuTopoResa(String nomDuTopoResa) {
-		this.nomDuTopoResa = nomDuTopoResa;
 	}
 
 	public Date getDateDeLaDemande() {
@@ -124,5 +94,6 @@ public class Reservation implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	
 }

@@ -20,10 +20,6 @@ public class Codex implements Serializable{
 	private String commune;
 	private String departement;
 	
-	// le codex sert a la création de tous les sites d'escalades
-	@OneToMany(mappedBy ="codex", fetch = FetchType.LAZY)
-	private Collection<SiteEscalade>siteEscalades;
-	
 	// constructeur par défaut
 	public Codex() {
 		

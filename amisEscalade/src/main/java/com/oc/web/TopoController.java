@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.CodexRepository;
+import com.oc.dao.ReservationRepository;
+import com.oc.dao.SiteEscaladeRepository;
 import com.oc.dao.TopoRepository;
 import com.oc.entities.Codex;
+import com.oc.entities.Reservation;
+import com.oc.entities.SiteEscalade;
 import com.oc.entities.Topo;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.TopoForm;
@@ -27,6 +33,10 @@ public class TopoController {
 	private TopoRepository topoRepository;
 	@Autowired
 	private CodexRepository codexRepository;
+	@Autowired
+	private ReservationRepository reservationRepository;
+	@Autowired
+	private SiteEscaladeRepository siteEscaladeRepository;
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/

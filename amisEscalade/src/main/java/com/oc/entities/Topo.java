@@ -2,14 +2,16 @@ package com.oc.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.NonNull;
 
@@ -22,7 +24,6 @@ public class Topo implements Serializable{
 	
 	// attributs d'un topo
 	@NonNull
-	@Column(unique = true)
 	private String name;
 	@NonNull
 	@Length(max = 255)
@@ -40,9 +41,8 @@ public class Topo implements Serializable{
 	private UserGrimp userGrimp;
 	
 	// clé étrangère topo lié à une réservation
-	@OneToOne
-	@JoinColumn(name = "RES_TPO")
-	private Reservation reservation;
+	@OneToMany(mappedBy = "topo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Collection<Reservation>reservations;
 
 	// constructeur par défaut
 	public Topo() {
@@ -51,7 +51,7 @@ public class Topo implements Serializable{
 	
 	// constructeur avec paramètres
 	public Topo(long idTopo, String name, @Length(max = 255) String description, String lieu, Date edate, Boolean dispo,
-			UserGrimp userGrimp, Reservation reservation) {
+			UserGrimp userGrimp, Collection<Reservation> reservations) {
 		super();
 		this.idTopo = idTopo;
 		this.name = name;
@@ -60,9 +60,9 @@ public class Topo implements Serializable{
 		this.edate = edate;
 		this.dispo = dispo;
 		this.userGrimp = userGrimp;
-		this.reservation = reservation;
+		this.reservations = reservations;
 	}
-
+	
 	// getters and setters
 	public long getIdTopo() {
 		return idTopo;
@@ -120,16 +120,16 @@ public class Topo implements Serializable{
 		this.userGrimp = userGrimp;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public Collection<Reservation> getReservations() {
+		return reservations;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setReservations(Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 }

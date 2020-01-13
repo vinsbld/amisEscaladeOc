@@ -93,8 +93,7 @@ public class SecteurController {
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update")
-	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, BindingResult result,
-			@ModelAttribute("secteur") SecteurForm secteurForm,
+	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, @ModelAttribute("secteur") SecteurForm secteurForm, Model model, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {

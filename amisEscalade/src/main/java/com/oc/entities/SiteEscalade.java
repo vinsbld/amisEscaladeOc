@@ -37,11 +37,6 @@ public class SiteEscalade implements Serializable{
 	@OneToMany(mappedBy ="siteEscalade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur;
 	
-	// clé étrangére, les sites d'escalades sont créer d'après certains éléments du codex
-	@ManyToOne
-	@JoinColumn(name = "CDX_STE")
-	private Codex codex;
-	
 	// clé étrangére un site peut avoir un ou plusieurs commentaires
 	@OneToMany(mappedBy = "siteEscalade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Commentaire>commentaires;
@@ -53,7 +48,7 @@ public class SiteEscalade implements Serializable{
 
 	// constructeur avec paramètres
 	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String lieu, boolean officiel, UserGrimp userGrimp,
-			Collection<Secteur> secteur, Codex codex, Collection<Commentaire> commentaires) {
+			Collection<Secteur> secteur, Collection<Commentaire> commentaires) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nomSiteEscalade = nomSiteEscalade;
@@ -61,7 +56,6 @@ public class SiteEscalade implements Serializable{
 		this.officiel = officiel;
 		this.userGrimp = userGrimp;
 		this.secteur = secteur;
-		this.codex = codex;
 		this.commentaires = commentaires;
 	}
 
@@ -112,14 +106,6 @@ public class SiteEscalade implements Serializable{
 
 	public void setSecteur(Collection<Secteur> secteur) {
 		this.secteur = secteur;
-	}
-
-	public Codex getCodex() {
-		return codex;
-	}
-
-	public void setCodex(Codex codex) {
-		this.codex = codex;
 	}
 
 	public Collection<Commentaire> getCommentaires() {

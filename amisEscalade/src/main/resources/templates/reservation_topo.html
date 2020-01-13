@@ -45,26 +45,30 @@
 			<div class="page-container">
 			<div class="custyle">
 				<h1>MES RESERVATIONS TOPO'S'</h1>
-			
-					<table class="table table-striped listTableDeco">
-						<h2>Mes demandes de prêts</h2>
+				<h2>Mes demandes de prêts</h2>
+					<table class="table table-striped listTableDeco">	
 						<thead>
 							<tr>
 								<th>Nom du topo</th>
 								<th>Lieu</th>
 								<th>Date de parution</th>
-								<th>propriétaire</th>	
+								<th>demandeur</th>
+								<th>Accepter la demande</th>	
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="topo:${topList}">
-								<td><b><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}" th:text="${topo.name}"></a></b></td>
-								<td th:text="${topo.lieu}"></td>
-								<td th:text="${topo.edate}"></td>
+							<tr th:each="r:${res}">
+								<td><b><a th:text="${r.topo.name}"></a></b></td>
+								<td th:text="${r.topo.lieu}"></td>
+								<td th:text="${r.topo.edate}"></td>
+								<td th:text = "${r.userGrimp.pseudo}"></td>		
 								<td>
-								<span th:if="${topo.dispo}"><img src="/img/dispo.png" alt="dispo" title="logo_dispo" /></img></span>
-								<span th:if="${!topo.dispo}"><img src="/img/non_dispo.png" alt="dispo" title="logo_non_dispo" /></img></span>
-								</td>									
+									<form th:action="@{/topo/mes_reservations/ok(idResa=${r.idResa})}" method="post">
+							           	<input type="radio"  name="accepterDemande" value="true" required="required" checked> oui
+							            <input type="radio"  name="accepterDemande" value="false" required="required"> non
+							   			<button type="submit" class="btn-get-create btn-xs ">Ok</button> 		 
+									</form>
+								</td>							
 							</tr>
 						</tbody>
 					</table>
@@ -76,14 +80,21 @@
 								<th>Lieu</th>
 								<th>Date de prêt</th>
 								<th>Emprunteur</th>	
+								<th>Topo rendu :</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="r:${res}">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td th:text="${r.pseudo}"></td>
+							<tr th:each="r:${rsok}">
+								<td><b><a th:text="${r.topo.name}"></a></b></td>
+								<td th:text="${r.topo.lieu}"></td>
+								<td th:text="${r.topo.edate}"></td>
+								<td th:text = "${r.userGrimp.pseudo}"></td>		
+								<td>
+									<form th:action="@{/topo/mes_reservations/reset(idResa=${r.idResa})}" method="post">
+							           	<input type="radio"  name="dispo" value="true" required="required" checked> oui
+							   			<button type="submit" class="btn-get-create btn-xs ">Ok</button> 		 
+									</form>
+								</td>							
 							</tr>
 						</tbody>
 					</table>

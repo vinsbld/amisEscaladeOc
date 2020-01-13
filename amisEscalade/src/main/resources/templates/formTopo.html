@@ -22,7 +22,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/formTopo/create}" method="post" class="form-horizontal">
+    <form th:action="@{/formTopo/create(idSiteEscalade=${idSiteEscalade})}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Formulaire topo</h2>
 		</div>		
@@ -42,7 +42,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 			<label class="control-label col-xs-4">Lieu</label>
 			<div class="col-xs-8">
                 <select size="1" name="lieu" data-placeholder="lieu" class="chosen-select form-control">
-                	<option th:each="cne : ${cdxList}" th:value="${cne.commune}" th:text="${cne.commune}+' '+${cne.codePostal}+' '+${cne.departement}"></option>
+                	<option th:each="cne : ${cdxList}" th:value="${cne.commune}+' '+${cne.codePostal}+' '+${cne.departement}" th:text="${cne.commune}+' '+${cne.codePostal}+' '+${cne.departement}"></option>
                 </select>
             </div>        	
         </div>

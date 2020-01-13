@@ -104,6 +104,14 @@
 			
 			<div class="custyle">
 				<table class="table table-striped listTableDeco">
+					<thead>
+						<tr>
+							<th>Nom du Topo</th>
+							<th>Lieu</th>
+							<th>Date de parution</th>	
+							<th>Dispo</th>
+						</tr>
+					</thead>
  					<tbody>
 						<tr th:each="topo:${topList}">
 							<td><a th:href="@{/le_topo/{idTopo}/view(idTopo=${topo.idTopo})}"><b><span th:text="${topo.name}"></span></b></a></td>

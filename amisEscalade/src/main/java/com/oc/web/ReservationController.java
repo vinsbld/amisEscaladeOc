@@ -2,7 +2,10 @@ package com.oc.web;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oc.dao.ReservationRepository;
@@ -50,35 +54,77 @@ public class ReservationController {
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		
 		Reservation newReservation = new Reservation();
-		newReservation.setEmprunteur(usr.getPseudo());
-		newReservation.setProprietaireTopo(userGrimp.getPseudo());
-		newReservation.setNomDuTopoResa(tpo.getName());
 		newReservation.setDateDeLaDemande(date);
-		newReservation.setEmprunteur(usr.getPseudo());
 		newReservation.setUserGrimp(usr);
 		newReservation.setAccepterDemande(false);
 		newReservation.setDemandeEnCours(true);
 		newReservation.setTopo(tpo);
+		newReservation.getTopo().setDispo(false);
+		topoRepository.save(newReservation.getTopo());
 		reservationRepository.save(newReservation);
 		
-		return"redirect:/index";
+		return"redirect:/topo";
 	}
 	
-	/*============== #Reservations ======================*/
+	/*============== #Affiche les Reservations ======================*/
 	@GetMapping("/topo/mes_reservations")
 	public String topoResa(Model model) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		Iterable<Topo> top = topoRepository.findByUserG(usr.getIdUserGrimp());
-		model.addAttribute("topList", top);
+		List<Reservation> res = reservationRepository.getMesDemandes(usr.getIdUserGrimp());
+		model.addAttribute("res", res);
 		
-		/*
-		 * List<Reservation> res = reservationRepository.resaList(usr.getPseudo());
-		 * model.addAttribute("res", res);
-		 */
+		List<Reservation> rsok = reservationRepository.getDemandesAccepted(usr.getIdUserGrimp());
+		model.addAttribute("rsok", rsok);
+
 		
 		return "reservation_topo";
+	}
+	
+	/*============== #Post les decisions de prêts ======================*/
+	@PostMapping("/topo/mes_reservations/ok")
+	public String acceptOrNot(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		List<Reservation> res = reservationRepository.getMesDemandes(usr.getIdUserGrimp());
+		model.addAttribute("res", res);
+		
+		Reservation newR = reservationRepository.findById(idResa).get();
+		newR.setAccepterDemande(reservationForm.isAccepterDemande());
+		reservationRepository.save(newR);
+		
+		if(newR.isAccepterDemande()) {
+			newR.getTopo().setDispo(false);
+			newR.setDemandeEnCours(false);
+			reservationRepository.save(newR);
+			topoRepository.save(newR.getTopo());
+		}else {
+			newR.setDemandeEnCours(false);
+			newR.getTopo().setDispo(true);
+			topoRepository.save(newR.getTopo());
+			reservationRepository.deleteById(idResa);			
+		}
+	
+		return"redirect:/topo/mes_reservations";
+	}
+	@PostMapping("/topo/mes_reservations/reset")
+	public String returnReset(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		List<Reservation> res = reservationRepository.getMesDemandes(usr.getIdUserGrimp());
+		model.addAttribute("res", res);
+		
+		Reservation newR = reservationRepository.findById(idResa).get();
+		newR.getTopo().setDispo(true);
+		topoRepository.save(newR.getTopo());
+		reservationRepository.deleteById(idResa);		
+		
+		return"redirect:/topo/mes_reservations";
 	}
 }
