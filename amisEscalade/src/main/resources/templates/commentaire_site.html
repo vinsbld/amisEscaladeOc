@@ -68,12 +68,14 @@
 					<table class="table listTableDeco">
 						<tbody>
 							<tr th:each="cm:${cmtr}">
-								<td><span th:text="${#dates.format(cm.date, 'dd/MM/yyyy')}" style="text-decoration: underline;"></span>
-									<span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}">
+								<td><small class="justify-text-end"><span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}">
 										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Modifier</a>
-										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Supprimer</a></span>
-									</span><br/><br/>
-								<div th:text="${cm.comments}"></div></td>		
+										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Supprimer</a></span><br/>
+									</span></small><br/>
+								<div th:text="${cm.comments}"></div><br/><small>
+								Posté par : <span th:text="${cm.userGrimp.pseudo}"></span>
+								Le : <span th:text="${#dates.format(cm.date, 'dd/MM/yyyy')}"></span>
+								</small></td>		
 							</tr>							
 						</tbody>
 					</table>

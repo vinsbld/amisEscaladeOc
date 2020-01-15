@@ -1,5 +1,7 @@
 package com.oc.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -50,9 +52,15 @@ public class SiteEscaladeController {
 	@GetMapping("/site_escalade/result")
 	public String siteResult(Model model, @RequestParam(name = "mc", defaultValue = "")String mc) {
 		
-		Iterable<SiteEscalade> listeSite = siteEscaladeRepository.chercher("%"+mc+"%");
-		model.addAttribute("mc", mc);
-		model.addAttribute("listSite", listeSite);
+		if (mc.isEmpty()) {
+			Iterable<SiteEscalade> liste = siteEscaladeRepository.findAll();
+			model.addAttribute("listSite", liste);
+		}else {
+			List<SiteEscalade> listeSite = siteEscaladeRepository.chercher("%"+mc+"%");
+			model.addAttribute("mc", mc);
+			model.addAttribute("listSite", listeSite);
+		}
+		
 		
 		return "site_escalade";
 	}

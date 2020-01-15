@@ -1,5 +1,7 @@
 package com.oc.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +18,6 @@ public interface SiteEscaladeRepository extends CrudRepository<SiteEscalade, Lon
 public Iterable<SiteEscalade> findByUserGrimp(@Param("x") long id);
 
 	// recherche de site par mot clé
-@Query("SELECT sit FROM SiteEscalade sit WHERE sit.nomSiteEscalade LIKE:x OR sit.lieu LIKE:x order by sit.idSiteEscalade")
-public Iterable<SiteEscalade> chercher(@Param("x")String motCle);
+@Query("SELECT sit FROM SiteEscalade sit WHERE lower(sit.nomSiteEscalade) LIKE lower(concat('%',:x,'%')) OR lower(sit.lieu) LIKE lower(concat('%',:x,'%')) order by sit.idSiteEscalade")
+public List<SiteEscalade> chercher(@Param("x")String motCle);
 }
