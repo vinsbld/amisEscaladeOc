@@ -25,19 +25,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         <div class="form-group">
 			<label class="control-label col-xs-4">Pseudo</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="username" th:field="${userForm.username}" required="required">
+                <input type="text" class="form-control" name="username" th:field="*{username}" required="required">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Email</label>
 			<div class="col-xs-8">
-                <input type="email" class="form-control" name="email" th:field="${userForm.email}" required="required">
+                <input type="email" class="form-control" name="email" th:field="*{email}" required="required">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Mot de passe</label>
 			<div class="col-xs-8">
-                <input type="password" class="form-control" name="password" th:field="${userForm.password}">
+                <input type="password" class="form-control" name="password" th:field="*{password}">
             </div>        	
         </div>
 		<div class="form-group">

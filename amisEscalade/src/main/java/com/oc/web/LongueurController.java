@@ -116,8 +116,10 @@ public class LongueurController {
 			final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
+			model.addAttribute("longueur", longueurForm);
 			return "editFormLongueur";
 		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
+			model.addAttribute("longueur", longueurForm);
 			return"editFormLongueur";
 		}
 		else {

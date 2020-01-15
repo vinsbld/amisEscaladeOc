@@ -68,7 +68,7 @@
 					<table class="table listTableDeco">
 						<tbody>
 							<tr th:each="cm:${cmtr}">
-								<td><span th:text="${cm.date.getDate()+'/'}+${cm.date.getMonth()+1+'/'}+${cm.date.getYear()+1900}" style="text-decoration: underline;"></span>
+								<td><span th:text="${#dates.format(cm.date, 'dd/MM/yyyy')}" style="text-decoration: underline;"></span>
 									<span sec:authorize="isAuthenticated()" th:if="${cm.userGrimp.idUserGrimp}==${#authentication.getPrincipal().getIdUserGrimp()} or ${#authorization.expression('hasRole(''ADMINISTRATOR'')')}">
 										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Modifier</a>
 										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Supprimer</a></span>

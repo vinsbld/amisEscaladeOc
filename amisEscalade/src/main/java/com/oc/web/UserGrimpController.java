@@ -48,9 +48,14 @@ public class UserGrimpController {
 	
 	/*============== #Création ======================*/
 	@GetMapping("/inscription")
-	public String formInsc() {
+	public String formInsc(Model model) {
+		
+		UserGrimpForm usr = new UserGrimpForm();
 
+		model.addAttribute("userGrimpForm", usr);
+		
 		return "formInscription";
+		
 	}
 	
 	@PostMapping("/inscription")
@@ -58,12 +63,18 @@ public class UserGrimpController {
 			final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
+			model.addAttribute("userGrimpForm", userGrimpForm);
 			return "formInscription";
 		} 
 		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername()) !=null || 
 				userGrimpRepository.getUsrEmail(userGrimpForm.getEmail()) !=null || 
 				userGrimpForm.getUsername().length() < 2 && userGrimpForm.getUsername().length() > 30 ||
-				userGrimpForm.getPassword().length() < 4) {
+				userGrimpForm.getPassword().length() < 4)
+		{	
+			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
+			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
+			model.addAttribute("userGrimpForm", userGrimpForm);
+			
 			return "formInscription";	
 		}
 		else {
@@ -92,18 +103,21 @@ public class UserGrimpController {
 	}
 	
 	@PostMapping("/profil/update")
-	public String updateProfil(@ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
+	public String updateProfil(Model model, @ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserGrimp ur = userGrimpRepository.findByPseudo(userGrimpForm.getUsername());
 		
+		
+		
 		if (result.hasErrors()) {
+			model.addAttribute("userForm", userGrimpForm);
 			return "editFormInscription";
 		}else if (ur !=null && usr.getIdUserGrimp() != ur.getIdUserGrimp()) {
+			model.addAttribute("userForm", userGrimpForm);
 			return"editFormInscription";
-		}
-		
+		}		
 		else {
 		usr.setPseudo(userGrimpForm.getUsername());
 		usr.setEmail(userGrimpForm.getEmail());
