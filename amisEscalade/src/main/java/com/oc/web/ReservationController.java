@@ -57,6 +57,7 @@ public class ReservationController {
 		newReservation.setUserGrimp(usr);
 		newReservation.setAccepterDemande(false);
 		newReservation.setDemandeEnCours(true);
+		newReservation.setClose(false);
 		newReservation.setTopo(tpo);
 		
 		topoRepository.save(newReservation.getTopo());
