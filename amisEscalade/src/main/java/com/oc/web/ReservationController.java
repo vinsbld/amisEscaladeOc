@@ -58,7 +58,7 @@ public class ReservationController {
 		newReservation.setAccepterDemande(false);
 		newReservation.setDemandeEnCours(true);
 		newReservation.setTopo(tpo);
-		newReservation.getTopo().setDispo(false);
+		
 		topoRepository.save(newReservation.getTopo());
 		reservationRepository.save(newReservation);
 		
@@ -77,7 +77,9 @@ public class ReservationController {
 		
 		List<Reservation> rsok = reservationRepository.getDemandesAccepted(usr.getIdUserGrimp());
 		model.addAttribute("rsok", rsok);
-
+		
+		List<Reservation> rS = reservationRepository.getMesDemandesEmises(usr.getIdUserGrimp());
+		model.addAttribute("rS", rS);
 		
 		return "reservation_topo";
 	}
@@ -95,17 +97,30 @@ public class ReservationController {
 		Reservation newR = reservationRepository.findById(idResa).get();
 		newR.setAccepterDemande(reservationForm.isAccepterDemande());
 		reservationRepository.save(newR);
-		
+	
 		if(newR.isAccepterDemande()) {
 			newR.getTopo().setDispo(false);
 			newR.setDemandeEnCours(false);
+			newR.setClose(false);
 			reservationRepository.save(newR);
 			topoRepository.save(newR.getTopo());
+			List<Reservation> rBt = reservationRepository.getDemandeEnCoursByTopo(newR.getTopo().getIdTopo());
+				for(int i=0;i<rBt.size();i++) {
+					if (!rBt.isEmpty()) {
+						long id = rBt.get(i).getIdResa();
+						Reservation r = reservationRepository.findById(id).get();
+						r.setDemandeEnCours(false);
+						r.setAccepterDemande(false);
+						r.setClose(true);
+						reservationRepository.save(r);
+					}
+			}
 		}else {
 			newR.setDemandeEnCours(false);
 			newR.getTopo().setDispo(true);
-			topoRepository.save(newR.getTopo());
-			reservationRepository.deleteById(idResa);			
+			newR.setClose(true);
+			reservationRepository.save(newR);
+			topoRepository.save(newR.getTopo());			
 		}
 	
 		return"redirect:/topo/mes_reservations";
@@ -121,8 +136,9 @@ public class ReservationController {
 		
 		Reservation newR = reservationRepository.findById(idResa).get();
 		newR.getTopo().setDispo(true);
-		topoRepository.save(newR.getTopo());
-		reservationRepository.deleteById(idResa);		
+		newR.setClose(true);
+		reservationRepository.save(newR);
+		topoRepository.save(newR.getTopo());		
 		
 		return"redirect:/topo/mes_reservations";
 	}

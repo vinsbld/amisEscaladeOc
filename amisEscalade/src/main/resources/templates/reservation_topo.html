@@ -98,6 +98,34 @@
 							</tr>
 						</tbody>
 					</table>
+					<table class="table table-striped listTableDeco">
+						<h2>Mes demandes de prêts émises </h2>
+							<thead>
+								<tr>
+									<th>Nom du topo</th>
+									<th>Lieu</th>
+									<th>Date de prêt</th>
+									<th>Propriétaire</th>	
+									<th>Etat de la demande :</th>
+									<th>Status :</th>
+									<th>Contacter le propriétaire</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="r:${rS}">
+									<td><b><a th:text="${r.topo.name}"></a></b></td>
+									<td th:text="${r.topo.lieu}"></td>
+									<td th:text="${r.topo.edate}"></td>
+									<td th:text = "${r.topo.userGrimp.pseudo}"></td>	
+									<td th:if="${!r.demandeEnCours} and ${r.isAccepterDemande()==false}" th:text="refusée" style="color: red;"></td>	
+									<td th:if="${r.demandeEnCours}">en attente</td>
+									<td th:if="${!r.demandeEnCours} and ${r.isAccepterDemande()==true}" th:text="acceptée" style="color: green;"></td>	
+									<td th:if="${!r.demandeEnCours} and ${r.isClose()==true}" th:text="cloturée" style="color: blue;"></td>
+									<td th:if="${r.isClose()==false}">en cours</td>
+									<td align="center"><a th:if="${r.isAccepterDemande()==true} and ${r.isClose()==false}" th:href="'mailto:' + ${r.topo.userGrimp.email} +'?subject=Reservation du topo ' + ${r.topo.name} + '&body=Bonjour ' + ${r.topo.userGrimp.pseudo} + ',' + '%0D%0A' + '%0D%0AJe vous contact concernant le prêt du topo ' + ${r.topo.name} + ',' + '%0D%0APouvons nous convenir d%27un lieu et d%27une date' + ',' + '%0D%0A' + '%0D%0ACordialement' + ',' + '%0D%0A' + ${#httpServletRequest.remoteUser} + '%0D%0A' + '%0D%0A'"><img src="/img/contact_t.png" alt="contact" title="contact_propriètaire_topo" /></img></a></td>
+								</tr>
+							</tbody>
+					</table>
 				</div>			
 			</div>
 		</section>

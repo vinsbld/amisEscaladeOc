@@ -19,6 +19,7 @@ public class Reservation implements Serializable {
 	private Date dateDeLaDemande;
 	private boolean accepterDemande;
 	private boolean demandeEnCours;
+	private boolean close;
 	
 	@ManyToOne
 	@JoinColumn(name = "USR_RES")
@@ -32,7 +33,7 @@ public class Reservation implements Serializable {
 
 	}
 
-	public Reservation(long idResa, Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours,
+	public Reservation(long idResa, Date dateDeLaDemande, boolean accepterDemande, boolean demandeEnCours, boolean close,
 			UserGrimp userGrimp, Topo topo) {
 		super();
 		this.idResa = idResa;
@@ -41,6 +42,7 @@ public class Reservation implements Serializable {
 		this.demandeEnCours = demandeEnCours;
 		this.userGrimp = userGrimp;
 		this.topo = topo;
+		this.close = close;
 	}
 
 	public long getIdResa() {
@@ -93,6 +95,14 @@ public class Reservation implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public boolean isClose() {
+		return close;
+	}
+
+	public void setClose(boolean close) {
+		this.close = close;
 	}
 
 	

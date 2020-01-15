@@ -61,6 +61,9 @@ public class TopoController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
+		List<Reservation> r = reservationRepository.getDemandeEncours(usr.getIdUserGrimp(), idTopo);
+		model.addAttribute("ListDemandes", r);
+		
 		return"le_Topo";
 		
 	}

@@ -70,7 +70,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp}"><form th:action="@{/reservation/{idTopo}/demande(idTopo=${topo.idTopo})}" method="post"><button type="submit" class="btn-get-create">Résever</button></form></span>
+				<span sec:authorize="isAuthenticated()" th:if="${topo.dispo} and ${topo.userGrimp.idUserGrimp}!=${usr.idUserGrimp} and ${ListDemandes.isEmpty()}"><form th:action="@{/reservation/{idTopo}/demande(idTopo=${topo.idTopo})}" method="post"><button type="submit" class="btn-get-create">Résever</button></form></span>
 				<table class="table">
 					<tbody>
 						<tr sec:authorize="isAuthenticated()" th:if="${(topo.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">

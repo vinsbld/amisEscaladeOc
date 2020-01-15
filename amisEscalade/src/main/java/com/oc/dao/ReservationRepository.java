@@ -18,4 +18,15 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 	  @Query("SELECT ok FROM Reservation ok INNER JOIN FETCH ok.topo tp WHERE tp.userGrimp.idUserGrimp = :x AND ok.demandeEnCours=false and ok.accepterDemande=true AND tp.dispo=false")
 	  public List<Reservation> getDemandesAccepted(@Param("x")long id);
 	  
+	  @Query("SELECT k FROM Reservation k WHERE k.userGrimp.idUserGrimp = :idUser AND k.topo.idTopo = :idTopo AND k.close = false")
+	  public List<Reservation>getDemandeEncours(@Param("idUser")long idUser, @Param("idTopo")long idTopo);
+	  
+	  @Query("SELECT k FROM Reservation k WHERE k.demandeEnCours=true AND k.topo.idTopo = :idTopo ")
+	  public List<Reservation>getDemandeEnCoursByTopo(@Param("idTopo")long idTopo);
+	  
+	  @Query("SELECT u FROM Reservation u WHERE u.userGrimp.idUserGrimp = :x")
+	  public List<Reservation> getMesDemandesEmises(@Param("x")long idUser);
+	  
+	  
+	  
 }
