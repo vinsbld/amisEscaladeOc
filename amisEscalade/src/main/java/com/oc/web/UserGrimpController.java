@@ -66,21 +66,24 @@ public class UserGrimpController {
 			model.addAttribute("userGrimpForm", userGrimpForm);
 			return "formInscription";
 		} 
-		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername()) !=null || 
-				userGrimpRepository.getUsrEmail(userGrimpForm.getEmail()) !=null || 
-				userGrimpForm.getUsername().length() < 2 && userGrimpForm.getUsername().length() > 30 ||
-				userGrimpForm.getPassword().length() < 4)
-		{	
+		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername()) !=null) {
+			
 			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
+			model.addAttribute("userGrimpForm", userGrimpForm);
+			return "formInscription";
+		}else if(userGrimpRepository.getUsrEmail(userGrimpForm.getEmail()) !=null ) {
 			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
 			model.addAttribute("userGrimpForm", userGrimpForm);
-			
-			return "formInscription";	
+			return "formInscription";
+		}else if(userGrimpForm.getUsername().length() < 2 && userGrimpForm.getUsername().length() > 30 ||
+				userGrimpForm.getPassword().length() < 4){
+			model.addAttribute("userGrimpForm", userGrimpForm);	
+			return "formInscription";
 		}
 		else {
 		UserGrimp newUserGrimp = new UserGrimp();
-		newUserGrimp.setPseudo(userGrimpForm.getUsername());
-		newUserGrimp.setEmail(userGrimpForm.getEmail());
+		newUserGrimp.setPseudo(userGrimpForm.getUsername().toLowerCase());
+		newUserGrimp.setEmail(userGrimpForm.getEmail().toLowerCase());
 		newUserGrimp.setPassword(userGrimpForm.getPassword());
 		userGrimpRepository.save(newUserGrimp);
 		}
@@ -103,25 +106,33 @@ public class UserGrimpController {
 	}
 	
 	@PostMapping("/profil/update")
-	public String updateProfil(Model model, @ModelAttribute("userGrimp") UserGrimpForm userGrimpForm, BindingResult result,
+	public String updateProfil(Model model, @ModelAttribute("userGrimp") UserGrimpForm userGrimp, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserGrimp ur = userGrimpRepository.findByPseudo(userGrimpForm.getUsername());
-		
-		
-		
+		UserGrimp ur = userGrimpRepository.findByPseudo(userGrimp.getUsername());
+				
 		if (result.hasErrors()) {
-			model.addAttribute("userForm", userGrimpForm);
+			model.addAttribute("userForm", userGrimp);
 			return "editFormInscription";
-		}else if (ur !=null && usr.getIdUserGrimp() != ur.getIdUserGrimp()) {
-			model.addAttribute("userForm", userGrimpForm);
-			return"editFormInscription";
+			
+		}else if (ur !=null && ur.getIdUserGrimp() != usr.getIdUserGrimp()) {
+			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
+			model.addAttribute("userForm", userGrimp);
+			
+			return "editFormInscription";
+			
+		}else if (ur.getEmail() != null && usr.getIdUserGrimp() != ur.getIdUserGrimp()) {
+			
+			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
+			model.addAttribute("userForm", userGrimp);
+			
+			return "editFormInscription";
 		}		
 		else {
-		usr.setPseudo(userGrimpForm.getUsername());
-		usr.setEmail(userGrimpForm.getEmail());
-		usr.setPassword(userGrimpForm.getPassword());
+		usr.setPseudo(userGrimp.getUsername().toLowerCase());
+		usr.setEmail(userGrimp.getEmail().toLowerCase());
+		usr.setPassword(userGrimp.getPassword());
 		userGrimpRepository.save(usr);
 		}
 		return "redirect:/profil";
@@ -137,5 +148,5 @@ public class UserGrimpController {
 		
 		return "redirect:/index";
 	}	
-
+	
 }

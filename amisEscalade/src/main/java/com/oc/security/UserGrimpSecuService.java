@@ -21,7 +21,7 @@ public UserGrimpSecuService(UserGrimpRepository userGrimpRepository) {
 
 @Override
 public UserDetails loadUserByUsername(String pseudo) throws UsernameNotFoundException {
-    UserGrimp userGrimp = userGrimpRepository.findByPseudo(pseudo);
+    UserGrimp userGrimp = userGrimpRepository.findByPseudo(pseudo.toLowerCase());
     if (userGrimp == null) {
         throw new UsernameNotFoundException("No user present with username : " + userGrimp);
     }
