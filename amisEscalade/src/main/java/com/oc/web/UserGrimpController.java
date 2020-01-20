@@ -116,20 +116,21 @@ public class UserGrimpController {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserGrimp ur = userGrimpRepository.findByPseudo(userGrimpf.getUsername().toLowerCase());
+		UserGrimp uRm = userGrimpRepository.getUsrEmail(userGrimpf.getEmail().toLowerCase());
 				
 		if (result.hasErrors()) {
 			model.addAttribute("userForm", userGrimpf);
 			return "editFormInscription";
 			
 		}else if (ur !=null && ur.getIdUserGrimp() != usr.getIdUserGrimp()) {
-			
-			
+					
 			result.rejectValue("username", "user.name", "ce pseudo est déjà utilisé :(");
 			model.addAttribute("userForm", userGrimpf);
 			
 			return "editFormInscription";
 			
-		}else if (ur.getEmail() != null && usr.getIdUserGrimp() != ur.getIdUserGrimp()) {
+			
+		}else if (uRm.getEmail() != null && uRm.getIdUserGrimp() != usr.getIdUserGrimp()) {
 			
 			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
 			model.addAttribute("userForm", userGrimpf);
