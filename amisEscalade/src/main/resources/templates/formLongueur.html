@@ -18,20 +18,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create(idVoie=${voie.idVoie}, idSecteur=${secteur.idSecteur}, idSiteEscalade=${site.idSiteEscalade})}" method="post" class="form-horizontal" th:object="${longueurForm}">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Ajout d'une longueur</h2>
 		</div>		
 		<div class="form-group">
 			<label class="control-label col-xs-4">Distance</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="distance" required="required">
+                <input type="text" class="form-control" th:field="*{distance}" required="required">
+                <span class="help-block" th:if="${#fields.hasErrors('distance')}" th:errors="*{distance}" style="color: red;"></span>
             </div>        	
         </div>
         <div class="form-group">
 			<label class="control-label col-xs-4">Hauteur</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="hauteur" required="required">
+                <input type="text" class="form-control" th:field="*{hauteur}" required="required">
+                <span class="help-block" th:if="${#fields.hasErrors('hauteur')}" th:errors="*{hauteur}" style="color: red;"></span>
             </div>        	
         </div>
 		<div class="form-group text-center">

@@ -53,7 +53,7 @@ public class LongueurController {
 	}
 	/*============== #Création ======================*/
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create")
-	public String formLong(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie) {
+	public String formLong(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @ModelAttribute("longueurForm") LongueurForm longueurForm) {
 		
 		Voie voie = voieRepository.findById(idVoie).get();
 		model.addAttribute("voie", voie);
@@ -81,8 +81,11 @@ public class LongueurController {
 		model.addAttribute("site", site);
 		
 		if (result.hasErrors()) {
+			model.addAttribute("longueurForm", longueurForm);
 			return "formLongueur";
 		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
+			result.rejectValue("distance", "distance.value", "une distance est un nombre");
+			model.addAttribute("longueurForm", longueurForm);
 			return"formLongueur";
 		}
 		else {
@@ -106,20 +109,22 @@ public class LongueurController {
 			LongueurForm longForm = new LongueurForm();
 			longForm.setDistance(longueur.getDistance());
 			longForm.setHauteur(longueur.getHauteur());
-			model.addAttribute("longueur", longForm);
+			model.addAttribute("longueurForm", longForm);
 			
 		return"editFormLongueur";
 	}
 	
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/update")
-	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("editFormLongueur") LongueurForm longueurForm, BindingResult result,
+	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("longueurForm") LongueurForm longueurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
-			model.addAttribute("longueur", longueurForm);
+			model.addAttribute("longueurForm", longueurForm);
 			return "editFormLongueur";
+
 		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
-			model.addAttribute("longueur", longueurForm);
+			result.rejectValue("distance", "distance.value", "cette valeur doit être un nombre");
+			model.addAttribute("longueurForm", longueurForm);
 			return"editFormLongueur";
 		}
 		else {
