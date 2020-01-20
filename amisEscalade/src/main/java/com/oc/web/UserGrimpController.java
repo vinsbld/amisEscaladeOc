@@ -67,13 +67,14 @@ public class UserGrimpController {
 			model.addAttribute("userGrimpForm", userGrimpForm);
 			return "formInscription";
 		} 
-		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername()) !=null) {
+		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername().toLowerCase()) !=null) {
 			
 			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
 			model.addAttribute("userGrimpForm", userGrimpForm);
+			
 			return "formInscription";
 			
-		}else if(userGrimpRepository.getUsrEmail(userGrimpForm.getEmail()) !=null ) {
+		}else if(userGrimpRepository.getUsrEmail(userGrimpForm.getEmail().toLowerCase()) !=null ) {
 			
 			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
 			model.addAttribute("userGrimpForm", userGrimpForm);
