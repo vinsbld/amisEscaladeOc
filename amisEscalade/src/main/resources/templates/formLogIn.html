@@ -20,12 +20,12 @@
 	<div class="signup-form">
 	     <div th:if="${param.error}">
              <div class="alert alert-danger">
-               	Invalid username and password.
+               	Pseudo ou mot de passe incorrects !
             </div>
          </div>
          <div th:if="${param.logout}">
             <div class="alert alert-info">
-            	You have been logged out.
+            	Vous avez été déconecté avec succès !
             </div>
         </div>
 		<form th:action="@{/connexion}" method="post" class="form-horizontal">
