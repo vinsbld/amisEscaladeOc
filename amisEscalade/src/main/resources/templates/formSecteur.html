@@ -25,19 +25,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 		<div class="form-group">
 			<label class="control-label col-xs-4">Nom du secteur</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required">
+                <input type="text" class="form-control" name="name" required="required" maxlength="25">
             </div>        	
         </div>
         <div class="form-group">
 			<label class="control-label col-xs-4">Localisation</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="localisation" required="required">
+                <input type="text" class="form-control" name="localisation" required="required" maxlength="150">
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Accès</label>
 			<div class="col-xs-8">
-                <textarea type="text" class="form-control" name="acces" required="required"></textarea>
+                <textarea type="text" class="form-control" name="acces" required="required" maxlength="255"></textarea>
             </div>        	
         </div>	
 		<div class="form-group text-center">

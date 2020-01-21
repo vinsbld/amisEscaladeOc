@@ -92,7 +92,7 @@
 						<tbody>
 							<tr th:each="secteur:${sec}">
 								<td><h6><a th:href="@{/site_escalade/{idSiteEscalade}/secteur/{idSecteur}(idSiteEscalade=${site.idSiteEscalade}, idSecteur=${secteur.idSecteur})}"><b><span th:text="${secteur.nomDuSecteur}"></span></b></a></h6></td>
-								<td th:text="${secteur.localisation}"></td>
+								<td style="width: 400px;" th:text="${secteur.localisation}"></td>
 							</tr>							
 						</tbody>
 					</table>

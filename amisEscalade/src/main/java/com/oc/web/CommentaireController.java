@@ -34,7 +34,7 @@ public class CommentaireController {
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	@GetMapping("/site/{idSiteEscalade}/commentaire")
-	public String comnt(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade) {
+	public String comnt(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm) {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
@@ -47,7 +47,8 @@ public class CommentaireController {
 		
 	/*============== #Création ======================*/
 	@PostMapping("/commentaire/site/{idSiteEscalade}")
-	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, final RedirectAttributes redirectAttributes) {
+	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, 
+			BindingResult result, final RedirectAttributes redirectAttributes) {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
@@ -55,9 +56,19 @@ public class CommentaireController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		if(commentaireForm.getComments()=="") {
+		if(result.hasErrors()) {
+			model.addAttribute("commentaireForm", commentaireForm);
 			return "redirect:/site/"+idSiteEscalade+"/commentaire";
-		}else {
+		}
+		else if(commentaireForm.getComments()=="") {
+			return "redirect:/site/"+idSiteEscalade+"/commentaire";
+		}
+		else if(commentaireForm.getComments().length()>255) {
+			result.rejectValue("comments", "comments.value", "votre commentaire ne doit pas dépasser 255 caractères ;( ");
+			model.addAttribute("commentaireForm", commentaireForm);
+			return "redirect:/site/"+idSiteEscalade+"/commentaire";
+		}
+		else {
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		Commentaire newCommentaire = new Commentaire();
 		newCommentaire.setSiteEscalade(site);
