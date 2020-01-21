@@ -53,23 +53,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				/*
-				 * .antMatchers("/inscription", "/lib/**", "/js/**", "/img/**",
-				 * "/css/**","/index", "/site_escalade", "/connexion",
-				 * "/le_site_escalade/{idSiteEscalade}/view").permitAll() .and()
-				 * .authorizeRequests() .anyRequest().authenticated()
-				 */
 			.antMatchers("/topo").authenticated()
 			.and()
 			.authorizeRequests()
 			.anyRequest().permitAll()
 			.and()
-				.formLogin().loginPage("/connexion").defaultSuccessUrl("/profil").failureUrl("/connexion")
+				.formLogin().loginPage("/connexion")
+				.defaultSuccessUrl("/profil")
+				.failureUrl("/connexion?error=true")
 				.usernameParameter("username").passwordParameter("password")
 			.and()
 				.logout().invalidateHttpSession(true)
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/connexion")
+				.logoutSuccessUrl("/connexion?logout=true")
 			.and()
 				.csrf()
 			.and()
