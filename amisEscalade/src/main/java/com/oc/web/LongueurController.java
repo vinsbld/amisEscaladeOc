@@ -79,15 +79,16 @@ public class LongueurController {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
-		
-		if (result.hasErrors()) {
-			model.addAttribute("longueurForm", longueurForm);
-			return "formLongueur";
-		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
-			result.rejectValue("distance", "distance.value", "une distance est un nombre");
-			model.addAttribute("longueurForm", longueurForm);
-			return"formLongueur";
-		}
+				
+			if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
+				model.addAttribute("longueurForm", longueurForm);
+				throw new NumberFormatException("vous devez saisir un nombre");
+			} System.out.print("vous devez saisir un nombre");
+			
+			if (result.hasErrors()) {
+				model.addAttribute("longueurForm", longueurForm);
+				return "formLongueur";
+			}
 		else {
 			Longueur newLongueur = new Longueur();
 			newLongueur.setDistance(longueurForm.getDistance());
@@ -118,16 +119,16 @@ public class LongueurController {
 	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("longueurForm") LongueurForm longueurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
+			model.addAttribute("longueurForm", longueurForm);
+			throw new NumberFormatException("vous devez saisir un nombre");
+		} System.out.print("vous devez saisir un nombre");
+		
 		if (result.hasErrors()) {
 			model.addAttribute("longueurForm", longueurForm);
 			return "editFormLongueur";
 
-		}else if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
-			result.rejectValue("distance", "distance.value", "cette valeur doit être un nombre");
-			model.addAttribute("longueurForm", longueurForm);
-			return"editFormLongueur";
-		}
-		else {
+		}else {
 		Longueur longr = longueurRepository.findById(idLongueur).get();
 		longr.setDistance(longueurForm.getDistance());
 		longr.setHauteur(longueurForm.getHauteur());
