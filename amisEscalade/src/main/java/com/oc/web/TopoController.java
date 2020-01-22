@@ -21,18 +21,35 @@ import com.oc.entities.Topo;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.TopoForm;
 
+/**
+ * The Class TopoController.
+ */
 @Controller
 public class TopoController {
 	
 	// injections repositories
+	
+	/** The topo repository. */
 	@Autowired
 	private TopoRepository topoRepository;
+	
+	/** The codex repository. */
 	@Autowired
 	private CodexRepository codexRepository;
+	
+	/** The reservation repository. */
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
 	// get and post Mapping
 	/*============== #Pages ======================*/
+	
+	/**
+	 * Topo page.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/topo")
 	public String topoPage(Model model) {
 		
@@ -45,6 +62,13 @@ public class TopoController {
 		return "topo";
 	}
 	
+	/**
+	 * Le topo.
+	 *
+	 * @param model the model
+	 * @param idTopo the id topo
+	 * @return the string
+	 */
 	@GetMapping("/le_topo/{idTopo}/view")
 	public String leTopo(Model model, @PathVariable("idTopo") long idTopo) {
 		
@@ -62,6 +86,13 @@ public class TopoController {
 	}
 	
 	/*============== #Création ======================*/
+	
+	/**
+	 * Form top.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/formTopo/create")
 	public String formTop(Model model) {
 		
@@ -71,14 +102,40 @@ public class TopoController {
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
+		TopoForm topForm = new TopoForm();
+		model.addAttribute("topoForm", topForm);
+		
 		return "formTopo";
 	}
 	
+	/**
+	 * Ajouter topo.
+	 *
+	 * @param model the model
+	 * @param topoForm the topo form
+	 * @param result the result
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@PostMapping("/formTopo/create")
 	public String ajouterTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
+		model.addAttribute("cdxList", cdxList);
+		
 		if (result.hasErrors()) {
+			model.addAttribute("topoForm", topoForm);
 			return "formTopo";	
+		}
+		else if (topoForm.getName().isBlank()) {
+			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide !");
+			model.addAttribute("topoForm", topoForm);
+			return "formTopo";
+		}
+		else if(topoForm.getDescription().length()>255) {
+			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas dépasser 255 caractères !");
+			model.addAttribute("topoForm", topoForm);
+			return "formTopo";
 		}
 		else {
 		Topo newTopo = new Topo();
@@ -95,6 +152,14 @@ public class TopoController {
 	}
 	
 	/*============== #Modification ======================*/
+	
+	/**
+	 * Edits the topo.
+	 *
+	 * @param idTopo the id topo
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/topo/{idTopo}/edit")
 	public String editTopo(@PathVariable("idTopo") long idTopo, Model model) {
 		
@@ -111,38 +176,69 @@ public class TopoController {
 		tpoFrm.setLieu(topo.getLieu());
 		tpoFrm.setEdate(topo.getEdate());
 		tpoFrm.setDispo(topo.getDispo());
-		model.addAttribute("topo", tpoFrm);
+		model.addAttribute("topoForm", tpoFrm);
 		
 		return "editFormTopo";
 	}
 	
+	/**
+	 * Update topo.
+	 *
+	 * @param idTopo the id topo
+	 * @param model the model
+	 * @param topoForm the topo form
+	 * @param result the result
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@PostMapping("/topo/{idTopo}/update")
-	public String updateTopo(@PathVariable("idTopo") long idTopo, Model model, @ModelAttribute("editFormTopo") TopoForm topoForm, BindingResult result,
+	public String updateTopo(@PathVariable("idTopo") long idTopo, Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+		
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
+		model.addAttribute("cdxList", cdxList);
+		
 		topoRepository.getTopoName(topoForm.getName());
 		
 		if (result.hasErrors()) {
+			model.addAttribute("topoForm", topoForm);
 			return "editFormTopo";
 			}
-		/*
-		 * else if(tpo != null && tpo.getIdTopo() != idTopo) { return "formTopo"; }
-		 */
-		else {
-		Topo topo = topoRepository.findById(idTopo).get();
-		topo.setName(topoForm.getName());
-		topo.setDescription(topoForm.getDescription());
-		topo.setLieu(topoForm.getLieu());
-		topo.setEdate(topoForm.getEdate());
-		topo.setDispo(topoForm.getDispo());
-		topoRepository.save(topo);
-		}
+			else if (topoForm.getName().isBlank()) {
+				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide !");
+				model.addAttribute("topoForm", topoForm);
+				return "editFormTopo";
+			}
+			else if (topoForm.getDescription().length()>255) {
+				result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas dépasser 255 caractères !");
+				model.addAttribute("topoForm", topoForm);
+				return "editFormTopo";
+			}
+			else {
+			Topo topo = topoRepository.findById(idTopo).get();
+			topo.setName(topoForm.getName());
+			topo.setDescription(topoForm.getDescription());
+			topo.setLieu(topoForm.getLieu());
+			topo.setEdate(topoForm.getEdate());
+			topo.setDispo(topoForm.getDispo());
+			topoRepository.save(topo);
+			}
 		return "redirect:/profil";
 	}
 	
 	/*============== #Suppression ======================*/
+	
+	/**
+	 * Delete topo.
+	 *
+	 * @param idTopo the id topo
+	 * @param model the model
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@GetMapping("/topo/{idTopo}/delete")
 	public String deleteTopo(@PathVariable("idTopo") long idTopo, Model model, final RedirectAttributes redirectAttributes) {
 	
