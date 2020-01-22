@@ -68,7 +68,7 @@
 					<table class="table listTableDeco">
 						<tbody>
 							<tr th:each="cm:${cmtr}">
-								<td><small class="justify-text-end"><span sec:authorize="isAuthenticated()" th:if="${(cm.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
+								<td style="width: 400px;"><small class="justify-text-end"><span sec:authorize="isAuthenticated()" th:if="${(cm.userGrimp.idUserGrimp == #authentication.getPrincipal().getIdUserGrimp()) or (#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}">
 										<a th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Modifier</a>
 										<span id="supp"><a onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')" th:href="@{/commentaire/{idCom}/site/{idSiteEscalade}/delete(idCom=${cm.idCom}, idSiteEscalade=${site.idSiteEscalade})}" style="text-decoration: underline;">Supprimer</a></span><br/>
 									</span></small><br/>
@@ -80,15 +80,17 @@
 						</tbody>
 					</table>
 					
-					<span sec:authorize="isAuthenticated()">
-						<form method="post" th:object="${commentaireForm}" th:action="@{/commentaire/site/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}" >
+					<div sec:authorize="isAuthenticated()">
+						<form method="post" th:action="@{/commentaire/site/{idSiteEscalade}(idSiteEscalade=${site.idSiteEscalade})}" th:object="${commentaireForm}">
+							<div>
+								<span class="help-block" th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" style="color: red;"></span>
+							</div><br/>
 							<textarea th:field="*{comments}" rows="5" cols="40" wrap="hard" maxlength="255"></textarea>
-							<span class="help-block" th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" style="color: red;"></span>
 								<div class="form-group text-center">
 									<button type="submit" class="btn-get-create">Envoyer</button>
 								</div>
 						</form>
-					</span>
+					</div>
 				</div>
 			</div>
 		</section>

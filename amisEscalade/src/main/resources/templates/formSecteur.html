@@ -18,26 +18,29 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${idSiteEscalade})}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/secteur/create(idSiteEscalade=${idSiteEscalade})}" method="post" class="form-horizontal" th:object="${secteurForm}">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'un secteur</h2>
 		</div>		
 		<div class="form-group">
 			<label class="control-label col-xs-4">Nom du secteur</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="name" required="required" maxlength="25">
+                <input type="text" class="form-control" th:field="*{name}" required="required" maxlength="25">
+                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
             </div>        	
         </div>
         <div class="form-group">
 			<label class="control-label col-xs-4">Localisation</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="localisation" required="required" maxlength="150">
+                <input type="text" class="form-control" th:field="*{localisation}" required="required" maxlength="150">
+                <span class="help-block" th:if="${#fields.hasErrors('localisation')}" th:errors="*{localisation}" style="color: red;"></span>
             </div>        	
         </div>
 		<div class="form-group">
 			<label class="control-label col-xs-4">Accès</label>
 			<div class="col-xs-8">
-                <textarea type="text" class="form-control" name="acces" required="required" maxlength="255"></textarea>
+                <textarea type="text" class="form-control" th:field="*{acces}" required="required" maxlength="255"></textarea>
+                <span class="help-block" th:if="${#fields.hasErrors('acces')}" th:errors="*{acces}" style="color: red;"></span>
             </div>        	
         </div>	
 		<div class="form-group text-center">

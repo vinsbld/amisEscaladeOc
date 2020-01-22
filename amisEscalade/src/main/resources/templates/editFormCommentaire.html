@@ -63,14 +63,16 @@
 					<!-- Les commentaires -->
 					<table class="table listTableDeco">
 						<tbody>
-							<tr th:each="cm:${cmtr}">
-								<td><span th:text="${cm.date}"></span><br/>
-								<form method="post" th:action="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cmtr.idCom}, idSiteEscalade=${site.idSiteEscalade})}">
-									<textarea name="comments" rows="5" cols="40" wrap="hard" th:text="${cm.comments}" maxlength="255"></textarea>
+							<tr>
+								<form method="post" th:action="@{/commentaire/{idCom}/site/{idSiteEscalade}/edit(idCom=${cmtr.idCom}, idSiteEscalade=${site.idSiteEscalade})}" th:object="${commentaireForm}">
+									<div>
+										<span class="help-block" th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" style="color: red;"></span>
+									</div><br/>
+									<textarea rows="5" cols="40" wrap="hard" maxlength="255" th:field="*{comments}"></textarea>
 										<div class="form-group text-center">
 											<button type="submit" class="btn-get-create">Modifier</button>
 										</div>
-								</form>		
+								</form>	
 							</tr>
 						</tbody>
 					</table>

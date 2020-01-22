@@ -12,15 +12,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.oc.entities.RoleEnum;
 
-
+/**
+ * The Class SecurityConfig.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	/** The admin role. */
 	private final String adminRole = RoleEnum.ADMINISTRATOR.name();
 	
+	/** The user details service. */
 	private final UserDetailsService userDetailsService;
 	
+	/**
+	 * Instantiates a new security config.
+	 *
+	 * @param userDetailsService the user details service
+	 */
 	/*
 	 * constructeur de la classe SecurityConfig, injection du service
 	 * UserDetailService
@@ -33,12 +42,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		this.userDetailsService = userDetailsService;
 	}
 	
+	/**
+	 * Password encoder.
+	 *
+	 * @return the b crypt password encoder
+	 */
 	//chiffrement de mot de passe
 	@Bean
 	 public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 	
+	/**
+	 * Config authentication.
+	 *
+	 * @param auth the auth
+	 * @throws Exception the exception
+	 */
 	/*
 	 * précise les composants à utiliser pour authentifier les utilisateurs 
 	 * le service UserDetailsService et le type d’encodage
@@ -49,6 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 	
 	
+	/**
+	 * Configure.
+	 *
+	 * @param http the http
+	 * @throws Exception the exception
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -73,6 +99,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	}
 
+	/**
+	 * Gets the admin role.
+	 *
+	 * @return the admin role
+	 */
 	public String getAdminRole() {
 		return adminRole;
 	}

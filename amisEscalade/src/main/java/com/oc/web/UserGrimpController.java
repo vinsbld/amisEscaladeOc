@@ -5,7 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +18,14 @@ import com.oc.entities.Topo;
 import com.oc.entities.UserGrimp;
 import com.oc.forms.UserGrimpForm;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserGrimpController.
  */
 @Controller
 public class UserGrimpController {
 	
+	/*============== #injections repositories ======================*/
 	/** The user grimp repository. */
-	// injections repositories	
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;	
 	
@@ -40,13 +38,13 @@ public class UserGrimpController {
 	private TopoRepository topoRepository;
 	
 	// get and post Mapping
+	/*============== #Pages ======================*/
 	/**
 	 * Consulter profil.
 	 *
 	 * @param model the model
 	 * @return the string
 	 */
-	/*============== #Pages ======================*/
 	@GetMapping("/profil")
 	public String consulterProfil(Model model) {
 		
@@ -62,22 +60,20 @@ public class UserGrimpController {
 		return "user_page";
 	}
 	
+	/*============== #Création ======================*/
 	/**
 	 * Form insc.
 	 *
 	 * @param model the model
 	 * @return the string
 	 */
-	/*============== #Création ======================*/
 	@GetMapping("/inscription")
 	public String formInsc(Model model) {
 		
 		UserGrimpForm usr = new UserGrimpForm();
-
 		model.addAttribute("userGrimpForm", usr);
 		
-		return "formInscription";
-		
+		return "formInscription";		
 	}
 	
 	/**
@@ -127,7 +123,7 @@ public class UserGrimpController {
 			return "redirect:/connexion";	
 	}
 	
-	
+	/*============== #Modification ======================*/
 	/**
 	 * Edits the profil.
 	 *
@@ -135,7 +131,6 @@ public class UserGrimpController {
 	 * @param userGrimpf the user grimpf
 	 * @return the string
 	 */
-	/*============== #Modification ======================*/
 	@GetMapping("/profil/edit")
 	public String editProfil(Model model, @ModelAttribute("userForm") UserGrimpForm userGrimpf) {
 		
@@ -195,13 +190,13 @@ public class UserGrimpController {
 		
 	}
 	
+	/*============== #Suppression ======================*/
 	/**
 	 * Delete user.
 	 *
 	 * @param redirectAttributes the redirect attributes
 	 * @return the string
 	 */
-	/*============== #Suppression ======================*/
 	@GetMapping("/profil/delete")
 	public String deleteUser(final RedirectAttributes redirectAttributes) {
 		

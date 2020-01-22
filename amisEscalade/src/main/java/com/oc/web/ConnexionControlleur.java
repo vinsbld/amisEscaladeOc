@@ -16,9 +16,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+/**
+ * The Class ConnexionControlleur.
+ */
 @Controller
 public class ConnexionControlleur {
 	
+	/**
+	 * Login get.
+	 *
+	 * @param model the model
+	 * @param error the error
+	 * @param logout the logout
+	 * @return the model and view
+	 */
 	@GetMapping("/connexion")
 	public ModelAndView loginGet (Model model, @RequestParam(value = "error", required = false)String error, @RequestParam(value = "logout", required = false) String logout) {
 		
@@ -39,6 +50,13 @@ public class ConnexionControlleur {
 		return new ModelAndView("formLogIn");
 	}
 	
+	/**
+	 * Logout page.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @return the string
+	 */
 	@GetMapping("/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

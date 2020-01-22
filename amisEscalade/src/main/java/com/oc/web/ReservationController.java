@@ -25,19 +25,36 @@ import com.oc.forms.ReservationForm;
 
 
 
+/**
+ * The Class ReservationController.
+ */
 @Controller
 public class ReservationController {
 	
 	// injections repositories
+	/** The reservation repository. */
 	@Autowired
 	private ReservationRepository reservationRepository;	
+	
+	/** The user grimp repository. */
 	@Autowired
 	private UserGrimpRepository userGrimpRepository;
+	
+	/** The topo repository. */
 	@Autowired
 	private TopoRepository topoRepository;
 	
 	// get and post Mapping
 	/*============== #Demandes Crétation ======================*/
+	/**
+	 * Send resa.
+	 *
+	 * @param reservationForm the reservation form
+	 * @param model the model
+	 * @param idTopo the id topo
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@PostMapping("/reservation/{idTopo}/demande")
 	public String sendResa(@ModelAttribute("reservationForm") ReservationForm reservationForm, Model model, @PathVariable("idTopo") long idTopo,
 			final RedirectAttributes redirectAttributes) {
@@ -48,6 +65,7 @@ public class ReservationController {
 		usr = userGrimpRepository.findById(usr.getIdUserGrimp()).get();
 		model.addAttribute("us", usr);
 		UserGrimp userGrimp = userGrimpRepository.findById(tpo.getUserGrimp().getIdUserGrimp()).get();
+		model.addAttribute("user", userGrimp);
 		
 		//recupere la date du jour
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
@@ -66,7 +84,13 @@ public class ReservationController {
 		return"redirect:/topo";
 	}
 	
-	/*============== #Affiche les Reservations ======================*/
+	/*============== #Affiche les Reservations ======================*/	
+	/**
+	 * Topo resa.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/topo/mes_reservations")
 	public String topoResa(Model model) {
 		
@@ -85,7 +109,16 @@ public class ReservationController {
 		return "reservation_topo";
 	}
 	
-	/*============== #Post les decisions de prêts ======================*/
+	/*============== #Post les decisions de prêts ======================*/	
+	/**
+	 * Accept or not.
+	 *
+	 * @param idResa the id resa
+	 * @param model the model
+	 * @param reservationForm the reservation form
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@PostMapping("/topo/mes_reservations/ok")
 	public String acceptOrNot(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {
 		
@@ -126,6 +159,16 @@ public class ReservationController {
 	
 		return"redirect:/topo/mes_reservations";
 	}
+	
+	/**
+	 * Return reset.
+	 *
+	 * @param idResa the id resa
+	 * @param model the model
+	 * @param reservationForm the reservation form
+	 * @param redirectAttributes the redirect attributes
+	 * @return the string
+	 */
 	@PostMapping("/topo/mes_reservations/reset")
 	public String returnReset(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {
 		

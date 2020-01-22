@@ -18,14 +18,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 <body>
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/create}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/create}" method="post" class="form-horizontal" th:object="${siteEscaladeForm}">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Création d'un site d'escalade</h2>
 		</div>		
         <div class="form-group">
 			<label class="control-label col-xs-4">Nom du site</label>
 			<div class="col-xs-8">
-                <input type="text" class="form-control" name="siteName" required="required" maxlength="25"></input>
+                <input type="text" class="form-control" th:field="*{siteName}" required="required" maxlength="25"></input>
+                <span class="help-block" th:if="${#fields.hasErrors('siteName')}" th:errors="*{siteName}" style="color: red;"></span>
             </div>        	
         </div>
         <div class="form-group">
