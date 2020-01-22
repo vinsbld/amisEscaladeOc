@@ -127,13 +127,13 @@ public class TopoController {
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";	
 		}
-		else if (topoForm.getName().isBlank()) {
-			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide !");
+		else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide ou dépasser 25 caractères ! ");
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";
 		}
-		else if(topoForm.getDescription().length()>255) {
-			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas dépasser 255 caractères !");
+		else if(topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
+			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas être vide ou dépasser 255 caractères !");
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";
 		}
@@ -207,13 +207,13 @@ public class TopoController {
 			model.addAttribute("topoForm", topoForm);
 			return "editFormTopo";
 			}
-			else if (topoForm.getName().isBlank()) {
-				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide !");
+			else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
+				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide ou dépasser 25 caractères !");
 				model.addAttribute("topoForm", topoForm);
 				return "editFormTopo";
 			}
-			else if (topoForm.getDescription().length()>255) {
-				result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas dépasser 255 caractères !");
+			else if (topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
+				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit être vide ou dépasser 255 caractères !");
 				model.addAttribute("topoForm", topoForm);
 				return "editFormTopo";
 			}
