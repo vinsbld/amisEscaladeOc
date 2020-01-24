@@ -39,11 +39,11 @@ public class CommentaireController {
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	/**
-	 * Comnt.
+	 * Comnt.display the comments by site 
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
-	 * @return the string
+	 * @return the commentaire_site
 	 */
 	@GetMapping("/site/{idSiteEscalade}/commentaire")
 	public String comnt(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade) {
@@ -62,14 +62,14 @@ public class CommentaireController {
 	
 	/*============== #Création ======================*/
 	/**
-	 * Comnt R.
+	 * Comnt R.save a comment
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
 	 * @param commentaireForm the commentaire form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the commentaire_site
 	 */
 	@PostMapping("/commentaire/site/{idSiteEscalade}")
 	public String comntR(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, 
@@ -113,13 +113,13 @@ public class CommentaireController {
 
 	/*============== #Modification ======================*/
 	/**
-	 * Edits the comnt.
+	 * Edits the comnt.modify user's comments
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
 	 * @param idCom the id com
 	 * @param commentaireForm the commentaire form
-	 * @return the string
+	 * @return the editFormCommentaire
 	 */
 	@GetMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
 	public String editComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm) {
@@ -143,7 +143,7 @@ public class CommentaireController {
 	}
 	
 	/**
-	 * Post edit comnt.
+	 * Post edit comnt. save the user's comments modifications
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
@@ -151,7 +151,7 @@ public class CommentaireController {
 	 * @param commentaireForm the commentaire form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the commentaire
 	 */
 	@PostMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
 	public String postEditComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm , BindingResult result,
@@ -193,12 +193,12 @@ public class CommentaireController {
 		
 	/*============== #Suppression ======================*/
 	/**
-	 * Delete comnt.
+	 * Delete comnt.delete a comment
 	 *
 	 * @param idCom the id com
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
-	 * @return the string
+	 * @return the commentaire
 	 */
 	@GetMapping("/commentaire/{idCom}/site/{idSiteEscalade}/delete")
 	public String deleteComnt(@PathVariable("idCom")Long idCom,@PathVariable("idSiteEscalade") Long idSiteEscalade, Model model) {
