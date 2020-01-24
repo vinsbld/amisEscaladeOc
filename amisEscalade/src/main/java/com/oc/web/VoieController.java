@@ -26,6 +26,7 @@ import com.oc.forms.VoieForm;
 public class VoieController {
 
 	// injections repositories
+	
 	@Autowired
 	private VoieRepository voieRepository;
 	@Autowired
@@ -39,6 +40,7 @@ public class VoieController {
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
+	
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}")
 	public String voieSecteur(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie){
 	
@@ -58,6 +60,7 @@ public class VoieController {
 	}
 	
 	/*============== #Création ======================*/
+	
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create")
 	public String formVoie(Model model, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade) {
 		
@@ -70,6 +73,9 @@ public class VoieController {
 		Iterable<Rating> rate = ratingRepository.findAll();
 		model.addAttribute("rate", rate);
 		
+		VoieForm voieForm = new VoieForm();
+		model.addAttribute("voieForm", voieForm);
+		
 		return "formVoie";
 	}
 	
@@ -77,9 +83,23 @@ public class VoieController {
 	public String ajouterVoie(Model model, @ModelAttribute("voieForm") VoieForm voieForm, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+		
+		Secteur secteur = secteurRepository.findById(idSecteur).get();
+		model.addAttribute("secteur", secteur);
+			
+		Iterable<Rating> rate = ratingRepository.findAll();
+		model.addAttribute("rate", rate);
+		
 		if (result.hasErrors()) {
 			return "formVoie";
-		}else {
+		}else if (voieForm.getName().isBlank() || voieForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide et dépasser 25 caractères !");
+			model.addAttribute("voieForm", voieForm);
+			return "formVoie";
+		}
+		else {
 		Voie newVoie = new Voie();
 		newVoie.setNomDeVoie(voieForm.getName());
 		newVoie.setCotation(voieForm.getCotation());
@@ -91,6 +111,7 @@ public class VoieController {
 	}
 	
 	/*============== #Modification ======================*/
+	
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit")
 	public String editVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 
@@ -104,22 +125,41 @@ public class VoieController {
 		model.addAttribute("rate", rate);
 		
 		Voie voie = voieRepository.findById(idVoie).get();
+		model.addAttribute("voie", voie);
+		
 		VoieForm voiForm = new VoieForm();
 		voiForm.setIdVoie(voie.getIdVoie());
 		voiForm.setName(voie.getNomDeVoie());
 		voiForm.setCotation(voie.getCotation());
-		model.addAttribute("voiForm", voiForm);
+		model.addAttribute("voieForm", voiForm);
 		
 		return"editFormVoie";
 	}
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/update")
 	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, 
-			@ModelAttribute("voie") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
+			@ModelAttribute("voieForm") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+	  
+		Secteur secteur = secteurRepository.findById(idSecteur).get();
+		model.addAttribute("secteur", secteur);
+		
+		Iterable<Rating> rate = ratingRepository.findAll();
+		model.addAttribute("rate", rate);
+		
+		Voie voie = voieRepository.findById(idVoie).get();
+		model.addAttribute("voie", voie);
 		
 		if (result.hasErrors()) {
 			return "editFormVoie";
-		}else {
-		Voie voie = voieRepository.findById(idVoie).get();
+		}
+		else if (voieForm.getName().isBlank() || voieForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide et dépasser 25 caractères !");
+			model.addAttribute("voieForm", voieForm);
+			return "editFormVoie";
+		}
+		else {
 		voie.setNomDeVoie(voieForm.getName());
 		voie.setCotation(voieForm.getCotation());
 		voieRepository.save(voie);
@@ -128,6 +168,7 @@ public class VoieController {
 	}
 	
 	/*============== #Suppression ======================*/
+	
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/delete")
 	public String deleteVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			final RedirectAttributes redirectAttributes) {

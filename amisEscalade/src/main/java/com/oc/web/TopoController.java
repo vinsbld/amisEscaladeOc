@@ -128,12 +128,12 @@ public class TopoController {
 			return "formTopo";	
 		}
 		else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
-			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide ou dépasser 25 caractères ! ");
+			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide et dépasser 25 caractères ! ");
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";
 		}
 		else if(topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
-			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas être vide ou dépasser 255 caractères !");
+			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas être vide et dépasser 255 caractères !");
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";
 		}
@@ -208,12 +208,12 @@ public class TopoController {
 			return "editFormTopo";
 			}
 			else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
-				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide ou dépasser 25 caractères !");
+				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide et dépasser 25 caractères !");
 				model.addAttribute("topoForm", topoForm);
 				return "editFormTopo";
 			}
 			else if (topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
-				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit être vide ou dépasser 255 caractères !");
+				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit être vide et dépasser 255 caractères !");
 				model.addAttribute("topoForm", topoForm);
 				return "editFormTopo";
 			}

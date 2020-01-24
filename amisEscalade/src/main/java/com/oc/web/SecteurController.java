@@ -42,12 +42,12 @@ public class SecteurController {
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	/**
-	 * Secteur site escal.
+	 * Secteur site escal. Is a methode for display the site's sector and sector's climbing route 
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
-	 * @return the string
+	 * @return the sector page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}")
 	public String secteurSiteEscal(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur) {
@@ -66,11 +66,11 @@ public class SecteurController {
 	
 	/*============== #Création ======================*/
 	/**
-	 * Form sect.
+	 * Form sect. display a form for add a sector
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
-	 * @return the string
+	 * @return the form sector
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String formSect(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade) {
@@ -85,14 +85,14 @@ public class SecteurController {
 	}
 	
 	/**
-	 * Ajouter secteur.
+	 * Ajouter secteur. save a new sector
 	 *
 	 * @param model the model
 	 * @param secteurForm the secteur form
 	 * @param idSiteEscalade the id site escalade
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the site page
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String ajouterSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("idSiteEscalade") long idSiteEscalade,
@@ -103,17 +103,17 @@ public class SecteurController {
 			return "formSecteur";
 		}
 		else if (secteurForm.getName().length()>25 || secteurForm.getName().isBlank()) {
-			result.rejectValue("name", "name.value", "le nom ne doit pas être vide ou dépasser 25 caractères !");
-			model.addAttribute("secteurForm", secteurForm);
-			return "formSecteur";
-		}
-		else if (secteurForm.getAcces().isBlank() || secteurForm.getAcces().length()>150) {
-			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide ou dépasser 255 caractères !");
+			result.rejectValue("name", "name.value", "le nom ne doit pas être vide et dépasser 25 caractères !");
 			model.addAttribute("secteurForm", secteurForm);
 			return "formSecteur";
 		}
 		else if (secteurForm.getLocalisation().isBlank() || secteurForm.getLocalisation().length()>255) {
-			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide ou dépasser 150 caractères !");
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide et dépasser 150 caractères !");
+			model.addAttribute("secteurForm", secteurForm);
+			return "formSecteur";
+		}
+		else if (secteurForm.getAcces().isBlank() || secteurForm.getAcces().length()>150) {
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide et dépasser 255 caractères !");
 			model.addAttribute("secteurForm", secteurForm);
 			return "formSecteur";
 		}
@@ -136,7 +136,7 @@ public class SecteurController {
 	 * @param idSecteur the id secteur
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
-	 * @return the string
+	 * @return the edit form sector
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit")
 	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
@@ -153,7 +153,7 @@ public class SecteurController {
 	}
 	
 	/**
-	 * Update secteur.
+	 * Update secteur. save the sector's modifications
 	 *
 	 * @param idSecteur the id secteur
 	 * @param idSiteEscalade the id site escalade
@@ -161,7 +161,7 @@ public class SecteurController {
 	 * @param model the model
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the sector page
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/update")
 	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, @ModelAttribute("secForm") SecteurForm secteurForm, Model model, BindingResult result,
@@ -172,17 +172,17 @@ public class SecteurController {
 			return "editFormSecteur";
 		}
 		else if (secteurForm.getName().isBlank() || secteurForm.getName().length()>25) {
-			result.rejectValue("name", "name.value", "le nom ne doit pas être vide ou dépasser 25 caractères !");
+			result.rejectValue("name", "name.value", "le nom ne doit pas être vide et dépasser 25 caractères !");
 			model.addAttribute("secForm", secteurForm);
 			return "editFormSecteur";
 		}		
 		else if (secteurForm.getAcces().isBlank() || secteurForm.getAcces().length()>255) {
-			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide ou dépasser 255 caractères !");
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide et dépasser 255 caractères !");
 			model.addAttribute("secForm", secteurForm);
 			return "editFormSecteur";
 		}
 		else if (secteurForm.getLocalisation().isBlank() || secteurForm.getLocalisation().length()>150) {
-			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide ou dépasser 150 caractères !");
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide et dépasser 150 caractères !");
 			model.addAttribute("secForm", secteurForm);
 			return "editFormSecteur";
 		}
@@ -204,7 +204,7 @@ public class SecteurController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the site page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete")
 	public String deleteSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
