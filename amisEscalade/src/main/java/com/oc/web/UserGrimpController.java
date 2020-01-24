@@ -43,7 +43,7 @@ public class UserGrimpController {
 	 * Consulter profil.
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the user_page
 	 */
 	@GetMapping("/profil")
 	public String consulterProfil(Model model) {
@@ -62,10 +62,10 @@ public class UserGrimpController {
 	
 	/*============== #Création ======================*/
 	/**
-	 * Form insc.
+	 * Form insc.create a new account
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the formInscription
 	 */
 	@GetMapping("/inscription")
 	public String formInsc(Model model) {
@@ -77,13 +77,13 @@ public class UserGrimpController {
 	}
 	
 	/**
-	 * Ajouter user grimp.
+	 * Ajouter user grimp.save a new user account 
 	 *
 	 * @param model the model
 	 * @param userGrimpForm the user grimp form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the connexion page
 	 */
 	@PostMapping("/inscription")
 	public String ajouterUserGrimp(Model model, @ModelAttribute("userGrimpForm") UserGrimpForm userGrimpForm, BindingResult result,
@@ -92,7 +92,13 @@ public class UserGrimpController {
 		if (result.hasErrors()) {
 			model.addAttribute("userGrimpForm", userGrimpForm);
 			return "formInscription";
-		} 
+			
+		}
+		else if (userGrimpForm.getUsername().isBlank() || userGrimpForm.getUsername().length()>30 || userGrimpForm.getUsername().length()<2) {
+			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
+			model.addAttribute("userGrimpForm", userGrimpForm);
+			return "formInscription";
+		}
 		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername().toLowerCase()) !=null) {
 			
 			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
@@ -125,11 +131,11 @@ public class UserGrimpController {
 	
 	/*============== #Modification ======================*/
 	/**
-	 * Edits the profil.
+	 * Edits the profil.change user's profil informations
 	 *
 	 * @param model the model
 	 * @param userGrimpf the user grimpf
-	 * @return the string
+	 * @return the editFormInscription
 	 */
 	@GetMapping("/profil/edit")
 	public String editProfil(Model model, @ModelAttribute("userForm") UserGrimpForm userGrimpf) {
@@ -145,13 +151,13 @@ public class UserGrimpController {
 	}
 	
 	/**
-	 * Update profil.
+	 * Update profil.save user's profil modifications 
 	 *
 	 * @param model the model
 	 * @param userGrimpf the user grimpf
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the profil
 	 */
 	@PostMapping("/profil/update")
 	public String updateProfil(Model model, @ModelAttribute("userForm") UserGrimpForm userGrimpf, BindingResult result,
@@ -165,7 +171,13 @@ public class UserGrimpController {
 			model.addAttribute("userForm", userGrimpf);
 			return "editFormInscription";
 			
-		}else if (ur !=null && ur.getIdUserGrimp() != usr.getIdUserGrimp()) {
+		}		
+		else if (userGrimpf.getUsername().isBlank() || userGrimpf.getUsername().length()>30 || userGrimpf.getUsername().length()<2) {
+			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
+			model.addAttribute("userForm", userGrimpf);
+			return "editFormInscription";
+		}
+		else if (ur !=null && ur.getIdUserGrimp() != usr.getIdUserGrimp()) {
 					
 			result.rejectValue("username", "user.name", "ce pseudo est déjà utilisé :(");
 			model.addAttribute("userForm", userGrimpf);
@@ -192,10 +204,10 @@ public class UserGrimpController {
 	
 	/*============== #Suppression ======================*/
 	/**
-	 * Delete user.
+	 * Delete user.delete account
 	 *
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the index
 	 */
 	@GetMapping("/profil/delete")
 	public String deleteUser(final RedirectAttributes redirectAttributes) {
