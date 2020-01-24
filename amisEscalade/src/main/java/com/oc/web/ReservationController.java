@@ -47,13 +47,13 @@ public class ReservationController {
 	// get and post Mapping
 	/*============== #Demandes Crétation ======================*/
 	/**
-	 * Send resa.
+	 * Send resa.a reservation demand 
 	 *
 	 * @param reservationForm the reservation form
 	 * @param model the model
 	 * @param idTopo the id topo
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the topo
 	 */
 	@PostMapping("/reservation/{idTopo}/demande")
 	public String sendResa(@ModelAttribute("reservationForm") ReservationForm reservationForm, Model model, @PathVariable("idTopo") long idTopo,
@@ -86,10 +86,10 @@ public class ReservationController {
 	
 	/*============== #Affiche les Reservations ======================*/	
 	/**
-	 * Topo resa.
+	 * Topo resa.display the user's reservations demands
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the reservation_topo
 	 */
 	@GetMapping("/topo/mes_reservations")
 	public String topoResa(Model model) {
@@ -111,13 +111,13 @@ public class ReservationController {
 	
 	/*============== #Post les decisions de prêts ======================*/	
 	/**
-	 * Accept or not.
+	 * Accept or not. the user's decision for a loan
 	 *
 	 * @param idResa the id resa
 	 * @param model the model
 	 * @param reservationForm the reservation form
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the mes_reservations
 	 */
 	@PostMapping("/topo/mes_reservations/ok")
 	public String acceptOrNot(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {
@@ -161,13 +161,13 @@ public class ReservationController {
 	}
 	
 	/**
-	 * Return reset.
+	 * Return reset.make a topo available again
 	 *
 	 * @param idResa the id resa
 	 * @param model the model
 	 * @param reservationForm the reservation form
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the mes_reservations
 	 */
 	@PostMapping("/topo/mes_reservations/reset")
 	public String returnReset(@RequestParam("idResa")long idResa, Model model, @ModelAttribute("reservationForm") ReservationForm reservationForm , final RedirectAttributes redirectAttributes) {

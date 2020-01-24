@@ -47,13 +47,13 @@ public class LongueurController {
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	/**
-	 * Longueur voie.
+	 * Longueur voie.display the voie's longueurs
 	 *
 	 * @param model the model
 	 * @param idVoie the id voie
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
-	 * @return the string
+	 * @return the voie
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur")
 	public String longueurVoie(Model model, @PathVariable("idVoie") long idVoie, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur){
@@ -72,14 +72,14 @@ public class LongueurController {
 	
 	/*============== #Création ======================*/
 	/**
-	 * Form long.
+	 * Form long.create a new longueur
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
 	 * @param idVoie the id voie
 	 * @param longueurForm the longueur form
-	 * @return the string
+	 * @return the formLongueur
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create")
 	public String formLong(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @ModelAttribute("longueurForm") LongueurForm longueurForm) {
@@ -97,7 +97,7 @@ public class LongueurController {
 	}
 	
 	/**
-	 * Ajouter longueur.
+	 * Ajouter longueur. save a new longueur
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
@@ -106,7 +106,7 @@ public class LongueurController {
 	 * @param longueurForm the longueur form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the voie
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create")
 	public String ajouterLongueur(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @ModelAttribute("longueurForm") LongueurForm longueurForm,
@@ -143,14 +143,14 @@ public class LongueurController {
 	
 	/*============== #Modification ======================*/
 	/**
-	 * Edits the secteur.
+	 * Edits the secteur.modify a longueur's properties
 	 *
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
 	 * @param idVoie the id voie
 	 * @param idLongueur the id longueur
 	 * @param model the model
-	 * @return the string
+	 * @return the editFormLongueur
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit")
 	public String editSecteur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model) {
@@ -166,7 +166,7 @@ public class LongueurController {
 	}
 	
 	/**
-	 * Edits the longueur.
+	 * Edits the longueur.save a longueur's modifications
 	 *
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
@@ -176,7 +176,7 @@ public class LongueurController {
 	 * @param longueurForm the longueur form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the voie
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/update")
 	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("longueurForm") LongueurForm longueurForm, BindingResult result,
@@ -202,7 +202,7 @@ public class LongueurController {
 	
 	/*============== #Suppression ======================*/
 	/**
-	 * Delete longueur.
+	 * Delete longueur.delete a longueur
 	 *
 	 * @param idLongueur the id longueur
 	 * @param idVoie the id voie
@@ -210,7 +210,7 @@ public class LongueurController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the voie
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete")
 	public String deleteLongueur(@PathVariable("idLongueur") long idLongueur, @PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {

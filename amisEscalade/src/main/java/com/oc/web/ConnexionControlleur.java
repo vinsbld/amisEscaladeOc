@@ -28,7 +28,7 @@ public class ConnexionControlleur {
 	 * @param model the model
 	 * @param error the error
 	 * @param logout the logout
-	 * @return the model and view
+	 * @return the model and view formLogIn form
 	 */
 	@GetMapping("/connexion")
 	public ModelAndView loginGet (Model model, @RequestParam(value = "error", required = false)String error, @RequestParam(value = "logout", required = false) String logout) {
@@ -55,7 +55,7 @@ public class ConnexionControlleur {
 	 *
 	 * @param request the request
 	 * @param response the response
-	 * @return the string
+	 * @return the login form 
 	 */
 	@GetMapping("/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {

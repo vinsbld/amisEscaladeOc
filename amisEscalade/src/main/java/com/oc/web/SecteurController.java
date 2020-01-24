@@ -47,7 +47,7 @@ public class SecteurController {
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
 	 * @param idSecteur the id secteur
-	 * @return the sector page
+	 * @return the sector
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}")
 	public String secteurSiteEscal(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur) {
@@ -70,7 +70,7 @@ public class SecteurController {
 	 *
 	 * @param model the model
 	 * @param idSiteEscalade the id site escalade
-	 * @return the form sector
+	 * @return the formSecteur
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String formSect(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade) {
@@ -92,7 +92,7 @@ public class SecteurController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the site page
+	 * @return the le_site_escalade
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String ajouterSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("idSiteEscalade") long idSiteEscalade,
@@ -136,7 +136,7 @@ public class SecteurController {
 	 * @param idSecteur the id secteur
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
-	 * @return the edit form sector
+	 * @return the editFormSecteur
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit")
 	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
@@ -204,7 +204,7 @@ public class SecteurController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the site page
+	 * @return the le_site_escalade page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/delete")
 	public String deleteSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
