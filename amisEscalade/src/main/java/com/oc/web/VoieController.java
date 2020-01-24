@@ -22,25 +22,46 @@ import com.oc.entities.SiteEscalade;
 import com.oc.entities.Voie;
 import com.oc.forms.VoieForm;
 
+/**
+ * The Class VoieController.
+ */
 @Controller
 public class VoieController {
 
 	// injections repositories
 	
+	/** The voie repository. */
 	@Autowired
 	private VoieRepository voieRepository;
+	
+	/** The secteur repository. */
 	@Autowired
 	private SecteurRepository secteurRepository;	
+	
+	/** The site escalade repository. */
 	@Autowired
 	private SiteEscaladeRepository siteEscaladeRepository;
+	
+	/** The longueur repository. */
 	@Autowired 
 	private LongueurRepository longueurRepository;
+	
+	/** The rating repository. */
 	@Autowired
 	private RatingRepository ratingRepository;
 	
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	
+	/**
+	 * Voie secteur. display the secteur's voies
+	 *
+	 * @param model the model
+	 * @param idSiteEscalade the id site escalade
+	 * @param idSecteur the id secteur
+	 * @param idVoie the id voie
+	 * @return the voie page
+	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}")
 	public String voieSecteur(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie){
 	
@@ -61,6 +82,14 @@ public class VoieController {
 	
 	/*============== #Création ======================*/
 	
+	/**
+	 * Form voie.display the form for create a new voie
+	 *
+	 * @param model the model
+	 * @param idSecteur the id secteur
+	 * @param idSiteEscalade the id site escalade
+	 * @return the voie form
+	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create")
 	public String formVoie(Model model, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade) {
 		
@@ -79,6 +108,17 @@ public class VoieController {
 		return "formVoie";
 	}
 	
+	/**
+	 * Ajouter voie.save the new voie
+	 *
+	 * @param model the model
+	 * @param voieForm the voie form
+	 * @param idSecteur the id secteur
+	 * @param idSiteEscalade the id site escalade
+	 * @param result the result
+	 * @param redirectAttributes the redirect attributes
+	 * @return the voie page
+	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create")
 	public String ajouterVoie(Model model, @ModelAttribute("voieForm") VoieForm voieForm, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
@@ -112,6 +152,15 @@ public class VoieController {
 	
 	/*============== #Modification ======================*/
 	
+	/**
+	 * Edits the voie. modify an existing voie 
+	 *
+	 * @param idVoie the id voie
+	 * @param idSecteur the id secteur
+	 * @param idSiteEscalade the id site escalade
+	 * @param model the model
+	 * @return the edit form voie
+	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit")
 	public String editVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 
@@ -135,6 +184,19 @@ public class VoieController {
 		
 		return"editFormVoie";
 	}
+	
+	/**
+	 * Update voie.save the voie's modifications 
+	 *
+	 * @param idVoie the id voie
+	 * @param idSecteur the id secteur
+	 * @param idSiteEscalade the id site escalade
+	 * @param model the model
+	 * @param voieForm the voie form
+	 * @param result the result
+	 * @param redirectAttributes the redirect attributes
+	 * @return the voie page
+	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/update")
 	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, 
 			@ModelAttribute("voieForm") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
@@ -169,6 +231,16 @@ public class VoieController {
 	
 	/*============== #Suppression ======================*/
 	
+	/**
+	 * Delete voie.
+	 *
+	 * @param idVoie the id voie
+	 * @param idSecteur the id secteur
+	 * @param idSiteEscalade the id site escalade
+	 * @param model the model
+	 * @param redirectAttributes the redirect attributes
+	 * @return the voie page
+	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/delete")
 	public String deleteVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			final RedirectAttributes redirectAttributes) {

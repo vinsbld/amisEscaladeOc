@@ -46,10 +46,10 @@ public class SiteEscaladeController {
 	// get and post Mapping
 	/*============== #Pages ======================*/
 	/**
-	 * Site escal.
+	 * Site escal.display site escalade
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the site escalade page
 	 */
 	@GetMapping("/site_escalade")
 	public String siteEscal(Model model) {
@@ -64,11 +64,11 @@ public class SiteEscaladeController {
 	}
 	
 	/**
-	 * Site result.
+	 * Site result.display the result of researchs
 	 *
 	 * @param model the model
-	 * @param mc the mc
-	 * @return the string
+	 * @param mc the mc (mot clé)
+	 * @return the site escalade page
 	 */
 	@GetMapping("/site_escalade/result")
 	public String siteResult(Model model, @RequestParam(name = "mc", defaultValue = "")String mc) {
@@ -87,11 +87,11 @@ public class SiteEscaladeController {
 	}
 	
 	/**
-	 * Le site.
+	 * Le site.display the site's details informations
 	 *
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
-	 * @return the string
+	 * @return the le site escalade page
 	 */
 	@GetMapping("/le_site_escalade/{idSiteEscalade}/view")
 	public String leSite(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model) {
@@ -107,10 +107,10 @@ public class SiteEscaladeController {
 	
 	/*============== #Création ======================*/
 	/**
-	 * Form sit.
+	 * Form sit.display the site form
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the site form
 	 */
 	@GetMapping("/site_escalade/create")
 	public String formSit(Model model) {
@@ -128,13 +128,13 @@ public class SiteEscaladeController {
 	}
 
 	/**
-	 * Ajouter site escalade.
+	 * Ajouter site escalade.save a new site 
 	 *
 	 * @param model the model
 	 * @param siteEscaladeForm the site escalade form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the site escalade page
 	 */
 	@PostMapping("/site_escalade/create")
 	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
@@ -165,20 +165,22 @@ public class SiteEscaladeController {
 	
 	/*============== #Modification ======================*/
 	/**
-	 * Edits the site.
+	 * Edits the site.add a site's modifications
 	 *
 	 * @param siteEscaladeForm the site escalade form
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
-	 * @return the string
+	 * @return the edit site escalade form
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
-	public String editSite(@ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
+	public String editSite(@ModelAttribute("siteForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+		
 		SiteEscaladeForm siteForm = new SiteEscaladeForm();
 		siteForm.setIdSiteEscalade(site.getIdSiteEscalade());
 		siteForm.setSiteName(site.getNomSiteEscalade());
@@ -190,23 +192,35 @@ public class SiteEscaladeController {
 	}
 	
 	/**
-	 * Update site escalade.
+	 * Update site escalade.save the site's modifications
 	 *
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param siteEscaladeForm the site escalade form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the site escalade page
 	 */
 	@PostMapping("/site_escalade/{idSiteEscalade}/update")
-	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteEscalade") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
+	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
+		
+		Iterable<Codex> cdxList = codexRepository.findAllCity();
+		model.addAttribute("cdxList", cdxList);
+		
+		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
 		
 		if (result.hasErrors()) {
 			return "editFormSiteEscalade";
-		}else {
-		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
+		}
+		else if (siteEscaladeForm.getSiteName().isBlank() || siteEscaladeForm.getSiteName().length()>25) {
+			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas être vide ou dépasser 25 caractères !");
+			model.addAttribute("siteForm", siteEscaladeForm);
+			return "editFormSiteEscalade";
+		}
+		
+		else {
 		site.setNomSiteEscalade(siteEscaladeForm.getSiteName());
 		site.setLieu(siteEscaladeForm.getLieu());
 		site.setOfficiel(siteEscaladeForm.isOfficiel());
@@ -222,7 +236,7 @@ public class SiteEscaladeController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the site escalade page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
 	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {

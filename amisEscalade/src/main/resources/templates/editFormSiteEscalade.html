@@ -19,7 +19,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 <body>
 
 	<div class="signup-form">
-    <form th:action="@{/site_escalade/{idSiteEscalade}/update(idSiteEscalade=${siteForm.idSiteEscalade})}" th:object="${siteForm}" method="post" class="form-horizontal">
+    <form th:action="@{/site_escalade/{idSiteEscalade}/update(idSiteEscalade=${site.idSiteEscalade})}" th:object="${siteForm}" method="post" class="form-horizontal">
 		<div class="col-xs-8 col-xs-offset-4 text-center" >
 			<h2>Modifier un site d'escalade</h2>
 		</div>		
@@ -27,6 +27,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 			<label class="control-label col-xs-4">Nom du site</label>
 			<div class="col-xs-8">
                 <input type="text" class="form-control" name="siteName" th:field="*{siteName}" required="required" maxlength="25">
+            	<span class="help-block" th:if="${#fields.hasErrors('siteName')}" th:errors="*{siteName}" style="color: red;"></span>
             </div>        	
         </div>
 		<div class="form-group">
