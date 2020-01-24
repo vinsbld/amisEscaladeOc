@@ -198,7 +198,7 @@ public class SecteurController {
 	
 	/*============== #Suppression ======================*/
 	/**
-	 * Delete secteur.
+	 * Delete secteur.delete sectors
 	 *
 	 * @param idSecteur the id secteur
 	 * @param idSiteEscalade the id site escalade
