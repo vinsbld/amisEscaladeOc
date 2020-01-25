@@ -134,7 +134,7 @@ public class SiteEscaladeController {
 	 * @param siteEscaladeForm the site escalade form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the site escalade page
+	 * @return the site_escalade page
 	 */
 	@PostMapping("/site_escalade/create")
 	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
@@ -236,7 +236,7 @@ public class SiteEscaladeController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the site escalade page
+	 * @return the site_escalade page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
 	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
