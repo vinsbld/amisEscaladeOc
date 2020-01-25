@@ -3,6 +3,8 @@ package com.oc.web;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import com.oc.forms.CommentaireForm;
  */
 @Controller
 public class CommentaireController {
+	
+	final static Logger logger = LogManager.getLogger();
 	
 	// injections repositories
 	/** The site escalade repository. */

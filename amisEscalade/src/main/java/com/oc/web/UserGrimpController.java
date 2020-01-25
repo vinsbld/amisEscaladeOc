@@ -1,5 +1,7 @@
 package com.oc.web;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import com.oc.forms.UserGrimpForm;
  */
 @Controller
 public class UserGrimpController {
+	
+	final static Logger logger = LogManager.getLogger();
 	
 	/*============== #injections repositories ======================*/
 	/** The user grimp repository. */

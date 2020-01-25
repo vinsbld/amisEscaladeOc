@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ import com.oc.forms.ReservationForm;
  */
 @Controller
 public class ReservationController {
+	
+	final static Logger logger = LogManager.getLogger();
 	
 	// injections repositories
 	/** The reservation repository. */
