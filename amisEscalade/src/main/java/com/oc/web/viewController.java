@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class viewController {
 	
 	/**
-	 * Index.
+	 * Index.display the index page
 	 *
-	 * @return the string
+	 * @return the index
 	 */
 	@GetMapping("/index")
 	public String index() {

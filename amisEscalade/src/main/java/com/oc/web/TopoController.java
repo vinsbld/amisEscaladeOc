@@ -45,10 +45,10 @@ public class TopoController {
 	/*============== #Pages ======================*/
 	
 	/**
-	 * Topo page.
+	 * Topo page.display list of topos
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the topo page
 	 */
 	@GetMapping("/topo")
 	public String topoPage(Model model) {
@@ -63,11 +63,11 @@ public class TopoController {
 	}
 	
 	/**
-	 * Le topo.
+	 * Le topo.show the a topo detail
 	 *
 	 * @param model the model
 	 * @param idTopo the id topo
-	 * @return the string
+	 * @return the le_Topo
 	 */
 	@GetMapping("/le_topo/{idTopo}/view")
 	public String leTopo(Model model, @PathVariable("idTopo") long idTopo) {
@@ -78,6 +78,7 @@ public class TopoController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
+		//verifie si l'utilisateur n'a pas déjà fait une demande pour ce topo
 		List<Reservation> r = reservationRepository.getDemandeEncours(usr.getIdUserGrimp(), idTopo);
 		model.addAttribute("ListDemandes", r);
 		
@@ -88,10 +89,10 @@ public class TopoController {
 	/*============== #Création ======================*/
 	
 	/**
-	 * Form top.
+	 * Form top.display a form for create a new topo
 	 *
 	 * @param model the model
-	 * @return the string
+	 * @return the formTopo
 	 */
 	@GetMapping("/formTopo/create")
 	public String formTop(Model model) {
@@ -109,13 +110,13 @@ public class TopoController {
 	}
 	
 	/**
-	 * Ajouter topo.
+	 * Ajouter topo.save a new topo
 	 *
 	 * @param model the model
 	 * @param topoForm the topo form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the profil
 	 */
 	@PostMapping("/formTopo/create")
 	public String ajouterTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes) {
@@ -154,11 +155,11 @@ public class TopoController {
 	/*============== #Modification ======================*/
 	
 	/**
-	 * Edits the topo.
+	 * Edits the topo.modify an existing topo
 	 *
 	 * @param idTopo the id topo
 	 * @param model the model
-	 * @return the string
+	 * @return the editFormTopo
 	 */
 	@GetMapping("/topo/{idTopo}/edit")
 	public String editTopo(@PathVariable("idTopo") long idTopo, Model model) {
@@ -182,14 +183,14 @@ public class TopoController {
 	}
 	
 	/**
-	 * Update topo.
+	 * Update topo.save the topo's mofdification 
 	 *
 	 * @param idTopo the id topo
 	 * @param model the model
 	 * @param topoForm the topo form
 	 * @param result the result
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the profil
 	 */
 	@PostMapping("/topo/{idTopo}/update")
 	public String updateTopo(@PathVariable("idTopo") long idTopo, Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result,
@@ -237,7 +238,7 @@ public class TopoController {
 	 * @param idTopo the id topo
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the string
+	 * @return the profil
 	 */
 	@GetMapping("/topo/{idTopo}/delete")
 	public String deleteTopo(@PathVariable("idTopo") long idTopo, Model model, final RedirectAttributes redirectAttributes) {

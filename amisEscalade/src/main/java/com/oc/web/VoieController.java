@@ -239,7 +239,7 @@ public class VoieController {
 	 * @param idSiteEscalade the id site escalade
 	 * @param model the model
 	 * @param redirectAttributes the redirect attributes
-	 * @return the voie page
+	 * @return the secteur page
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/delete")
 	public String deleteVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
