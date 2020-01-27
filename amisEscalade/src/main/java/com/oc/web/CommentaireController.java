@@ -187,13 +187,13 @@ public class CommentaireController {
 		else if (commentaireForm.getComments().isBlank()) {
 			result.rejectValue("comments", "commentsBlank.value", "votre commentaire ne doit pas être vide !");
 			model.addAttribute("commentaireForm", commentaireForm);
-			logger.error("lutilisteur "+usr.getPseudo()+" n'a pas saisi de caractères");
+			logger.error("l'utilisteur "+usr.getPseudo()+" n'a pas saisi de caractères pour le commentaire n°"+com.getIdCom());
 			return"/editFormCommentaire";
 		}
 		else if (commentaireForm.getComments().length()>255) {
 			result.rejectValue("comments", "commentsLength.value", "votre commentaire ne doit pas dépasser 255 caractères ;( ");
 			model.addAttribute("commentaireForm", commentaireForm);
-			logger.error("lutilisteur "+usr.getPseudo()+" a saisi plus de 255 caractères");
+			logger.error("l'utilisteur "+usr.getPseudo()+" a saisi plus de 255 caractères pour le commentaire n°"+com.getIdCom());
 			return"/editFormCommentaire";
 		}
 		else {
