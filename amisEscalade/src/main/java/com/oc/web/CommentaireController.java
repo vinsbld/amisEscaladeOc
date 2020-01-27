@@ -3,6 +3,8 @@ package com.oc.web;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -141,7 +143,7 @@ public class CommentaireController {
 		model.addAttribute("site", site);
 
 		Commentaire com = commentaireRepository.findById(idCom).get();
-		model.addAttribute("cmtr", com);
+		model.addAttribute("commentaireForm", com);
 		
 		CommentaireForm comForm = new CommentaireForm();
 		comForm.setIdCom(com.getIdCom());
@@ -166,7 +168,7 @@ public class CommentaireController {
 	 * @return the commentaire
 	 */
 	@PostMapping("/commentaire/{idCom}/site/{idSiteEscalade}/edit")
-	public String postEditComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm , BindingResult result,
+	public String postEditComnt(Model model, @PathVariable("idSiteEscalade") Long idSiteEscalade, @PathVariable("idCom")Long idCom, @ModelAttribute("commentaireForm")CommentaireForm commentaireForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -176,7 +178,7 @@ public class CommentaireController {
 		model.addAttribute("site", site);
 		
 		Commentaire com = commentaireRepository.findById(idCom).get();
-		model.addAttribute("cmtr", com);
+		model.addAttribute("commentaireForm", com);
 		
 		if (result.hasErrors()) {
 			model.addAttribute("commentaireForm", commentaireForm);
