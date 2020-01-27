@@ -1,8 +1,10 @@
 package com.oc.web;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import com.oc.entities.Longueur;
 import com.oc.entities.Rating;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.UserGrimp;
 import com.oc.entities.Voie;
 import com.oc.forms.VoieForm;
 
@@ -30,7 +33,7 @@ import com.oc.forms.VoieForm;
 @Controller
 public class VoieController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 
 	// injections repositories
 	
@@ -81,6 +84,8 @@ public class VoieController {
 	Iterable<Longueur> longueur = longueurRepository.findByVoie(idVoie);
 	model.addAttribute("longueur", longueur);
 	
+	logger.info("Un utilisateur consulte la liste des voies appartenant au secteur "+secteur.getNomDuSecteur()+" id : "+secteur.getIdSecteur());
+	
 	return "voie";
 	}
 	
@@ -97,6 +102,9 @@ public class VoieController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/create")
 	public String formVoie(Model model, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 		
@@ -108,6 +116,8 @@ public class VoieController {
 		
 		VoieForm voieForm = new VoieForm();
 		model.addAttribute("voieForm", voieForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un formulaire de création de voie pour le secteur "+secteur.getNomDuSecteur()+" id : "+secteur.getIdSecteur());
 		
 		return "formVoie";
 	}
@@ -127,6 +137,9 @@ public class VoieController {
 	public String ajouterVoie(Model model, @ModelAttribute("voieForm") VoieForm voieForm, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 		
@@ -138,9 +151,17 @@ public class VoieController {
 		
 		if (result.hasErrors()) {
 			return "formVoie";
-		}else if (voieForm.getName().isBlank() || voieForm.getName().length()>25) {
-			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide et dépasser 25 caractères !");
+		}
+		else if (voieForm.getName().isBlank()) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide !");
 			model.addAttribute("voieForm", voieForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de voie vide");
+			return "formVoie";
+		}
+		else if (voieForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas dépasser 25 caractères !");
+			model.addAttribute("voieForm", voieForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de voie de plus de 25 caractères");
 			return "formVoie";
 		}
 		else {
@@ -150,6 +171,7 @@ public class VoieController {
 		Secteur voieSec = secteurRepository.findById(idSecteur).get();
 		newVoie.setSecteur(voieSec);
 		voieRepository.save(newVoie);
+		logger.error("l'utilisateur "+usr.getPseudo()+" a créer une nouvelle voie "+newVoie.getNomDeVoie()+" id : "+newVoie.getIdVoie());
 		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 	}
@@ -168,6 +190,9 @@ public class VoieController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/edit")
 	public String editVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 	  
@@ -185,6 +210,8 @@ public class VoieController {
 		voiForm.setName(voie.getNomDeVoie());
 		voiForm.setCotation(voie.getCotation());
 		model.addAttribute("voieForm", voiForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un formulaire de modification pour la voie "+voie.getNomDeVoie()+" id : "+voie.getIdVoie());
 		
 		return"editFormVoie";
 	}
@@ -205,6 +232,9 @@ public class VoieController {
 	public String updateVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, 
 			@ModelAttribute("voieForm") VoieForm voieForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 	  
@@ -220,15 +250,23 @@ public class VoieController {
 		if (result.hasErrors()) {
 			return "editFormVoie";
 		}
-		else if (voieForm.getName().isBlank() || voieForm.getName().length()>25) {
-			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide et dépasser 25 caractères !");
+		else if (voieForm.getName().isBlank()) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas être vide !");
 			model.addAttribute("voieForm", voieForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de voie vide ");
+			return "editFormVoie";
+		}
+		else if (voieForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "Le nom de la voie ne doit pas dépasser 25 caractères !");
+			model.addAttribute("voieForm", voieForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de voie de plus de 25 caractères ");
 			return "editFormVoie";
 		}
 		else {
 		voie.setNomDeVoie(voieForm.getName());
 		voie.setCotation(voieForm.getCotation());
 		voieRepository.save(voie);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a enregistré les modifications faites sur la voie n°"+voie.getIdVoie());
 		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+idVoie;	
 	}
@@ -249,6 +287,10 @@ public class VoieController {
 	public String deleteVoie(@PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			final RedirectAttributes redirectAttributes) {
 
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimer la voie n°"+idVoie);
 		voieRepository.deleteById(idVoie);
 
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;

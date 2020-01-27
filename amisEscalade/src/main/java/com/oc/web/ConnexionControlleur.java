@@ -41,10 +41,12 @@ public class ConnexionControlleur {
 		String errorMessage = null;
 		
 		if(error != null) {
+			logger.error("l'utilisateur a saisi un pseudo ou un mot de passe incorrect");
 			errorMessage = "Pseudo ou mot de passe incorrects !";
 		}
         if(logout != null) {
             errorMessage = "Vous avez été déconecté avec succès !";
+            logger.info("l'utilisateur c'est déconecté");
         }
         model.addAttribute("errorMessge", errorMessage);
 		

@@ -3,6 +3,7 @@ package com.oc.web;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import com.oc.forms.CommentaireForm;
 @Controller
 public class CommentaireController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	// injections repositories
 	/** The site escalade repository. */
@@ -50,7 +51,7 @@ public class CommentaireController {
 	 * @return the commentaire_site
 	 */
 	@GetMapping("/site/{idSiteEscalade}/commentaire")
-	public String comnt(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade) {
+	public String comnt(Model model, @PathVariable("idSiteEscalade")Long idSiteEscalade) {	
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
@@ -60,6 +61,8 @@ public class CommentaireController {
 		
 		CommentaireForm cmts = new CommentaireForm();
 		model.addAttribute("commentaireForm", cmts);
+		
+		logger.info("un utilisateur consulte les commentaires du site d'escalade "+ site.getNomSiteEscalade() +" id du site n°"+site.getIdSiteEscalade());
 					
 		return "/commentaire_site";
 	}
@@ -93,11 +96,13 @@ public class CommentaireController {
 			return "/commentaire_site";
 		}
 		else if(commentaireForm.getComments().isBlank()) {
+			logger.error("l'utilisateur"+usr.getPseudo()+ " n'a pas saisi de carctères");
 			result.rejectValue("comments", "commentsBlank.value", "votre commentaire ne doit pas être vide !");
 			model.addAttribute("commentaireForm", commentaireForm);
 			return "/commentaire_site";
 		}
 		else if(commentaireForm.getComments().length()>255) {
+			logger.error("l'utilisateur "+ usr.getPseudo() + " à saisi un nombre de caractères supèrieur à 255");
 			result.rejectValue("comments", "commentsLength.value", "votre commentaire ne doit pas dépasser 255 caractères ;( ");
 			model.addAttribute("commentaireForm", commentaireForm);
 			return "/commentaire_site";
@@ -110,6 +115,7 @@ public class CommentaireController {
 		newCommentaire.setComments(commentaireForm.getComments());
 		newCommentaire.setDate(date);
 		commentaireRepository.save(newCommentaire);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a laissé un commentaire pour le site "+site.getNomSiteEscalade()+ "l'id du commentaire est n°"+newCommentaire.getIdCom());
 		}
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
 		
@@ -143,6 +149,8 @@ public class CommentaireController {
 		com.setUserGrimp(usr);
 		com.setSiteEscalade(site);
 			
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un fomulaire de modification pour le commentaire n°"+com.getIdCom());
+		
 		return "/editFormCommentaire";
 	}
 	
@@ -177,11 +185,13 @@ public class CommentaireController {
 		else if (commentaireForm.getComments().isBlank()) {
 			result.rejectValue("comments", "commentsBlank.value", "votre commentaire ne doit pas être vide !");
 			model.addAttribute("commentaireForm", commentaireForm);
+			logger.error("lutilisteur "+usr.getPseudo()+" n'a pas saisi de caractères");
 			return"/editFormCommentaire";
 		}
 		else if (commentaireForm.getComments().length()>255) {
 			result.rejectValue("comments", "commentsLength.value", "votre commentaire ne doit pas dépasser 255 caractères ;( ");
 			model.addAttribute("commentaireForm", commentaireForm);
+			logger.error("lutilisteur "+usr.getPseudo()+" a saisi plus de 255 caractères");
 			return"/editFormCommentaire";
 		}
 		else {
@@ -191,6 +201,7 @@ public class CommentaireController {
 		com.setSiteEscalade(site);
 		com.setUserGrimp(usr);
 		commentaireRepository.save(com);
+		logger.info("lutilisteur "+usr.getPseudo()+" a enregistré les modifications apportées pour le commentaire n°"+com.getIdCom());
 		}
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
 	}
@@ -210,7 +221,9 @@ public class CommentaireController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		commentaireRepository.deleteById(idCom);
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimé le message n°"+idCom);
+		
+		commentaireRepository.deleteById(idCom);	
 		
 		return"redirect:/site/"+idSiteEscalade+"/commentaire";
 	}

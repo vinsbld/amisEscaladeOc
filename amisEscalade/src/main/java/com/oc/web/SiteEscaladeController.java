@@ -2,6 +2,7 @@ package com.oc.web;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import com.oc.forms.SiteEscaladeForm;
 @Controller
 public class SiteEscaladeController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	//injections repositories
 	/** The site escalade repository. */
@@ -64,6 +65,8 @@ public class SiteEscaladeController {
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 
+		logger.info("Un utilisateur consulte la liste des site d'escalade");
+		
 		return "site_escalade";
 	}
 	
@@ -84,6 +87,7 @@ public class SiteEscaladeController {
 			List<SiteEscalade> listeSite = siteEscaladeRepository.chercher("%"+mc+"%");
 			model.addAttribute("mc", mc);
 			model.addAttribute("listSite", listeSite);
+			logger.info("Un utilisateur effectue une recherche avec comme mot clé : "+mc);
 		}
 		
 		
@@ -106,6 +110,8 @@ public class SiteEscaladeController {
 		Iterable<Secteur> sec = secteurRepository.findBySite(idSiteEscalade);
 		model.addAttribute("sec", sec);
 		
+		logger.info("Un utilisateur consulte le site d'escalade "+site.getNomSiteEscalade());
+		
 		return"le_site_escalade";
 	}
 	
@@ -127,6 +133,8 @@ public class SiteEscaladeController {
 		
 		SiteEscaladeForm siteForm = new SiteEscaladeForm();
 		model.addAttribute("siteEscaladeForm", siteForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un formulaire de création de site d'escalade");
 	
 		return"formSiteEscalade";
 	}
@@ -144,13 +152,23 @@ public class SiteEscaladeController {
 	public String ajouterSiteEscalade(Model model, @ModelAttribute("siteEscaladeForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		if(result.hasErrors()) {
 			model.addAttribute("siteEscaladeForm", siteEscaladeForm);
 			return "formSiteEscalade";
 		}
-		else if (siteEscaladeForm.getSiteName().isBlank() || siteEscaladeForm.getSiteName().length()>25) {
-			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas être vide ou dépasser 25 caractères !");
+		else if (siteEscaladeForm.getSiteName().isBlank()) {
+			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas être vide !");
 			model.addAttribute("siteEscaladeForm", siteEscaladeForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de site vide ");
+			return "formSiteEscalade";
+		}
+		else if (siteEscaladeForm.getSiteName().length()>25) {
+			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas dépasser 25 caractères !");
+			model.addAttribute("siteEscaladeForm", siteEscaladeForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de site de plus de 25 caractères");
 			return "formSiteEscalade";
 		}
 		else {
@@ -159,9 +177,9 @@ public class SiteEscaladeController {
 			newSiteEscalade.setNomSiteEscalade(siteEscaladeForm.getSiteName()); 
 			newSiteEscalade.setLieu(siteEscaladeForm.getLieu());			
 			newSiteEscalade.setOfficiel(siteEscaladeForm.isOfficiel());
-			UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			newSiteEscalade.setUserGrimp(usr);
 			siteEscaladeRepository.save(newSiteEscalade);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a créer un nouveau site d'escalade "+newSiteEscalade.getNomSiteEscalade()+" l'id du site est "+newSiteEscalade.getIdSiteEscalade());
 		}
 
 		return "redirect:/site_escalade";
@@ -179,6 +197,9 @@ public class SiteEscaladeController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/edit")
 	public String editSite(@ModelAttribute("siteForm") SiteEscaladeForm siteEscaladeForm, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
@@ -191,6 +212,8 @@ public class SiteEscaladeController {
 		siteForm.setLieu(site.getLieu());
 		siteForm.setOfficiel(site.isOfficiel());
 		model.addAttribute("siteForm", siteForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un formulaire de modifications de sites d'escalades pour le site n°"+site.getIdSiteEscalade());
 		 
 		return "editFormSiteEscalade";
 	}
@@ -209,6 +232,9 @@ public class SiteEscaladeController {
 	public String updateSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, @ModelAttribute("siteForm") SiteEscaladeForm siteEscaladeForm, BindingResult result, 
 			final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
@@ -218,9 +244,16 @@ public class SiteEscaladeController {
 		if (result.hasErrors()) {
 			return "editFormSiteEscalade";
 		}
-		else if (siteEscaladeForm.getSiteName().isBlank() || siteEscaladeForm.getSiteName().length()>25) {
-			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas être vide ou dépasser 25 caractères !");
+		else if (siteEscaladeForm.getSiteName().isBlank()) {
+			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas être vide !");
 			model.addAttribute("siteForm", siteEscaladeForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de site vide ");
+			return "editFormSiteEscalade";
+		}
+		else if (siteEscaladeForm.getSiteName().length()>25) {
+			result.rejectValue("siteName", "siteName.value", "le nom ne doit pas dépasser 25 caractères !");
+			model.addAttribute("siteForm", siteEscaladeForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de site de plus de 25 caractères");
 			return "editFormSiteEscalade";
 		}
 		
@@ -229,6 +262,7 @@ public class SiteEscaladeController {
 		site.setLieu(siteEscaladeForm.getLieu());
 		site.setOfficiel(siteEscaladeForm.isOfficiel());
 		siteEscaladeRepository.save(site);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a enregistré les modifications apportées au site d'escalade n°"+site.getIdSiteEscalade());
 		}
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
@@ -244,6 +278,11 @@ public class SiteEscaladeController {
 	 */
 	@GetMapping("/site_escalade/{idSiteEscalade}/delete")
 	public String deleteSiteEscalade(@PathVariable ("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimé le site d'escalade n°"+idSiteEscalade);
 		
 		siteEscaladeRepository.deleteById(idSiteEscalade);
 		

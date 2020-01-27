@@ -2,6 +2,7 @@ package com.oc.web;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import com.oc.forms.TopoForm;
 @Controller
 public class TopoController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	// injections repositories
 	
@@ -64,6 +65,8 @@ public class TopoController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
+		logger.info("L'utilisateur "+usr.getPseudo()+" consulte la liste des topos");
+		
 		return "topo";
 	}
 	
@@ -83,9 +86,11 @@ public class TopoController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
-		//verifie si l'utilisateur n'a pas déjà fait une demande pour ce topo
+		//verifie si l'utilisateur a déjà fait une demande pour ce topo
 		List<Reservation> r = reservationRepository.getDemandeEncours(usr.getIdUserGrimp(), idTopo);
 		model.addAttribute("ListDemandes", r);
+		
+		logger.info("l'utilisteur "+usr.getPseudo()+" consulte le topo "+topo.getName()+" id "+topo.getIdTopo());
 		
 		return"le_Topo";
 		
@@ -111,6 +116,8 @@ public class TopoController {
 		TopoForm topForm = new TopoForm();
 		model.addAttribute("topoForm", topForm);
 		
+		logger.info("l'utilisteur "+usr.getPseudo()+" a demandé un formulaire de création pour topo");
+		
 		return "formTopo";
 	}
 	
@@ -126,6 +133,8 @@ public class TopoController {
 	@PostMapping("/formTopo/create")
 	public String ajouterTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, BindingResult result, final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		Iterable<Codex> cdxList = codexRepository.findAllCity();
 		model.addAttribute("cdxList", cdxList);
 		
@@ -133,14 +142,28 @@ public class TopoController {
 			model.addAttribute("topoForm", topoForm);
 			return "formTopo";	
 		}
-		else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
-			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide et dépasser 25 caractères ! ");
+		else if (topoForm.getName().isBlank()) {
+			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide! ");
 			model.addAttribute("topoForm", topoForm);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a saisi un nom de topo vide");
 			return "formTopo";
 		}
-		else if(topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
-			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas être vide et dépasser 255 caractères !");
+		else if (topoForm.getName().length()>25) {
+			result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas dépasser 25 caractères ! ");
 			model.addAttribute("topoForm", topoForm);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a saisi un nom de topo de plus de 25 caractères");
+			return "formTopo";
+		}
+		else if(topoForm.getDescription().isBlank()) {
+			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas être vide !");
+			model.addAttribute("topoForm", topoForm);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a saisi une description de topo vide");
+			return "formTopo";
+		}
+		else if(topoForm.getDescription().length()>255) {
+			result.rejectValue("description", "descriptionLength.value", "votre description ne doit pas dépasser 255 caractères !");
+			model.addAttribute("topoForm", topoForm);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a saisi une description de topo de plus de 255 caractères");
 			return "formTopo";
 		}
 		else {
@@ -150,10 +173,13 @@ public class TopoController {
 		newTopo.setLieu(topoForm.getLieu());
 		newTopo.setEdate(topoForm.getEdate());
 		newTopo.setDispo(topoForm.getDispo());
-		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		newTopo.setUserGrimp(usr);
 		topoRepository.save(newTopo);
+		logger.info("l'utilisteur "+usr.getPseudo()+" a créer un nouveau topo "+newTopo.getName()+" id : "+newTopo.getIdTopo());
 		}
+		
+		
+		
 		return "redirect:/profil";
 	}
 	
@@ -184,6 +210,8 @@ public class TopoController {
 		tpoFrm.setDispo(topo.getDispo());
 		model.addAttribute("topoForm", tpoFrm);
 		
+		logger.info("l'utilisteur "+usr.getPseudo()+" a demandé un formulaire de modifications pour le topo "+topo.getName()+" id : "+topo.getIdTopo());
+		
 		return "editFormTopo";
 	}
 	
@@ -213,14 +241,28 @@ public class TopoController {
 			model.addAttribute("topoForm", topoForm);
 			return "editFormTopo";
 			}
-			else if (topoForm.getName().isBlank() || topoForm.getName().length()>25) {
-				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide et dépasser 25 caractères !");
+			else if (topoForm.getName().isBlank()) {
+				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas être vide !");
 				model.addAttribute("topoForm", topoForm);
+				logger.info("l'utilisateur "+usr.getPseudo()+" a saisi un nom de topo vide");
 				return "editFormTopo";
 			}
-			else if (topoForm.getDescription().length()>255 || topoForm.getDescription().isBlank()) {
-				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit être vide et dépasser 255 caractères !");
+			else if (topoForm.getName().length()>25) {
+				result.rejectValue("name", "nameLength.value", "le nom du topo ne doit pas dépasser 25 caractères !");
 				model.addAttribute("topoForm", topoForm);
+				logger.info("l'utilisateur "+usr.getPseudo()+" a saisi un nom de topo de plus de 25 caractères");
+				return "editFormTopo";
+			}
+			else if (topoForm.getDescription().isBlank()) {
+				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit être vide !");
+				model.addAttribute("topoForm", topoForm);
+				logger.info("l'utilisateur "+usr.getPseudo()+" a saisi une description de topo vide");
+				return "editFormTopo";
+			}
+			else if (topoForm.getDescription().length()>255) {
+				result.rejectValue("description", "descriptionLength.value", "Votre description ne doit dépasser 255 caractères !");
+				model.addAttribute("topoForm", topoForm);
+				logger.info("l'utilisateur "+usr.getPseudo()+" a saisi une description de topo de plus de 255 caractères");
 				return "editFormTopo";
 			}
 			else {
@@ -231,6 +273,7 @@ public class TopoController {
 			topo.setEdate(topoForm.getEdate());
 			topo.setDispo(topoForm.getDispo());
 			topoRepository.save(topo);
+			logger.info("l'utilisteur "+usr.getPseudo()+" a enregistré les modifications apporées au topo n°"+topo.getIdTopo());
 			}
 		return "redirect:/profil";
 	}
@@ -250,6 +293,8 @@ public class TopoController {
 	
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
+		
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimé le topo n°"+idTopo);
 		
 		topoRepository.deleteById(idTopo);
 	

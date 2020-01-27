@@ -1,5 +1,6 @@
 package com.oc.web;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import com.oc.forms.UserGrimpForm;
 @Controller
 public class UserGrimpController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	/*============== #injections repositories ======================*/
 	/** The user grimp repository. */
@@ -61,6 +62,8 @@ public class UserGrimpController {
 		Iterable<Topo> top = topoRepository.findByUserG(usr.getIdUserGrimp());
 		model.addAttribute("topList", top);
 		
+		logger.info("l'utilisateur "+usr.getPseudo()+" consulte son profil");
+		
 		return "user_page";
 	}
 	
@@ -76,6 +79,8 @@ public class UserGrimpController {
 		
 		UserGrimpForm usr = new UserGrimpForm();
 		model.addAttribute("userGrimpForm", usr);
+		
+		logger.info("Un utilisateur a demandé un formulaire d'inscription");
 		
 		return "formInscription";		
 	}
@@ -98,28 +103,36 @@ public class UserGrimpController {
 			return "formInscription";
 			
 		}
-		else if (userGrimpForm.getUsername().isBlank() || userGrimpForm.getUsername().length()>30 || userGrimpForm.getUsername().length()<2) {
+		else if (userGrimpForm.getUsername().isBlank()) {
 			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
 			model.addAttribute("userGrimpForm", userGrimpForm);
+			logger.error("l'utilisateur a saisi une valeur vide pour le nom d'utilisateur");
+			return "formInscription";
+		}
+		else if (userGrimpForm.getUsername().length()>30 || userGrimpForm.getUsername().length()<2) {
+			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
+			model.addAttribute("userGrimpForm", userGrimpForm);
+			logger.error("l'utilisateur a saisi une valeur ne correspondant pas aux critères de longueurs de caractères max et min lors de la saisie de son pseudo");
 			return "formInscription";
 		}
 		else if (userGrimpRepository.findByPseudo(userGrimpForm.getUsername().toLowerCase()) !=null) {
 			
 			result.rejectValue("username", "user.pseudo", "ce pseudo est déjà utilisé :(");
 			model.addAttribute("userGrimpForm", userGrimpForm);
-			
+			logger.error("l'utilisateur a choisi un pseudo déjà utilisé par un autre utilisateur");
 			return "formInscription";
 			
 		}else if(userGrimpRepository.getUsrEmail(userGrimpForm.getEmail().toLowerCase()) !=null ) {
 			
 			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
 			model.addAttribute("userGrimpForm", userGrimpForm);
+			logger.error("l'utilisateur a choisi un email déjà utilisé pour un compte utilisateur existant");
 			return "formInscription";
 			
-		}else if(userGrimpForm.getUsername().length() < 2 && userGrimpForm.getUsername().length() > 30 ||
-				userGrimpForm.getPassword().length() < 4){
+		}else if(userGrimpForm.getPassword().length() < 4){
 			
 			model.addAttribute("userGrimpForm", userGrimpForm);	
+			logger.error("l'utilisateur a saisi un mot de passe avec moins de 4 caractères");
 			return "formInscription";
 			
 		}else {
@@ -128,6 +141,7 @@ public class UserGrimpController {
 		newUserGrimp.setEmail(userGrimpForm.getEmail().toLowerCase());
 		newUserGrimp.setPassword(userGrimpForm.getPassword());
 		userGrimpRepository.save(newUserGrimp);
+		logger.info("Un nouvel utilisateur s'est inscrit "+newUserGrimp.getPseudo()+" id : "+newUserGrimp.getIdUserGrimp());
 		}
 
 			return "redirect:/connexion";	
@@ -150,6 +164,8 @@ public class UserGrimpController {
 		userForm.setEmail(usr.getEmail());
 		userForm.setPassword(usr.getPassword());
 		model.addAttribute("userForm", userForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a demandé un formulaire de modification de son profil");
 		
 		return "editFormInscription";
 	}
@@ -176,16 +192,23 @@ public class UserGrimpController {
 			return "editFormInscription";
 			
 		}		
-		else if (userGrimpf.getUsername().isBlank() || userGrimpf.getUsername().length()>30 || userGrimpf.getUsername().length()<2) {
+		else if (userGrimpf.getUsername().isBlank()) {
 			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
 			model.addAttribute("userForm", userGrimpf);
+			logger.error("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a saisi une valeur vide pour le nom d'utilisateur");
+			return "editFormInscription";
+		}
+		else if (userGrimpf.getUsername().length()>30 || userGrimpf.getUsername().length()<2) {
+			result.rejectValue("username", "pseudoLength.value", "votre pseudo doit contenir 2 caratères minimum et 30 caractères maximum !");
+			model.addAttribute("userForm", userGrimpf);
+			logger.error("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a saisi une valeur ne correspondant pas aux critères de longueurs de caractères max et min lors de la saisie de son pseudo");
 			return "editFormInscription";
 		}
 		else if (ur !=null && ur.getIdUserGrimp() != usr.getIdUserGrimp()) {
 					
 			result.rejectValue("username", "user.name", "ce pseudo est déjà utilisé :(");
 			model.addAttribute("userForm", userGrimpf);
-			
+			logger.error("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+"a choisi un pseudo déjà utilisé par un autre utilisateur");
 			return "editFormInscription";
 			
 			
@@ -193,7 +216,7 @@ public class UserGrimpController {
 			
 			result.rejectValue("email", "user.email", "cet e-mail est déjà associé à un compte utilisateur :(");
 			model.addAttribute("userForm", userGrimpf);
-			
+			logger.error("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a choisi un email déjà utilisé pour un compte utilisateur existant");
 			return "editFormInscription";
 		}		
 		else {
@@ -201,6 +224,7 @@ public class UserGrimpController {
 		usr.setEmail(userGrimpf.getEmail().toLowerCase());
 		usr.setPassword(userGrimpf.getPassword());
 		userGrimpRepository.save(usr);
+		logger.info("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a enregisté les modifications apportées à son profil utilisateur");
 		}
 		return "redirect:/profil";
 		
@@ -217,6 +241,7 @@ public class UserGrimpController {
 	public String deleteUser(final RedirectAttributes redirectAttributes) {
 		
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		logger.warn("l'utilisateur "+usr.getPseudo()+" id : "+usr.getIdUserGrimp()+" a supprimé son profil");
 		userGrimpRepository.deleteById(usr.getIdUserGrimp());
 		
 		return "redirect:/index";

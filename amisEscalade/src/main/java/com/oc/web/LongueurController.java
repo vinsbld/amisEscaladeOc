@@ -1,8 +1,10 @@
 package com.oc.web;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import com.oc.dao.VoieRepository;
 import com.oc.entities.Longueur;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.UserGrimp;
 import com.oc.entities.Voie;
 import com.oc.forms.LongueurForm;
 
@@ -29,7 +32,7 @@ import com.oc.forms.LongueurForm;
 @Controller
 public class LongueurController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	// injections repositories
 	/** The longueur repository. */
@@ -71,6 +74,8 @@ public class LongueurController {
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 		
+		logger.info("un utilisateur consulte les longueurs de la voie "+voie.getNomDeVoie()+" id n°"+voie.getIdVoie());
+		
 		return "voie";
 	}
 	
@@ -88,6 +93,9 @@ public class LongueurController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/create")
 	public String formLong(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @ModelAttribute("longueurForm") LongueurForm longueurForm) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		Voie voie = voieRepository.findById(idVoie).get();
 		model.addAttribute("voie", voie);
 		
@@ -96,6 +104,8 @@ public class LongueurController {
 		
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demander un formulaire de création de longueur pour la voie n°"+voie.getIdVoie());
 		
 		return "formLongueur";
 	}
@@ -116,6 +126,9 @@ public class LongueurController {
 	public String ajouterLongueur(Model model,@PathVariable("idSiteEscalade") long idSiteEscalade,@PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @ModelAttribute("longueurForm") LongueurForm longueurForm,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		Voie voie = voieRepository.findById(idVoie).get();
 		model.addAttribute("voie", voie);
 		
@@ -125,11 +138,6 @@ public class LongueurController {
 		SiteEscalade site = siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 				
-			if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
-				model.addAttribute("longueurForm", longueurForm);
-				throw new NumberFormatException("vous devez saisir un nombre");
-			} System.out.print("vous devez saisir un nombre");
-			
 			if (result.hasErrors()) {
 				model.addAttribute("longueurForm", longueurForm);
 				return "formLongueur";
@@ -141,6 +149,7 @@ public class LongueurController {
 			Voie voies = voieRepository.findById(idVoie).get();
 			newLongueur.setVoie(voies);
 			longueurRepository.save(newLongueur);
+			logger.info("l'utilisateur "+usr.getPseudo()+" a créer une nouvelle longueur n°"+newLongueur.getIdLongueur()+" pour la voie n°"+voie.getIdVoie());
 		}
 		return"redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;	
 	}
@@ -159,12 +168,17 @@ public class LongueurController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/edit")
 	public String editSecteur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model) {
 		
+			UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("usr", usr);
+		
 			Longueur longueur = longueurRepository.findById(idLongueur).get();
 			
 			LongueurForm longForm = new LongueurForm();
 			longForm.setDistance(longueur.getDistance());
 			longForm.setHauteur(longueur.getHauteur());
 			model.addAttribute("longueurForm", longForm);
+			
+			logger.info("l'utilisateur "+usr.getPseudo()+" a demander un formulaire de modification pour la longueur n°"+idLongueur);
 			
 		return"editFormLongueur";
 	}
@@ -186,10 +200,8 @@ public class LongueurController {
 	public String editLongueur(@PathVariable("idSiteEscalade") long idSiteEscalade, @PathVariable("idSecteur") long idSecteur, @PathVariable("idVoie") long idVoie, @PathVariable("idLongueur") long idLongueur, Model model, @ModelAttribute("longueurForm") LongueurForm longueurForm, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
-		if (isNaN(longueurForm.getDistance()) && isNaN(longueurForm.getHauteur())) {
-			model.addAttribute("longueurForm", longueurForm);
-			throw new NumberFormatException("vous devez saisir un nombre");
-		} System.out.print("vous devez saisir un nombre");
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
 		
 		if (result.hasErrors()) {
 			model.addAttribute("longueurForm", longueurForm);
@@ -200,6 +212,7 @@ public class LongueurController {
 		longr.setDistance(longueurForm.getDistance());
 		longr.setHauteur(longueurForm.getHauteur());
 		longueurRepository.save(longr);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a enregistrer les modifications apportées pour la longueur n°"+longueurForm.getIdLongueur());
 		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
 	}
@@ -219,20 +232,15 @@ public class LongueurController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/voie/{idVoie}/longueur/{idLongueur}/delete")
 	public String deleteLongueur(@PathVariable("idLongueur") long idLongueur, @PathVariable("idVoie") long idVoie, @PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model, final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		longueurRepository.deleteById(idLongueur);
+		
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimer la longueur n°"+idLongueur);
 		
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur+"/voie/"+ idVoie;
 	}
 	
-	/**
-	 * Checks if is na N.
-	 *
-	 * @param distance the distance
-	 * @return true, if is na N
-	 */
-	private boolean isNaN(int distance) {
-		
-		return false;
-	}
 
 }

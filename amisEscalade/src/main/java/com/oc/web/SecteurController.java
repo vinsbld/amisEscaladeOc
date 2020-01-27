@@ -2,9 +2,11 @@
 
 package com.oc.web;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import com.oc.dao.SiteEscaladeRepository;
 import com.oc.dao.VoieRepository;
 import com.oc.entities.Secteur;
 import com.oc.entities.SiteEscalade;
+import com.oc.entities.UserGrimp;
 import com.oc.entities.Voie;
 import com.oc.forms.SecteurForm;
 
@@ -28,7 +31,7 @@ import com.oc.forms.SecteurForm;
 @Controller
 public class SecteurController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	// injections repositories
 	/** The secteur repository. */
@@ -65,6 +68,8 @@ public class SecteurController {
 		Iterable<Voie> voie = voieRepository.findBySecteur(idSecteur);
 		model.addAttribute("voie", voie);
 		
+		logger.info("Un utilisateur consulte la liste des secteurs liés au site d'escalade : "+site.getNomSiteEscalade());
+		
 		return "secteur";
 	}
 	
@@ -79,11 +84,16 @@ public class SecteurController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/create")
 	public String formSect(Model model, @PathVariable("idSiteEscalade") long idSiteEscalade) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		SiteEscalade site =siteEscaladeRepository.findById(idSiteEscalade).get();
 		model.addAttribute("site", site);
 		
 		SecteurForm sec = new SecteurForm();
 		model.addAttribute("secteurForm", sec);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un formulaire de création de secteur pour le site d'escalade : "+site.getNomSiteEscalade());
 		
 		return "formSecteur";
 	}
@@ -102,6 +112,12 @@ public class SecteurController {
 	public String ajouterSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("idSiteEscalade") long idSiteEscalade,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		SiteEscalade site =siteEscaladeRepository.findById(idSiteEscalade).get();
+		model.addAttribute("site", site);
+		
 		if (result.hasErrors()) {
 			model.addAttribute("secteurForm", secteurForm);
 			return "formSecteur";
@@ -109,16 +125,29 @@ public class SecteurController {
 		else if (secteurForm.getName().length()>25 || secteurForm.getName().isBlank()) {
 			result.rejectValue("name", "name.value", "le nom ne doit pas être vide et dépasser 25 caractères !");
 			model.addAttribute("secteurForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi un nom de plus de 25 caractères");
 			return "formSecteur";
 		}
-		else if (secteurForm.getLocalisation().isBlank() || secteurForm.getLocalisation().length()>255) {
-			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide et dépasser 150 caractères !");
+		else if (secteurForm.getLocalisation().isBlank()) {
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide !");
 			model.addAttribute("secteurForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi une localisation vide");
+			return "formSecteur";
+		}else if (secteurForm.getLocalisation().length()>255) {
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit dépasser 150 caractères !");
+			model.addAttribute("secteurForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi une localisation de plus de 255 caractères");
 			return "formSecteur";
 		}
-		else if (secteurForm.getAcces().isBlank() || secteurForm.getAcces().length()>150) {
-			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide et dépasser 255 caractères !");
+		else if (secteurForm.getAcces().isBlank()) {
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide !");
 			model.addAttribute("secteurForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi une description d'accès vide !");
+			return "formSecteur";
+		}else if (secteurForm.getAcces().length()>150) {
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas dépasser 255 caractères !");
+			model.addAttribute("secteurForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getPseudo()+" a saisi une description de plus de 255 caractères");
 			return "formSecteur";
 		}
 		else {
@@ -129,6 +158,7 @@ public class SecteurController {
 		SiteEscalade siteSec = siteEscaladeRepository.findById(idSiteEscalade).get();
 		newSecteur.setSiteEscalade(siteSec);
 		secteurRepository.save(newSecteur);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a créer un nouveau secteur "+newSecteur.getNomDuSecteur()+" pour le site d'escalade "+site.getNomSiteEscalade());
 		}
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";
 	}
@@ -145,6 +175,9 @@ public class SecteurController {
 	@GetMapping("/site_escalade/{idSiteEscalade}/secteur/{idSecteur}/edit")
 	public String editSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model) {
 
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		Secteur secteur = secteurRepository.findById(idSecteur).get();
 		SecteurForm secForm = new SecteurForm();
 		secForm.setIdSecteur(secteur.getIdSecteur());
@@ -152,6 +185,8 @@ public class SecteurController {
 		secForm.setLocalisation(secteur.getLocalisation());
 		secForm.setAcces(secteur.getAcces());
 		model.addAttribute("secForm", secForm);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a demandé un forulaire de modification de secteur pour le secteur n°"+idSecteur);
 		
 		return "editFormSecteur";
 	}
@@ -171,23 +206,47 @@ public class SecteurController {
 	public String updateSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, @ModelAttribute("secForm") SecteurForm secteurForm, Model model, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
 		if (result.hasErrors()) {
 			model.addAttribute("secForm", secteurForm);
 			return "editFormSecteur";
 		}
-		else if (secteurForm.getName().isBlank() || secteurForm.getName().length()>25) {
-			result.rejectValue("name", "name.value", "le nom ne doit pas être vide et dépasser 25 caractères !");
+		else if (secteurForm.getName().isBlank()) {
+			result.rejectValue("name", "name.value", "le nom ne doit pas être vide !");
 			model.addAttribute("secForm", secteurForm);
-			return "editFormSecteur";
-		}		
-		else if (secteurForm.getAcces().isBlank() || secteurForm.getAcces().length()>255) {
-			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide et dépasser 255 caractères !");
-			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi un nom vide !");
 			return "editFormSecteur";
 		}
-		else if (secteurForm.getLocalisation().isBlank() || secteurForm.getLocalisation().length()>150) {
-			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide et dépasser 150 caractères !");
+		else if (secteurForm.getName().length()>25) {
+			result.rejectValue("name", "name.value", "le nom ne doit pas dépasser 25 caractères !");
 			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi un nom de plus de 25 caractères !");
+			return "editFormSecteur";
+		}		
+		else if (secteurForm.getAcces().isBlank()) {
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas être vide !");
+			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi une description d'accès vide !");
+			return "editFormSecteur";
+		}
+		else if (secteurForm.getAcces().length()>255) {
+			result.rejectValue("acces", "acces.value", "la description de l'accès ne doit pas dépasser 255 caractères !");
+			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi une description d'accès de plus de 255 caractères !");
+			return "editFormSecteur";
+		}
+		else if (secteurForm.getLocalisation().isBlank()) {
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas être vide !");
+			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi une description de localisation vide !");
+			return "editFormSecteur";
+		}		
+		else if (secteurForm.getLocalisation().length()>150) {
+			result.rejectValue("localisation", "localisation.value", "la description de la localisation ne doit pas dépasser 150 caractères !");
+			model.addAttribute("secForm", secteurForm);
+			logger.error("l'utilisateur "+usr.getUsername()+" a saisi une description de localisation de plus de 150 caractères !");
 			return "editFormSecteur";
 		}
 		else {
@@ -196,6 +255,7 @@ public class SecteurController {
 		sec.setLocalisation(secteurForm.getLocalisation());
 		sec.setAcces(secteurForm.getAcces());
 		secteurRepository.save(sec);
+		logger.info("l'utilisateur "+usr.getPseudo()+" a enregistré les modifications apportées au secteur n°"+idSecteur);
 		}
 		return "redirect:/site_escalade/"+idSiteEscalade+"/secteur/"+idSecteur;
 	}
@@ -214,6 +274,10 @@ public class SecteurController {
 	public String deleteSecteur(@PathVariable("idSecteur") long idSecteur, @PathVariable("idSiteEscalade") long idSiteEscalade, Model model,
 			final RedirectAttributes redirectAttributes) {
 
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("usr", usr);
+		
+		logger.warn("l'utilisateur "+usr.getPseudo()+" a supprimer le secteur n°"+idSecteur);
 		secteurRepository.deleteById(idSecteur);
 
 		return "redirect:/le_site_escalade/"+idSiteEscalade+"/view";

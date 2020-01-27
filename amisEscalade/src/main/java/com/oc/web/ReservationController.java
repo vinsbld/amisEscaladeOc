@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import com.oc.forms.ReservationForm;
 @Controller
 public class ReservationController {
 	
-	final static Logger logger = LogManager.getLogger();
+	final static Logger logger = LogManager.getLogger(Level.ALL);
 	
 	// injections repositories
 	/** The reservation repository. */
@@ -63,27 +64,32 @@ public class ReservationController {
 	public String sendResa(@ModelAttribute("reservationForm") ReservationForm reservationForm, Model model, @PathVariable("idTopo") long idTopo,
 			final RedirectAttributes redirectAttributes) {
 				
-		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// id du topo
 		Topo tpo = topoRepository.findById(idTopo).get();
 		model.addAttribute("tpo", tpo);
+		
+		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//id de l'utilisateur connecté
 		usr = userGrimpRepository.findById(usr.getIdUserGrimp()).get();
 		model.addAttribute("us", usr);
+		
+		//propriétaire du topo
 		UserGrimp userGrimp = userGrimpRepository.findById(tpo.getUserGrimp().getIdUserGrimp()).get();
 		model.addAttribute("user", userGrimp);
 		
-		//recupere la date du jour
+		//reservation
 		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		
 		Reservation newReservation = new Reservation();
 		newReservation.setDateDeLaDemande(date);
 		newReservation.setUserGrimp(usr);
 		newReservation.setAccepterDemande(false);
 		newReservation.setDemandeEnCours(true);
 		newReservation.setClose(false);
-		newReservation.setTopo(tpo);
-		
+		newReservation.setTopo(tpo);		
 		topoRepository.save(newReservation.getTopo());
 		reservationRepository.save(newReservation);
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a fait une demande de réservation pour le topo idTopo : "+tpo.getIdTopo()+" le propriétaire du topo est : "+userGrimp.getPseudo());
 		
 		return"redirect:/topo";
 	}
@@ -110,6 +116,8 @@ public class ReservationController {
 		List<Reservation> rS = reservationRepository.getMesDemandesEmises(usr.getIdUserGrimp());
 		model.addAttribute("rS", rS);
 		
+		logger.info("l'utilisateur "+usr.getUsername()+" consulte la liste de ses demandes de réservations ainsi que ses prêts");
+		
 		return "reservation_topo";
 	}
 	
@@ -129,19 +137,36 @@ public class ReservationController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
+		//liste des réservations de l'utilisateur connecté
 		List<Reservation> res = reservationRepository.getMesDemandes(usr.getIdUserGrimp());
 		model.addAttribute("res", res);
 		
+		//affiche le topo dont la demande a été acceptée
 		Reservation newR = reservationRepository.findById(idResa).get();
 		newR.setAccepterDemande(reservationForm.isAccepterDemande());
 		reservationRepository.save(newR);
 	
+		/*
+		 * si la demande est acceptée, 
+		 * le topo n'est plus disponible, 
+		 * le topo n'est plus dans les demandes en cours
+		 *  la demandes n'est pas close
+		 */		
 		if(newR.isAccepterDemande()) {
 			newR.getTopo().setDispo(false);
 			newR.setDemandeEnCours(false);
 			newR.setClose(false);
 			reservationRepository.save(newR);
 			topoRepository.save(newR.getTopo());
+			logger.info("lutilisateur "+usr.getUsername()+" a accepté la demande de prêt pour le topo n°"+newR.getTopo().getIdTopo()+" l'emprunteur est "+newR.getUserGrimp().getPseudo());
+	
+			/*
+			 * récupére la liste des demandes faites pour ce topo 
+			 * récupére l'id des réservations 
+			 * ferme les demandes en cours 
+			 * les demandes ne sont pas acceptées 
+			 * les demandes sont closes
+			 */
 			List<Reservation> rBt = reservationRepository.getDemandeEnCoursByTopo(newR.getTopo().getIdTopo());
 				for(int i=0;i<rBt.size();i++) {
 					if (!rBt.isEmpty()) {
@@ -179,6 +204,7 @@ public class ReservationController {
 		UserGrimp usr = (UserGrimp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("usr", usr);
 		
+		//liste des réservations de l'utilisateur connecté
 		List<Reservation> res = reservationRepository.getMesDemandes(usr.getIdUserGrimp());
 		model.addAttribute("res", res);
 		
@@ -187,6 +213,8 @@ public class ReservationController {
 		newR.setClose(true);
 		reservationRepository.save(newR);
 		topoRepository.save(newR.getTopo());		
+		
+		logger.info("l'utilisateur "+usr.getPseudo()+" a rendu disponible le topo n°"+newR.getTopo().getIdTopo());
 		
 		return"redirect:/topo/mes_reservations";
 	}
