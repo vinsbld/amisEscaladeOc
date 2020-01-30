@@ -132,7 +132,7 @@ public class SecteurForm implements Serializable {
 	public String getAcces() {
 		return acces;
 	}
-
+	
 	/**
 	 * Sets the acces.
 	 *
