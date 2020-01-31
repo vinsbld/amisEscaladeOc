@@ -10,8 +10,7 @@ import com.oc.entities.Codex;
 /**
  * The Interface CodexRepository.
  */
-public interface CodexRepository extends CrudRepository<Codex, Long>{
-	
+public interface CodexRepository extends CrudRepository<Codex, Long>{	
 	/**
 	 * Find all city.
 	 *
