@@ -39,7 +39,7 @@ public class UserGrimp implements UserDetails {
 	@Id @GeneratedValue
 	private long idUserGrimp;
 	
-	// attributs d'un utilisateur
+	// attributs d un utilisateur
 	/** The pseudo. */
 	@NotEmpty(message = "votre pseudo doit contenir minimum 2 caractères et maximum 30")
 	@Size(min = 2, max = 30)
@@ -78,7 +78,7 @@ public class UserGrimp implements UserDetails {
 	private Collection<Commentaire>commentaires;
 
 	/** The roles. */
-	// collection de rôles
+	// collection de roles
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private List<RoleEnum> roles;
@@ -86,7 +86,7 @@ public class UserGrimp implements UserDetails {
 	/**
 	 * Instantiates a new user grimp.
 	 */
-	// constructeur par défaut
+	// constructeur par defaut
 	public UserGrimp () {
 		this.roles = Collections.singletonList(RoleEnum.USER);
 	}
@@ -104,7 +104,7 @@ public class UserGrimp implements UserDetails {
 	 * @param commentaires the commentaires
 	 * @param roles the roles
 	 */
-	// constructeur avec paramètres
+	// constructeur avec parametres
 	public UserGrimp(long idUserGrimp,
 			@NotEmpty(message = "votre pseudo doit contenir minimum 2 caractères et maximum 30") @Size(min = 2, max = 30) String pseudo,
 			@Email(message = "merci de saisir une adresse mail correcte") String email,
@@ -128,7 +128,7 @@ public class UserGrimp implements UserDetails {
 	 *
 	 * @return the authorities
 	 */
-	//getAuthorities() permet de récupérer les rôles de l’utilisateur dans un format que Spring Security peut interpréter
+	//getAuthorities() permet de recuperer les oôles de l utilisateur dans un format que Spring Security peut interpreter
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		String roles = org.springframework.util.StringUtils.collectionToCommaDelimitedString(getRoles().stream()

@@ -39,7 +39,6 @@ public class Longueur implements Serializable {
 	/**
 	 * Instantiates a new longueur.
 	 */
-	// constructeur par défaut
 	public Longueur() {
 
 	}
@@ -52,7 +51,6 @@ public class Longueur implements Serializable {
 	 * @param hauteur the hauteur
 	 * @param voie the voie
 	 */
-	// constructeur avec paramètres
 	public Longueur(long idLongueur, @NotNull int distance, @NotNull int hauteur, Voie voie) {
 		super();
 		this.idLongueur = idLongueur;

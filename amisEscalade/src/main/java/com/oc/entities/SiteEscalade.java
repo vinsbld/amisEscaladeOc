@@ -58,7 +58,6 @@ public class SiteEscalade implements Serializable{
 	/**
 	 * Instantiates a new site escalade.
 	 */
-	// constructeur par défaut
 	public SiteEscalade() {
 
 	}
@@ -74,7 +73,6 @@ public class SiteEscalade implements Serializable{
 	 * @param secteur the secteur
 	 * @param commentaires the commentaires
 	 */
-	// constructeur avec paramètres
 	public SiteEscalade(long idSiteEscalade, String nomSiteEscalade, String lieu, boolean officiel, UserGrimp userGrimp,
 			Collection<Secteur> secteur, Collection<Commentaire> commentaires) {
 		super();

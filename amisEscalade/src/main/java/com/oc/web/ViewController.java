@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * The Class viewController.
  */
 @Controller
-public class viewController {
+public class ViewController {
 	
 	final static Logger logger = LogManager.getLogger(Level.ALL);
 	

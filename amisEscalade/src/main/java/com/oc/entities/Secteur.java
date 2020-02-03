@@ -54,7 +54,6 @@ public class Secteur implements Serializable {
 	/**
 	 * Instantiates a new secteur.
 	 */
-	// contructeur par défaut
 	public Secteur() {
 
 	}
@@ -67,7 +66,6 @@ public class Secteur implements Serializable {
 	 * @param localisation the localisation
 	 * @param acces the acces
 	 */
-	// constructeur avec paramètres
 	public Secteur(long idSecteur, String nomDuSecteur, String localisation, String acces) {
 		super();
 		this.idSecteur = idSecteur;

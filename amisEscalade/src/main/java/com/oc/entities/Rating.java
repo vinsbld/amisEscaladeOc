@@ -26,7 +26,6 @@ public class Rating implements Serializable{
 	/**
 	 * Instantiates a new rating.
 	 */
-	// constructeur par défaut
 	public Rating() {
 
 	}
@@ -37,7 +36,6 @@ public class Rating implements Serializable{
 	 * @param idCot the id cot
 	 * @param cote the cote
 	 */
-	// constructeur avec paramètres
 	public Rating(Long idCot, String cote) {
 		super();
 		this.idCot = idCot;

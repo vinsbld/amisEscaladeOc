@@ -37,7 +37,7 @@ public class Voie implements Serializable {
 	private String cotation;
 	
 	/** The secteur. */
-	// clé étrangère, les voies sont liés a un secteur 
+	// cle etrangere, les voies sont lies a un secteur 
 	@ManyToOne
 	@JoinColumn(name = "VOI_SECT")
 	private Secteur secteur;
@@ -50,7 +50,6 @@ public class Voie implements Serializable {
 	/**
 	 * Instantiates a new voie.
 	 */
-	// constructeur par défaut
 	public Voie() {
 
 	}
@@ -64,7 +63,6 @@ public class Voie implements Serializable {
 	 * @param secteur the secteur
 	 * @param longueur the longueur
 	 */
-	// constructeur avec paramètres
 	public Voie(long idVoie, String nomDeVoie, String cotation, Secteur secteur, Collection<Longueur> longueur) {
 		super();
 		this.idVoie = idVoie;

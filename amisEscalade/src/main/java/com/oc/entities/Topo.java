@@ -51,20 +51,20 @@ public class Topo implements Serializable{
 	private Boolean dispo;
 	
 	/** The user grimp. */
-	// clé étrangère topo lié à un utilisateur
+	// cle etrangere topo lie a un utilisateur
 	@ManyToOne 
 	@JoinColumn(name = "TOPO_USR")
 	private UserGrimp userGrimp;
 	
 	/** The reservations. */
-	// clé étrangère topo lié à une réservation
+	// cle etrangere topo lie a une réservation
 	@OneToMany(mappedBy = "topo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Reservation>reservations;
 
 	/**
 	 * Instantiates a new topo.
 	 */
-	// constructeur par défaut
+	// constructeur par defaut
 	public Topo() {
 
 	}
@@ -81,7 +81,7 @@ public class Topo implements Serializable{
 	 * @param userGrimp the user grimp
 	 * @param reservations the reservations
 	 */
-	// constructeur avec paramètres
+	// constructeur avec parametres
 	public Topo(long idTopo, String name, @Length(max = 255) String description, String lieu, Date edate, Boolean dispo,
 			UserGrimp userGrimp, Collection<Reservation> reservations) {
 		super();

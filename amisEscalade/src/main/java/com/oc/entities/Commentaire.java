@@ -22,11 +22,9 @@ public class Commentaire implements Serializable{
 	@Id @GeneratedValue
 	private Long idCom;
 	
-	// attibut d'un commentaire
 	/** The comments. */
 	private String comments;
 	
-	/** The date. */
 	private Date date;
 	
 	/** The user grimp. */
@@ -44,7 +42,6 @@ public class Commentaire implements Serializable{
 	/**
 	 * Instantiates a new commentaire.
 	 */
-	// constructeur par défaut
 	public Commentaire() {
 
 	}
@@ -58,7 +55,6 @@ public class Commentaire implements Serializable{
 	 * @param userGrimp the user grimp
 	 * @param siteEscalade the site escalade
 	 */
-	// constructeur avec paramètres
 	public Commentaire(Long idCom, String comments, Date date, UserGrimp userGrimp, SiteEscalade siteEscalade) {
 		super();
 		this.idCom = idCom;
